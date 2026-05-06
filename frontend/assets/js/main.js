@@ -1,12 +1,10 @@
 /**
- * main.js — Inicialización global y utilidades compartidas.
+ * main.js — Expediente y subida de evidencia.
  */
 
-// Cargar expediente en expediente.html si hay tracking_code en URL o sessionStorage
 document.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(window.location.search);
   const code = params.get('code') || sessionStorage.getItem('ac_tracking_code');
-
   if (document.getElementById('expediente-content') && code) {
     loadExpediente(code);
   }
@@ -15,57 +13,96 @@ document.addEventListener('DOMContentLoaded', () => {
 async function loadExpediente(trackingCode) {
   document.getElementById('exp-tracking-code').textContent = trackingCode;
   try {
-    const data = await api.getCase(trackingCode);
-    renderExpediente(data);
-  } catch {
+    const caseData = await api.getCase(trackingCode);
+
+    const savedClassify = sessionStorage.getItem('ac_classify_output');
+    const savedSummarize = sessionStorage.getItem('ac_summarize_output');
+    const classifyOutput = savedClassify ? JSON.parse(savedClassify) : null;
+    const summarizeOutput = savedSummarize ? JSON.parse(savedSummarize) : null;
+
+    renderExpediente(caseData, classifyOutput, summarizeOutput);
+  } catch (e) {
+    console.error(e);
     document.getElementById('loading-state').classList.add('hidden');
     document.getElementById('exp-error').classList.remove('hidden');
   }
 }
 
-function renderExpediente(data) {
+function renderExpediente(caseData, classify, summary) {
   document.getElementById('loading-state').classList.add('hidden');
   document.getElementById('expediente-content').classList.remove('hidden');
 
-  document.getElementById('exp-tracking-code').textContent = data.tracking_code;
-  document.getElementById('exp-status').textContent = data.status;
-  document.getElementById('exp-date').textContent = new Date(data.created_at).toLocaleDateString('es-CL');
-  document.getElementById('exp-fraud-type').textContent = data.fraud_type || 'Clasificando...';
+  const statusLabels = { draft: 'Borrador', submitted: 'Enviado', in_review: 'En revisión', closed: 'Cerrado' };
+  document.getElementById('exp-tracking-code').textContent = caseData.tracking_code;
+  document.getElementById('exp-status').textContent = statusLabels[caseData.status] || caseData.status;
+  document.getElementById('exp-date').textContent = new Date(caseData.created_at).toLocaleDateString('es-CL');
 
-  // Campos generados por agentes (disponibles cuando se implementen)
-  const ai = data.ai_outputs || {};
-  document.getElementById('exp-summary').textContent = ai.summary || 'El resumen estará disponible pronto.';
+  const fraudType = classify?.classification?.fraud_type || classify?.fraud_type || caseData.fraud_type;
+  document.getElementById('exp-fraud-type').textContent = fraudType || 'Clasificando...';
+
+  const casoResumen = summary?.caso_resumen || {};
+  const summaryText = casoResumen?.tipo_fraude?.descripcion || summary?.summary || '';
+  document.getElementById('exp-summary').textContent = summaryText || 'Resumen no disponible.';
 
   const actionsEl = document.getElementById('exp-actions');
-  (ai.recommended_actions || ['Contactar al banco inmediatamente', 'No realizar más transacciones hasta aclarar el caso']).forEach(a => {
+  actionsEl.textContent = '';
+  const rawActions = classify?.immediate_steps
+    || casoResumen?.acciones_recomendadas
+    || ['Contacta a tu banco inmediatamente', 'Guarda toda la evidencia disponible'];
+  rawActions.forEach(a => {
     const li = document.createElement('li');
-    li.textContent = a;
+    li.textContent = typeof a === 'string' ? a : (a.accion || '');
     actionsEl.appendChild(li);
   });
 
   const gapsEl = document.getElementById('exp-evidence-gaps');
-  (ai.missing_evidence || ['Capturas de pantalla del mensaje o llamada', 'Comprobante de transferencia']).forEach(e => {
+  gapsEl.textContent = '';
+  const gaps = casoResumen?.informacion_faltante?.missing_info
+    || (Array.isArray(classify?.needs_clarification) ? classify.needs_clarification : [])
+    || ['Capturas del mensaje o llamada', 'Comprobante de la transacción no autorizada'];
+  gaps.forEach(g => {
     const li = document.createElement('li');
-    li.textContent = e;
+    li.textContent = typeof g === 'string' ? g : JSON.stringify(g);
     gapsEl.appendChild(li);
   });
 
   const instEl = document.getElementById('exp-institutions');
-  (ai.institutions || ['Banco', 'SERNAC']).forEach(inst => {
+  instEl.textContent = '';
+  _extractInstitutions(casoResumen?.acciones_recomendadas || []).forEach(inst => {
     const span = document.createElement('span');
     span.className = 'institution-tag';
     span.textContent = inst;
     instEl.appendChild(span);
   });
 
-  document.getElementById('exp-statement').textContent = ai.statement || 'La declaración preliminar estará disponible una vez que el caso sea analizado.';
+  document.getElementById('exp-statement').textContent = _composeStatement(caseData, fraudType, casoResumen);
+}
+
+function _extractInstitutions(actions) {
+  const known = ['SERNAC', 'CMF', 'PDI', 'Carabineros', 'CSIRT'];
+  const text = JSON.stringify(actions).toUpperCase();
+  const found = known.filter(i => text.includes(i));
+  return found.length ? ['Tu banco', ...found] : ['Tu banco', 'SERNAC'];
+}
+
+function _composeStatement(caseData, fraudType, casoResumen) {
+  const date = new Date(caseData.created_at).toLocaleDateString('es-CL');
+  const descripcion = casoResumen?.tipo_fraude?.descripcion || '';
+  const hechos = (casoResumen?.hechos_relevantes || []).map((h, i) => `${i + 1}. ${h}`).join('\n');
+  return [
+    `DECLARACIÓN PRELIMINAR — ${date}`,
+    `Código de caso: ${caseData.tracking_code}`,
+    '',
+    descripcion || `Declaro haber sido víctima de ${fraudType || 'fraude financiero'}.`,
+    hechos ? '\nHechos relevantes:\n' + hechos : '',
+    '',
+    'Este documento fue generado con IA por Alerta Cuenta como orientación. No constituye asesoría legal.',
+  ].join('\n').trim();
 }
 
 function copyStatement() {
   const text = document.getElementById('exp-statement').textContent;
-  navigator.clipboard.writeText(text).then(() => {
-    alert('Declaración copiada al portapapeles.');
-  });
+  navigator.clipboard.writeText(text).then(() => alert('Declaración copiada al portapapeles.'));
 }
 
 // Upload de evidencia
@@ -81,7 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
     uploadArea.classList.remove('dragover');
     handleFiles(e.dataTransfer.files);
   });
-
   input.addEventListener('change', () => handleFiles(input.files));
 });
 
@@ -91,7 +127,7 @@ async function handleFiles(files) {
   const listEl = document.getElementById('upload-list');
   for (const file of files) {
     const item = document.createElement('div');
-    item.style.cssText = 'padding:.5rem; background:var(--color-accent); border-radius:var(--radius); margin-bottom:.5rem; font-size:.9rem;';
+    item.style.cssText = 'padding:.5rem;background:var(--color-accent);border-radius:var(--radius);margin-bottom:.5rem;font-size:.9rem;';
     item.textContent = `Subiendo ${file.name}...`;
     listEl.appendChild(item);
     try {

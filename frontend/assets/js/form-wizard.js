@@ -104,14 +104,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       const result = await api.createCase(payload);
+      sessionStorage.setItem('ac_tracking_code', result.tracking_code);
+      sessionStorage.setItem('ac_case_id', result.id);
+      sessionStorage.setItem('ac_description', payload.description);
+      sessionStorage.removeItem('ac_classify_output');
+      sessionStorage.removeItem('ac_summarize_output');
+
+      // Llamar a Claude mientras el spinner sigue activo
+      text.textContent = 'Analizando con IA...';
+      try {
+        const classifyResult = await api.classify({
+          case_id: result.id,
+          description: payload.description,
+          additional_context: {},
+        });
+        sessionStorage.setItem('ac_classify_output', JSON.stringify(classifyResult.output));
+
+        const fraudType = classifyResult.output?.classification?.fraud_type || classifyResult.output?.fraud_type;
+        const summarizeResult = await api.summarize({
+          case_id: result.id,
+          description: payload.description,
+          additional_context: fraudType ? { fraud_type: fraudType } : {},
+        });
+        sessionStorage.setItem('ac_summarize_output', JSON.stringify(summarizeResult.output));
+      } catch (aiErr) {
+        console.warn('Análisis IA falló:', aiErr);
+        // Continuar igual — el expediente mostrará datos parciales
+      }
+
       form.classList.add('hidden');
       const successEl = document.getElementById('submit-success');
       successEl.classList.remove('hidden');
       document.getElementById('tracking-code-display').textContent = result.tracking_code;
       const linkExp = document.getElementById('link-expediente');
       if (linkExp) linkExp.href = 'expediente.html?code=' + encodeURIComponent(result.tracking_code);
-      sessionStorage.setItem('ac_tracking_code', result.tracking_code);
-      sessionStorage.setItem('ac_case_id', result.id);
     } catch (err) {
       alert('Error al enviar: ' + err.message + '. Intenta de nuevo.');
     } finally {

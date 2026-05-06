@@ -47,6 +47,8 @@ const api = {
   createCase: (data) => api.post('/cases/', data),
   lookupCase: (data) => api.post('/tracking/lookup', data),
   getCase: (trackingCode) => api.get(`/cases/${trackingCode}`),
+  classify: (data) => api.post('/ai/classify', data),
+  summarize: (data) => api.post('/ai/summarize', data),
   uploadEvidence: (caseId, file) => api.uploadFile(`/evidence/${caseId}`, file),
   healthCheck: () => api.get('/health'),
 };
