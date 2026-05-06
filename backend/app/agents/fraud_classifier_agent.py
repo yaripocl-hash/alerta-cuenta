@@ -1,20 +1,25 @@
+import json
+
 from app.agents.base_agent import BaseAgent
+from app.services.ai_service import run_agent
 
 
 class FraudClassifierAgent(BaseAgent):
     """Clasifica el tipo de fraude según el relato del usuario.
 
     Usa el prompt en prompts/fraud_classifier/v1.md.
-    Retorna: { fraud_type, confidence, reasoning }
+    Retorna: { fraud_type, confidence, reasoning, needs_clarification, clarification_question }
     """
 
     agent_name = "fraud_classifier"
     prompt_version = "v1"
 
     async def run(self, description: str, context: dict) -> dict:
-        # TODO: implementar en Fase 2
-        # 1. Cargar prompt via ai_service.load_prompt(self.agent_name, self.prompt_version)
-        # 2. Construir user_content con description + context
-        # 3. Llamar a ai_service.run_agent(...)
-        # 4. Parsear y retornar output JSON
-        raise NotImplementedError
+        user_content = json.dumps(
+            {
+                "description": description,
+                "fraud_type_declared": context.get("fraud_type_declared"),
+            },
+            ensure_ascii=False,
+        )
+        return await run_agent(self.agent_name, user_content, self.prompt_version)
