@@ -1,0 +1,46 @@
+# Secrets — nunca subir
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.ruff_cache/
+htmlcov/
+coverage/
+*.egg-info/
+dist/
+build/
+
+# Node
+node_modules/
+.next/
+out/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Claves y certificados
+*.pem
+*.key
+*.crt
+*.p12
+
+# Logs y temporales
+logs/
+tmp/
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp

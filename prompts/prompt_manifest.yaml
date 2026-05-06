@@ -1,0 +1,20 @@
+agents:
+  fraud_classifier:
+    active_version: v1
+    description: Clasifica el tipo de fraude según el relato del usuario
+
+  case_summary:
+    active_version: v1
+    description: Resume el caso en lenguaje estructurado para el expediente
+
+  evidence_gap:
+    active_version: v1
+    description: Identifica evidencia faltante para fortalecer el caso
+
+  statement_generator:
+    active_version: v1
+    description: Genera declaración preliminar para institución destino
+
+  risk_flags:
+    active_version: v1
+    description: Detecta señales de alerta en el relato del usuario

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seguimiento de caso — Alerta Cuenta</title>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body>
+
+  <header class="site-header" role="banner">
+    <div class="container">
+      <a href="index.html" class="site-logo">Alerta<span>Cuenta</span></a>
+    </div>
+  </header>
+
+  <main id="main-content" style="padding: 2rem 0 4rem;">
+    <div class="container" style="max-width: 560px;">
+
+      <h1 style="font-size: 1.6rem; margin-bottom: .5rem;">Consultar mi caso</h1>
+      <p style="color: var(--color-muted); margin-bottom: 2rem;">Ingresa tu código de seguimiento y el email que usaste al registrar el caso.</p>
+
+      <div class="card" id="lookup-form-card">
+        <form id="lookup-form" novalidate>
+          <div class="form-group">
+            <label for="tracking-code">Código de seguimiento</label>
+            <input type="text" id="tracking-code" name="tracking_code"
+              placeholder="AC-XXXXXXXXXXXX"
+              autocomplete="off"
+              style="font-family: 'Courier New', monospace; font-size: 1.1rem; letter-spacing: 1px;">
+            <span class="field-error" id="tracking-error" role="alert">Ingresa el código de seguimiento</span>
+          </div>
+          <div class="form-group">
+            <label for="lookup-email">Correo electrónico</label>
+            <input type="email" id="lookup-email" name="email" placeholder="tucorreo@ejemplo.cl">
+            <span class="field-error" id="email-error" role="alert">Ingresa un correo válido</span>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width: 100%;" id="btn-lookup">
+            <span id="btn-lookup-text">Consultar caso</span>
+            <span class="spinner hidden" id="lookup-spinner"></span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Resultado -->
+      <div class="card hidden" id="case-result" role="region" aria-live="polite">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.25rem;">
+          <div>
+            <h2 style="font-size: 1.2rem; margin-bottom: .25rem;">Tu caso</h2>
+            <span class="tracking-badge" id="result-tracking-code"></span>
+          </div>
+          <div id="result-status-badge" style="padding: .4rem .9rem; border-radius: 999px; font-weight: 600; font-size: .9rem;"></div>
+        </div>
+
+        <div class="expediente-section">
+          <h3>Tipo de fraude</h3>
+          <p id="result-fraud-type" style="font-weight: 600;"></p>
+        </div>
+
+        <div class="expediente-section">
+          <h3>Resumen del caso</h3>
+          <p id="result-summary" style="white-space: pre-line;"></p>
+        </div>
+
+        <div class="expediente-section" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <a href="expediente.html" class="btn btn-primary" id="link-to-expediente">Ver expediente completo</a>
+          <button type="button" class="btn btn-outline" onclick="document.getElementById('case-result').classList.add('hidden'); document.getElementById('lookup-form-card').classList.remove('hidden');">
+            Consultar otro caso
+          </button>
+        </div>
+      </div>
+
+      <!-- Error -->
+      <div class="alert alert-danger hidden" id="lookup-error" role="alert">
+        <strong>Caso no encontrado.</strong> Verifica que el código y el correo sean correctos.
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <p>Alerta Cuenta — Orientación ciudadana. No asesoría legal.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/validation.js"></script>
+  <script src="assets/js/tracking.js"></script>
+</body>
+</html>

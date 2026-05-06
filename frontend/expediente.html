@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Expediente — Alerta Cuenta</title>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body>
+
+  <header class="site-header" role="banner">
+    <div class="container">
+      <a href="index.html" class="site-logo">Alerta<span>Cuenta</span></a>
+    </div>
+  </header>
+
+  <main id="main-content" style="padding: 2rem 0 4rem;">
+    <div class="container">
+
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.5rem;">
+        <div>
+          <h1 style="font-size: 1.6rem; margin-bottom: .25rem;">Expediente Preliminar</h1>
+          <p style="color: var(--color-muted);">Generado por Alerta Cuenta con IA</p>
+        </div>
+        <button onclick="window.print()" class="btn btn-outline">Imprimir / Guardar PDF</button>
+      </div>
+
+      <div class="alert alert-warning">
+        <strong>Aviso importante:</strong> Este expediente es orientativo y fue generado con IA. No constituye asesoría legal. Verifica los pasos con tu banco o institución correspondiente.
+      </div>
+
+      <!-- Cargando -->
+      <div class="card text-center" id="loading-state">
+        <div class="spinner" style="border-top-color: var(--color-primary); border-color: var(--color-border); border-top-color: var(--color-primary); width:40px; height:40px; border-width:4px; margin: 1rem auto;"></div>
+        <p style="color: var(--color-muted);">Cargando expediente...</p>
+      </div>
+
+      <!-- Expediente -->
+      <div id="expediente-content" class="hidden">
+
+        <div class="card">
+          <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: .75rem;">
+            <div>
+              <p style="font-size: .85rem; color: var(--color-muted);">Código de seguimiento</p>
+              <span class="tracking-badge" id="exp-tracking-code"></span>
+            </div>
+            <div>
+              <p style="font-size: .85rem; color: var(--color-muted);">Estado</p>
+              <span id="exp-status" style="font-weight:600;"></span>
+            </div>
+            <div>
+              <p style="font-size: .85rem; color: var(--color-muted);">Fecha del registro</p>
+              <span id="exp-date" style="font-weight:600;"></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="expediente-section" style="border: none; padding: 0; margin: 0;">
+            <h3>Tipo de fraude identificado</h3>
+            <p id="exp-fraud-type" style="font-size: 1.1rem; font-weight: 700; color: var(--color-danger);"></p>
+          </div>
+
+          <div class="expediente-section">
+            <h3>Resumen del caso</h3>
+            <p id="exp-summary" style="white-space: pre-line;"></p>
+          </div>
+
+          <div class="expediente-section">
+            <h3>Acciones urgentes recomendadas</h3>
+            <ol id="exp-actions" style="padding-left: 1.25rem; line-height: 2;"></ol>
+          </div>
+
+          <div class="expediente-section">
+            <h3>Evidencia faltante sugerida</h3>
+            <ul id="exp-evidence-gaps" style="padding-left: 1.25rem; line-height: 2;"></ul>
+          </div>
+
+          <div class="expediente-section">
+            <h3>Institución(es) donde presentar</h3>
+            <div class="institution-list" id="exp-institutions"></div>
+          </div>
+        </div>
+
+        <!-- Declaración preliminar -->
+        <div class="card">
+          <h2 style="font-size: 1.1rem; margin-bottom: 1rem;">Declaración Preliminar</h2>
+          <p style="font-size: .85rem; color: var(--color-muted); margin-bottom: 1rem;">
+            Texto generado por IA. Revísalo y adáptalo antes de presentarlo.
+          </p>
+          <div id="exp-statement" style="background: var(--color-accent); border-radius: var(--radius); padding: 1.25rem; white-space: pre-line; font-family: 'Courier New', monospace; font-size: .9rem; line-height: 1.7;"></div>
+          <button class="btn btn-outline mt-2" onclick="copyStatement()">Copiar declaración</button>
+        </div>
+
+        <!-- Subir evidencia -->
+        <div class="card">
+          <h2 style="font-size: 1.1rem; margin-bottom: .5rem;">Agregar evidencia</h2>
+          <p style="font-size: .9rem; color: var(--color-muted); margin-bottom: 1rem;">Capturas de pantalla, comprobantes, correos o PDFs.</p>
+          <div class="upload-area" id="upload-area" onclick="document.getElementById('evidence-input').click()">
+            <input type="file" id="evidence-input" multiple accept="image/jpeg,image/png,image/webp,application/pdf,text/plain">
+            <div style="font-size: 2rem; margin-bottom: .5rem;">📎</div>
+            <p style="color: var(--color-muted);">Haz clic o arrastra archivos aquí</p>
+            <p style="font-size: .8rem; color: var(--color-muted);">JPG, PNG, PDF, TXT — máx. 10 MB por archivo</p>
+          </div>
+          <div id="upload-list" style="margin-top: 1rem;"></div>
+        </div>
+
+      </div>
+
+      <!-- Error -->
+      <div class="alert alert-danger hidden" id="exp-error" role="alert">
+        No se pudo cargar el expediente. Verifica tu código de seguimiento en la página de <a href="seguimiento.html">seguimiento</a>.
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <p>Alerta Cuenta — Expediente generado con IA. No asesoría legal.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

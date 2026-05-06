@@ -1,0 +1,152 @@
+/* ─── Progress Steps ─────────────────────────────────────────────────────────── */
+.steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin: 1.5rem 0;
+  counter-reset: step;
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .35rem;
+  position: relative;
+  flex: 1;
+}
+
+.step::before {
+  counter-increment: step;
+  content: counter(step);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--color-border);
+  color: var(--color-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: .9rem;
+  border: 2px solid var(--color-border);
+  position: relative;
+  z-index: 1;
+}
+
+.step.active::before {
+  background: var(--color-primary);
+  color: var(--color-white);
+  border-color: var(--color-primary);
+}
+
+.step.done::before {
+  content: "✓";
+  background: var(--color-success);
+  color: var(--color-white);
+  border-color: var(--color-success);
+}
+
+.step-label {
+  font-size: .78rem;
+  color: var(--color-muted);
+  text-align: center;
+  max-width: 70px;
+}
+
+.step.active .step-label { color: var(--color-primary); font-weight: 600; }
+
+.step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 17px;
+  left: calc(50% + 20px);
+  width: calc(100% - 40px);
+  height: 2px;
+  background: var(--color-border);
+}
+
+.step.done:not(:last-child)::after { background: var(--color-success); }
+
+/* ─── Tracking Code Badge ────────────────────────────────────────────────────── */
+.tracking-badge {
+  display: inline-block;
+  background: var(--color-accent);
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius);
+  padding: .5rem 1.25rem;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-family: 'Courier New', monospace;
+}
+
+/* ─── Institution Tags ───────────────────────────────────────────────────────── */
+.institution-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin-top: .5rem;
+}
+
+.institution-tag {
+  background: #eff6ff;
+  color: var(--color-primary);
+  border: 1px solid #bfdbfe;
+  border-radius: 999px;
+  padding: .3rem .9rem;
+  font-size: .88rem;
+  font-weight: 600;
+}
+
+/* ─── Expediente ─────────────────────────────────────────────────────────────── */
+.expediente-section {
+  border-top: 2px solid var(--color-border);
+  padding-top: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.expediente-section h3 {
+  font-size: 1rem;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  margin-bottom: .75rem;
+}
+
+/* ─── Upload Area ────────────────────────────────────────────────────────────── */
+.upload-area {
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color .2s, background .2s;
+}
+
+.upload-area:hover, .upload-area.dragover {
+  border-color: var(--color-primary);
+  background: var(--color-accent);
+}
+
+.upload-area input[type="file"] { display: none; }
+
+/* ─── Spinner ────────────────────────────────────────────────────────────────── */
+.spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255,255,255,.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ─── Responsive ─────────────────────────────────────────────────────────────── */
+@media (max-width: 500px) {
+  .step-label { display: none; }
+}

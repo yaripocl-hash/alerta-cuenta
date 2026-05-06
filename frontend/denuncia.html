@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar caso — Alerta Cuenta</title>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+</head>
+<body>
+
+  <header class="site-header" role="banner">
+    <div class="container">
+      <a href="index.html" class="site-logo">Alerta<span>Cuenta</span></a>
+    </div>
+  </header>
+
+  <main id="main-content" style="padding: 2rem 0 4rem;">
+    <div class="container">
+
+      <h1 style="font-size: 1.6rem; margin-bottom: .5rem;">Registrar mi caso</h1>
+      <p style="color: var(--color-muted); margin-bottom: 1.5rem;">Responde las preguntas del formulario. Puedes tomarte el tiempo que necesites.</p>
+
+      <!-- Indicador de pasos -->
+      <nav class="steps" aria-label="Pasos del formulario">
+        <div class="step active" id="step-indicator-1"><span class="step-label">Qué pasó</span></div>
+        <div class="step" id="step-indicator-2"><span class="step-label">Cuándo y cuánto</span></div>
+        <div class="step" id="step-indicator-3"><span class="step-label">Contacto</span></div>
+        <div class="step" id="step-indicator-4"><span class="step-label">Confirmar</span></div>
+      </nav>
+
+      <form id="case-form" novalidate>
+
+        <!-- Paso 1: Descripción -->
+        <div class="card step-panel" id="step-1">
+          <h2 style="font-size: 1.2rem; margin-bottom: 1rem;">¿Qué fue lo que pasó?</h2>
+          <div class="alert alert-info">
+            Cuéntanos con tus propias palabras. No necesitas usar términos técnicos. Mientras más detalles, mejor podemos ayudarte.
+          </div>
+          <div class="form-group mt-2">
+            <label for="description">Descripción del fraude <span aria-hidden="true" style="color:var(--color-danger)">*</span></label>
+            <textarea id="description" name="description" rows="6"
+              placeholder="Ejemplo: Recibí un SMS que parecía de mi banco diciéndome que mi cuenta tenía un problema. Hice clic en el link y puse mi clave. Después me llegó una transferencia que yo no hice..."
+              aria-required="true"></textarea>
+            <span class="field-hint">Mínimo 20 caracteres</span>
+            <span class="field-error" id="description-error" role="alert">Por favor describe lo que pasó</span>
+          </div>
+          <div class="form-group">
+            <label for="fraud-type">¿Sabes qué tipo de fraude fue?</label>
+            <select id="fraud-type" name="fraud_type">
+              <option value="">No estoy seguro (Claude lo clasificará)</option>
+              <option value="phishing">Phishing (correo o sitio web falso)</option>
+              <option value="vishing">Vishing (llamada telefónica falsa)</option>
+              <option value="smishing">Smishing (SMS con link malicioso)</option>
+              <option value="whatsapp_impersonation">Suplantación por WhatsApp</option>
+              <option value="deceptive_transfer">Transferencia engañosa</option>
+              <option value="fake_online_purchase">Compra online falsa</option>
+              <option value="unauthorized_account_access">Acceso no autorizado a mi cuenta</option>
+              <option value="other">Otro</option>
+            </select>
+          </div>
+          <div style="text-align: right; margin-top: 1rem;">
+            <button type="button" class="btn btn-primary" id="btn-next-1">Continuar</button>
+          </div>
+        </div>
+
+        <!-- Paso 2: Fecha y monto -->
+        <div class="card step-panel hidden" id="step-2">
+          <h2 style="font-size: 1.2rem; margin-bottom: 1rem;">¿Cuándo ocurrió y qué monto estuvo involucrado?</h2>
+          <div class="form-group">
+            <label for="incident-date">Fecha aproximada del fraude</label>
+            <input type="date" id="incident-date" name="incident_date">
+            <span class="field-hint">Si no recuerdas el día exacto, elige una fecha aproximada</span>
+          </div>
+          <div class="form-group">
+            <label for="amount">Monto afectado (en pesos chilenos)</label>
+            <input type="number" id="amount" name="amount_affected" min="0" placeholder="Ej: 150000">
+            <span class="field-hint">Deja en blanco si no hubo pérdida monetaria directa</span>
+          </div>
+          <div class="form-group">
+            <label for="institution">Banco o fintech involucrada</label>
+            <select id="institution" name="target_institution">
+              <option value="">Seleccionar...</option>
+              <option value="banco_estado">BancoEstado</option>
+              <option value="banco_de_chile">Banco de Chile</option>
+              <option value="santander">Santander</option>
+              <option value="bci">BCI</option>
+              <option value="scotiabank">Scotiabank</option>
+              <option value="itau">Itaú</option>
+              <option value="mercadopago">Mercado Pago</option>
+              <option value="tenpo">Tenpo</option>
+              <option value="fintoc">Otra fintech</option>
+              <option value="other">Otra / No aplica</option>
+            </select>
+          </div>
+          <div style="display: flex; gap: 1rem; justify-content: space-between; margin-top: 1rem;">
+            <button type="button" class="btn btn-outline" id="btn-back-2">Atrás</button>
+            <button type="button" class="btn btn-primary" id="btn-next-2">Continuar</button>
+          </div>
+        </div>
+
+        <!-- Paso 3: Contacto -->
+        <div class="card step-panel hidden" id="step-3">
+          <h2 style="font-size: 1.2rem; margin-bottom: 1rem;">¿Cómo podemos contactarte?</h2>
+          <div class="alert alert-info">
+            Solo necesitamos tu email para enviarte el código de seguimiento de tu caso. No se compartirá con nadie.
+          </div>
+          <div class="form-group mt-2">
+            <label for="email">Correo electrónico <span aria-hidden="true" style="color:var(--color-danger)">*</span></label>
+            <input type="email" id="email" name="contact_email" placeholder="tucorreo@ejemplo.cl" aria-required="true">
+            <span class="field-error" id="email-error" role="alert">Ingresa un correo electrónico válido</span>
+          </div>
+          <div class="form-group">
+            <label for="phone">Teléfono (opcional)</label>
+            <input type="tel" id="phone" name="contact_phone" placeholder="+56 9 XXXX XXXX">
+          </div>
+          <div style="display: flex; gap: 1rem; justify-content: space-between; margin-top: 1rem;">
+            <button type="button" class="btn btn-outline" id="btn-back-3">Atrás</button>
+            <button type="button" class="btn btn-primary" id="btn-next-3">Revisar caso</button>
+          </div>
+        </div>
+
+        <!-- Paso 4: Confirmación -->
+        <div class="card step-panel hidden" id="step-4">
+          <h2 style="font-size: 1.2rem; margin-bottom: 1rem;">Revisar antes de enviar</h2>
+          <div id="case-summary" style="background: var(--color-accent); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1.5rem;">
+            <!-- Populated by JS -->
+          </div>
+          <div class="alert alert-warning">
+            <strong>Importante:</strong> Asegúrate de que la información sea correcta. Después de enviar podrás agregar evidencia y seguir el estado de tu caso.
+          </div>
+          <div style="display: flex; gap: 1rem; justify-content: space-between; margin-top: 1rem; flex-wrap: wrap;">
+            <button type="button" class="btn btn-outline" id="btn-back-4">Editar</button>
+            <button type="submit" class="btn btn-primary btn-lg" id="btn-submit">
+              <span id="btn-submit-text">Enviar caso</span>
+              <span class="spinner hidden" id="btn-spinner" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+
+      </form>
+
+      <!-- Estado de envío -->
+      <div class="card hidden" id="submit-success" role="alert">
+        <div class="text-center" style="padding: 1rem 0;">
+          <div style="font-size: 3rem;">✅</div>
+          <h2 style="margin: 1rem 0 .5rem;">Caso registrado</h2>
+          <p style="color: var(--color-muted); margin-bottom: 1.5rem;">Guarda tu código de seguimiento. Lo necesitarás para consultar el estado de tu caso.</p>
+          <div class="tracking-badge" id="tracking-code-display">AC-XXXXXXXX</div>
+          <p style="margin-top: 1rem; font-size: .9rem; color: var(--color-muted);">También te lo enviamos a tu correo.</p>
+          <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap;">
+            <a href="expediente.html" class="btn btn-primary" id="link-expediente">Ver mi expediente</a>
+            <a href="seguimiento.html" class="btn btn-outline">Seguimiento</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <p>Alerta Cuenta — Orientación ciudadana. No asesoría legal.</p>
+    </div>
+  </footer>
+
+  <script src="assets/js/api.js"></script>
+  <script src="assets/js/validation.js"></script>
+  <script src="assets/js/form-wizard.js"></script>
+</body>
+</html>
