@@ -35,6 +35,9 @@ Thumbs.db
 *.crt
 *.p12
 
+# Datos de desarrollo local (CSVs con datos de prueba)
+dev/
+
 # Logs y temporales
 logs/
 tmp/
