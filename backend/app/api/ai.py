@@ -11,6 +11,54 @@ from app.services.audit_service import log_action
 
 router = APIRouter()
 
+# Mapeo de texto libre de Claude → enum del schema
+_FRAUD_KEYWORDS = [
+    ("vishing", "vishing"),
+    ("smishing", "smishing"),
+    ("whatsapp", "whatsapp_impersonation"),
+    ("cuento del tío", "whatsapp_impersonation"),
+    ("suplantación de identidad", "whatsapp_impersonation"),
+    ("suplantación", "whatsapp_impersonation"),
+    ("phishing", "phishing"),
+    ("transferencia engañosa", "deceptive_transfer"),
+    ("engañosa", "deceptive_transfer"),
+    ("compra", "fake_online_purchase"),
+    ("marketplace", "fake_online_purchase"),
+    ("acceso no autorizado", "unauthorized_account_access"),
+    ("acceso", "unauthorized_account_access"),
+]
+
+
+def _normalize_fraud_type(raw: str | None) -> str | None:
+    if not raw:
+        return None
+    raw_lower = raw.lower()
+    for keyword, enum_val in _FRAUD_KEYWORDS:
+        if keyword in raw_lower:
+            return enum_val
+    return "other"
+
+
+def _extract_fraud_type(output: dict) -> str | None:
+    raw = (
+        output.get("fraud_type")
+        or output.get("classification", {}).get("fraud_type")
+        or output.get("fraud_classification", {}).get("primary_type")
+        or output.get("fraud_classification", {}).get("primary_category")
+        or output.get("fraud_classification", {}).get("subcategory")
+    )
+    return _normalize_fraud_type(raw)
+
+
+def _needs_clarification(output: dict) -> bool:
+    val = (
+        output.get("needs_clarification")
+        or output.get("fraud_classification", {}).get("needs_clarification", False)
+    )
+    if isinstance(val, list):
+        return len(val) > 0
+    return bool(val)
+
 
 async def _persist_ai_output(case_id: str, agent, output: dict, latency_ms: int) -> None:
     settings = get_settings()
@@ -49,8 +97,8 @@ async def classify_fraud(payload: AIRequest):
 
     await _persist_ai_output(payload.case_id, agent, output, latency_ms)
 
-    fraud_type = output.get("fraud_type") or output.get("classification", {}).get("fraud_type")
-    if fraud_type and not output.get("needs_clarification"):
+    fraud_type = _extract_fraud_type(output)
+    if fraud_type and not _needs_clarification(output):
         get_supabase().table("cases").update({"fraud_type": fraud_type}).eq("id", payload.case_id).execute()
 
     return AIResponse(

@@ -1,0 +1,15 @@
+id,case_id,action,actor,metadata,created_at
+08604489-66f8-44d7-9f1f-8257005ba4b8,187f58ae-7048-4d9e-9b66-8f4b93fc94f3,tracking_lookup,system,{},2026-05-06 19:30:42.104003+00
+0a3f4c89-03ee-4f01-8be8-4bd3e1d358d5,60eb69bc-4549-4d3e-89f1-813d53a0835a,case_created,backend,"{""has_contact"": true}",2026-05-06 20:09:09.224248+00
+18bdfdb4-f9ac-4891-a9c6-5a1f681e24f5,df0839aa-4f2b-4d3b-bbbc-a5dcaa4fb25a,case_created,backend,"{""has_contact"": true}",2026-05-06 20:12:17.053631+00
+1ea3662b-b14a-45ad-a368-8426157187fe,187f58ae-7048-4d9e-9b66-8f4b93fc94f3,ai_agent_called,system,"{""agent"": ""case_summary"", ""latency_ms"": 19235}",2026-05-06 19:25:40.057362+00
+1edde2e5-bf1d-4ded-8b1a-6464696d97a6,187f58ae-7048-4d9e-9b66-8f4b93fc94f3,ai_agent_called,system,"{""agent"": ""fraud_classifier"", ""latency_ms"": 56531}",2026-05-06 19:08:55.804467+00
+23bb019b-1c4a-46c6-803c-ff2509c72ab7,37cc2964-655b-4f60-95d1-439ec27b3ced,ai_agent_called,system,"{""agent"": ""fraud_classifier"", ""latency_ms"": 20733}",2026-05-06 19:48:17.347988+00
+29723ab8-e948-4a1a-936b-549566397b9f,37cc2964-655b-4f60-95d1-439ec27b3ced,ai_agent_called,system,"{""agent"": ""case_summary"", ""latency_ms"": 20717}",2026-05-06 19:48:40.337553+00
+37b055f3-f5bc-43f4-b17b-7df9c9d309ed,37cc2964-655b-4f60-95d1-439ec27b3ced,case_created,backend,"{""has_contact"": true}",2026-05-06 19:47:08.345656+00
+4b97e09a-e158-48bb-8d3e-b0c05c725286,187f58ae-7048-4d9e-9b66-8f4b93fc94f3,evidence_uploaded,system,"{""size_bytes"": 1070106, ""content_type"": ""image/png""}",2026-05-06 19:35:36.713902+00
+70b800f0-5099-4b78-a77c-57d07eb63694,60eb69bc-4549-4d3e-89f1-813d53a0835a,evidence_uploaded,system,"{""size_bytes"": 1070106, ""content_type"": ""image/png""}",2026-05-06 20:10:48.20324+00
+c50bf6b7-43c8-49f0-a90c-75efd3e123b7,60eb69bc-4549-4d3e-89f1-813d53a0835a,ai_agent_called,system,"{""agent"": ""fraud_classifier"", ""latency_ms"": 17641}",2026-05-06 20:09:28.617566+00
+dd6445ab-43f5-4b04-ae2e-44107980f91f,187f58ae-7048-4d9e-9b66-8f4b93fc94f3,case_created,backend,"{""has_contact"": true}",2026-05-06 17:22:22.751682+00
+e1e3a467-a738-4c1e-bee7-5f6e6055d43b,60eb69bc-4549-4d3e-89f1-813d53a0835a,ai_agent_called,system,"{""agent"": ""case_summary"", ""latency_ms"": 16641}",2026-05-06 20:09:46.307847+00
+f1815f83-fee7-458c-a837-cf7a9d717ba9,df0839aa-4f2b-4d3b-bbbc-a5dcaa4fb25a,ai_agent_called,system,"{""agent"": ""fraud_classifier"", ""latency_ms"": 16141}",2026-05-06 20:12:34.452957+00

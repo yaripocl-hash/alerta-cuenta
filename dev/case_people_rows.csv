@@ -1,0 +1,5 @@
+id,case_id,person_role,victim_age,victim_age_range,is_foreign_person,identity_type,identity_last4,identity_hash,contact_email,contact_phone,contact_email_hash,contact_phone_hash,created_at
+83b89d4b-e19b-491e-94ed-a82fb14efae3,60eb69bc-4549-4d3e-89f1-813d53a0835a,victim,,,false,,,,test2@gmail.com,56948437804,,,2026-05-06 20:09:08.484921+00
+871812da-0348-40b6-b7f1-ca439c90d59f,187f58ae-7048-4d9e-9b66-8f4b93fc94f3,victim,,31_50,false,none,,,demo@correo.com,,,,2026-05-06 17:22:22.295386+00
+bb4f7156-5e5b-47c5-b2f7-10091a71c4b8,37cc2964-655b-4f60-95d1-439ec27b3ced,victim,,,false,,,,test1@gmail.com,56948437805,,,2026-05-06 19:47:07.781514+00
+ff0dca04-23ca-4f02-a433-4db09551377b,df0839aa-4f2b-4d3b-bbbc-a5dcaa4fb25a,victim,,,false,,,,test3@gmail.xom,56948437806,,,2026-05-06 20:12:16.338537+00

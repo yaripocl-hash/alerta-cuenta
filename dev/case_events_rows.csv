@@ -1,0 +1,15 @@
+id,case_id,event_type,description,actor,created_at
+22a397a3-a2fc-4b04-a2a8-fd32b33e95de,df0839aa-4f2b-4d3b-bbbc-a5dcaa4fb25a,ai_output_generated,fraud_classifier,backend,2026-05-06 20:12:34.192384+00
+4ef3b3e8-0fc9-4019-a06c-71e875901fe3,60eb69bc-4549-4d3e-89f1-813d53a0835a,case_created,,backend,2026-05-06 20:09:08.837611+00
+55bd788d-e61e-4cff-92ba-74e3f48cc9ae,187f58ae-7048-4d9e-9b66-8f4b93fc94f3,evidence_uploaded,,backend,2026-05-06 19:35:35.992847+00
+56cfb3c3-b2b0-40ca-ac6f-e6f1a163212c,187f58ae-7048-4d9e-9b66-8f4b93fc94f3,ai_output_generated,case_summary,backend,2026-05-06 19:25:39.711165+00
+5d2dce6a-dee5-4518-a7e5-5b75c562ce87,37cc2964-655b-4f60-95d1-439ec27b3ced,ai_output_generated,case_summary,backend,2026-05-06 19:48:40.117674+00
+64eb0023-16d2-4317-bc4e-3a4bd5eb860f,187f58ae-7048-4d9e-9b66-8f4b93fc94f3,ai_output_generated,fraud_classifier,backend,2026-05-06 19:08:54.901241+00
+710a581a-2f49-4835-b56e-e14d2b5b14f1,37cc2964-655b-4f60-95d1-439ec27b3ced,case_created,,backend,2026-05-06 19:47:08.05063+00
+8dbffc94-24ff-4f7e-921d-db2b0eef19b0,df0839aa-4f2b-4d3b-bbbc-a5dcaa4fb25a,case_created,,backend,2026-05-06 20:12:16.718977+00
+8f002756-2492-4333-99ac-438060f5f843,187f58ae-7048-4d9e-9b66-8f4b93fc94f3,case_created,,backend,2026-05-06 17:22:22.55046+00
+a90be883-07ff-4f11-8491-03637fb1d9bd,60eb69bc-4549-4d3e-89f1-813d53a0835a,ai_output_generated,case_summary,backend,2026-05-06 20:09:46.041668+00
+b41ebaf6-82e1-436e-b4b6-e4c22e809451,37cc2964-655b-4f60-95d1-439ec27b3ced,ai_output_generated,fraud_classifier,backend,2026-05-06 19:48:16.600019+00
+ba6701b8-7092-4cc5-a00a-7d8c7b945fa7,187f58ae-7048-4d9e-9b66-8f4b93fc94f3,tracking_lookup,,backend,2026-05-06 19:30:41.19915+00
+c65ba1a8-3952-4f1f-b800-ad254e00b48a,60eb69bc-4549-4d3e-89f1-813d53a0835a,evidence_uploaded,,backend,2026-05-06 20:10:47.952405+00
+eaaae34f-df57-4d56-a4b4-cef95f89df3b,60eb69bc-4549-4d3e-89f1-813d53a0835a,ai_output_generated,fraud_classifier,backend,2026-05-06 20:09:27.804443+00
