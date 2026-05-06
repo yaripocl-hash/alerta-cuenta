@@ -1,0 +1,44 @@
+  │          Archivo          │                          Para qué                           │
+  ├───────────────────────────┼─────────────────────────────────────────────────────────────┤
+  │ CLAUDE.md                 │ Instrucciones de arquitectura para Claude Code              │
+  ├───────────────────────────┼─────────────────────────────────────────────────────────────┤
+  │ backend/app/main.py       │ Entry point FastAPI con todos los routers registrados       │
+  ├───────────────────────────┼─────────────────────────────────────────────────────────────┤
+  │ backend/app/config.py     │ Todas las variables de entorno via pydantic-settings        │
+  ├───────────────────────────┼─────────────────────────────────────────────────────────────┤
+  │ backend/app/agents/       │ 5 agentes Claude listos para implementar                    │
+  ├───────────────────────────┼─────────────────────────────────────────────────────────────┤
+  │ prompts/*/v1.md           │ Prompts versionados con restricciones legales y output JSON │
+  ├───────────────────────────┼─────────────────────────────────────────────────────────────┤
+  │ infra/supabase/schema.sql │ 6 tablas listas para ejecutar en Supabase                   │
+  ├───────────────────────────┼─────────────────────────────────────────────────────────────┤
+  │ frontend/index.html       │ Landing accesible y mobile-first                            │
+  ├───────────────────────────┼─────────────────────────────────────────────────────────────┤
+  │ frontend/denuncia.html    │ Form wizard de 4 pasos                
+  
+  
+# Configurar entorno
+Copy-Item .env.example .env
+python scripts\generate_app_secret.py  # copiar el valor a .env
+
+# Backend
+# En PowerShell
+	cd C:\Users\andre\OneDrive\Documentos\Claude\AlertaCuenta
+	cd backend
+	#Crear entorno virtual en Python 3.12
+	& "$env:APPDATA\uv\python\cpython-3.12.13-windows-x86_64-none\python.exe" -m venv .venv
+		#Por defecto lo crea en 3.14 que no es compatible con varias cosas
+		python -m venv .venv
+	#Activar entorno
+	Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+	.\.venv\Scripts\Activate.ps1
+	Luego instalar dependencias: 
+	pip install -r requirements.txt
+	#Y finalmente levanta el backend:
+	uvicorn app.main:app --reload
+	Ir a http://localhost:8000/docs
+
+#Frontend (segunda terminal)
+cd C:\Users\andre\OneDrive\Documentos\Claude\AlertaCuenta\frontend
+python -m http.server 5500
+Ir a http://localhost:5500
