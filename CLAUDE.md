@@ -7,11 +7,11 @@ Este archivo define cómo Claude Code debe comportarse al trabajar en **Alerta C
 ## Arquitectura que debes respetar
 
 ```
-frontend/   → HTML + CSS + JS puro. Sin frameworks. Sin Node. Sin bundlers.
-backend/    → FastAPI en Python. Aquí vive toda la lógica y las llamadas a Claude API.
-prompts/    → Archivos Markdown versionados. Un subdirectorio por agente, v1.md, v2.md...
-agents/     → Módulos Python en backend/app/agents/. Uno por función de IA.
-infra/      → Schema SQL y docs de deploy. No contiene lógica.
+frontend/            → HTML + CSS + JS puro. Sin frameworks. Sin Node. Sin bundlers.
+backend/             → FastAPI en Python. Aquí vive toda la lógica y las llamadas a Claude API.
+prompts/             → Archivos Markdown versionados. Un subdirectorio por agente, v1.md, v2.md...
+backend/app/agents/  → Módulos Python en backend/app/agents/. Uno por función de IA.  No crear carpeta agents/ en la raíz.
+infra/               → Schema SQL y docs de deploy. No contiene lógica.
 ```
 
 ## Reglas de Seguridad (obligatorias)
@@ -22,6 +22,7 @@ infra/      → Schema SQL y docs de deploy. No contiene lógica.
 - **NUNCA** crees archivos `.env` con valores reales. Solo `.env.example`.
 - Toda llamada a Claude API se hace desde `backend/app/integrations/anthropic_client.py`.
 - El frontend llama al backend, el backend llama a Claude.
+- En esta fase, el frontend NO se conecta directamente a Supabase. El frontend llama al backend; el backend valida, guarda y consulta datos.
 
 ## Reglas de Código
 
@@ -71,3 +72,54 @@ Los archivos en `backend/app/integrations/sernac_stub.py`, `cmf_stub.py`, `csirt
 - Ver `docs/privacy-and-pii.md` antes de diseñar cualquier formulario o schema.
 - No loguees PII en texto plano.
 - El `audit_log` debe registrar acciones, no contenido sensible.
+- No pedir ni almacenar claves bancarias, PIN, coordenadas exactas, número completo de tarjeta, CVV, fotos de cédula ni credenciales.
+
+## Criterios de aceptación
+
+Antes de considerar una tarea terminada, verifica:
+
+- El backend sigue levantando correctamente.
+- El endpoint `/health` responde.
+- El frontend puede abrirse localmente.
+- No se agregaron secretos reales.
+- No se creó ni modificó un `.env` real.
+- No se expuso `ANTHROPIC_API_KEY` ni `SUPABASE_SERVICE_ROLE_KEY`.
+- Los cambios respetan la separación frontend/backend/prompts/agentes.
+- El flujo principal de demo sigue siendo claro:
+  usuario describe fraude → Claude clasifica → Claude genera expediente.
+- Si se modifica un prompt, debe mantenerse versionado en `prompts/`.
+- Si se agrega lógica de IA, debe pasar por `backend/app/services/ai_service.py` o por un agente en `backend/app/agents/`.
+
+## Supabase
+
+- En esta fase, el frontend NO se conecta directamente a Supabase.
+- El frontend llama al backend.
+- El backend valida, guarda y consulta datos en Supabase.
+- `SUPABASE_SERVICE_ROLE_KEY` solo puede existir en variables de entorno del backend.
+- Si se usa `SUPABASE_ANON_KEY`, debe justificarse explícitamente y nunca mezclarse con permisos administrativos.
+
+## Datos que no se deben pedir
+
+No pedir, almacenar ni procesar:
+
+- Claves bancarias.
+- PIN.
+- CVV.
+- Número completo de tarjeta.
+- Contraseñas.
+- Coordenadas exactas.
+- Fotos de cédula o pasaporte en esta fase.
+- Credenciales de acceso a bancos, fintechs o correos.
+
+Si el usuario entrega accidentalmente esos datos, el sistema debe advertir que no son necesarios y evitar registrarlos en logs.
+
+## Criterio de competencia
+
+Este proyecto está orientado al Claude Impact Lab Chile 2026. Prioriza siempre:
+
+- Impacto ciudadano visible.
+- Uso real y demostrable de Claude.
+- Manejo responsable de datos personales.
+- Demo funcional antes que arquitectura excesiva.
+- Narrativa simple para jurado y usuarios no técnicos.
+- No alucinar normativa, instituciones ni procedimientos.
