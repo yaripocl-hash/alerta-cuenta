@@ -1,0 +1,790 @@
+<!DOCTYPE html><html class="light" lang="es"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Centro de Confianza — Alerta Cuenta</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+<script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"inverse-on-surface": "#eff1f3", "surface-container-high": "#e6e8ea", "surface-dim": "#d8dadc", "tertiary-fixed-dim": "#acc7ff", "on-surface": "#191c1e", "on-tertiary-fixed": "#001a40", error: "#ba1a1a", "inverse-primary": "#afc6ff", "tertiary-fixed": "#d7e2ff", "on-secondary": "#ffffff", primary: "#002c6b", "outline-variant": "#c4c6d2", "surface-container-highest": "#e0e3e5", "surface-container": "#eceef0", "primary-fixed": "#d9e2ff", "surface-tint": "#3b5ca2", "primary-fixed-dim": "#afc6ff", "on-background": "#191c1e", "inverse-surface": "#2d3133", "secondary-fixed-dim": "#e9c33b", "on-error-container": "#93000a", "on-tertiary": "#ffffff", "on-secondary-fixed": "#231b00", "surface-bright": "#f7f9fb", "on-secondary-container": "#735d00", tertiary: "#002d65", secondary: "#725c00", "secondary-fixed": "#ffe07f", "on-primary": "#ffffff", "on-surface-variant": "#434651", "tertiary-container": "#004390", background: "#f7f9fb", surface: "#f7f9fb", "on-tertiary-fixed-variant": "#004492", "on-primary-container": "#92b2fe", "surface-container-low": "#f2f4f6", "on-primary-fixed-variant": "#1f4488", outline: "#747782", "surface-variant": "#e0e3e5", "error-container": "#ffdad6", "on-secondary-fixed-variant": "#564500", "primary-container": "#1e4387", "surface-container-lowest": "#ffffff", "on-primary-fixed": "#001944", "on-tertiary-container": "#8db3ff", "on-error": "#ffffff", "secondary-container": "#fed74e"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {unit: "8px", "stack-sm": "16px", "margin-mobile": "24px", "touch-target-min": "56px", gutter: "32px", "container-max": "1280px", "stack-md": "32px", "stack-lg": "48px"}, fontFamily: {"body-lg": ["Public Sans"], "headline-md": ["Public Sans"], "headline-lg": ["Public Sans"], callout: ["Public Sans"], "headline-xl": ["Public Sans"], "body-md": ["Public Sans"], "label-lg": ["Public Sans"]}, fontSize: {"body-lg": ["22px", {lineHeight: "36px", letterSpacing: "0.01em", fontWeight: "400"}], "headline-md": ["28px", {lineHeight: "36px", letterSpacing: "0", fontWeight: "600"}], "headline-lg": ["34px", {lineHeight: "44px", letterSpacing: "-0.01em", fontWeight: "700"}], callout: ["24px", {lineHeight: "36px", letterSpacing: "0", fontWeight: "500"}], "headline-xl": ["48px", {lineHeight: "60px", letterSpacing: "-0.02em", fontWeight: "700"}], "body-md": ["20px", {lineHeight: "32px", letterSpacing: "0.01em", fontWeight: "400"}], "label-lg": ["18px", {lineHeight: "24px", letterSpacing: "0.05em", fontWeight: "600"}]}}}};</script>
+<style>
+  body { font-family: 'Public Sans', sans-serif; }
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+  .focus-halo:focus-visible { outline: 4px solid #f2e2a7; outline-offset: 2px; }
+  .tab-btn { transition: all 0.2s; }
+  .tab-btn.active { background-color: #1e4387; color: #ffffff; }
+  .tab-btn:not(.active) { background-color: transparent; color: #434651; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+  .accordion-content { display: none; }
+  .accordion-content.open { display: block; }
+  .accordion-icon { transition: transform 0.2s; }
+  .accordion-btn[aria-expanded="true"] .accordion-icon { transform: rotate(180deg); }
+  details > summary { list-style: none; }
+  details > summary::-webkit-details-marker { display: none; }
+</style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+
+<!-- Header -->
+<header class="bg-surface text-primary sticky top-0 z-50 border-b-2 border-outline-variant">
+  <div class="flex justify-between items-center w-full px-margin-mobile py-unit max-w-container-max mx-auto">
+    <a href="/" class="focus-halo rounded">
+      <img src="https://vqenacwaqmquwnrvykmb.supabase.co/storage/v1/object/public/cuenta-alerta/logo.svg" alt="Alerta Cuenta" class="h-10 w-auto">
+    </a>
+    <nav aria-label="Navegación principal" class="hidden md:flex items-center gap-gutter">
+      <a href="/" class="text-on-surface-variant font-medium pb-2 hover:bg-surface-container-low transition-colors duration-200 focus-halo">
+        <span class="font-label-lg text-label-lg">Inicio</span>
+      </a>
+      <a href="#" class="text-on-surface-variant font-medium pb-2 hover:bg-surface-container-low transition-colors duration-200 focus-halo">
+        <span class="font-label-lg text-label-lg">Recursos</span>
+      </a>
+      <a href="#" class="text-on-surface-variant font-medium pb-2 hover:bg-surface-container-low transition-colors duration-200 focus-halo">
+        <span class="font-label-lg text-label-lg">Ayuda</span>
+      </a>
+    </nav>
+    <div class="flex items-center gap-stack-sm">
+      <button class="text-on-primary font-label-lg text-label-lg px-6 py-3 rounded hover:opacity-90 transition-colors duration-200 min-h-[56px] focus-halo" style="background-color: rgb(254, 215, 78); color: rgb(115, 93, 0);">
+        Ingresar
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="flex-grow">
+
+  <!-- Hero -->
+  <section class="bg-inverse-surface py-stack-lg">
+    <div class="max-w-container-max mx-auto px-margin-mobile">
+      <div class="flex items-center gap-4 mb-stack-sm">
+        <div class="w-14 h-14 rounded-full bg-primary-fixed flex items-center justify-center">
+          <span class="material-symbols-outlined text-[32px]" style="color:#002c6b; font-variation-settings:'FILL' 1;">verified_user</span>
+        </div>
+        <p class="font-label-lg text-label-lg text-inverse-primary uppercase tracking-widest">Centro de Confianza</p>
+      </div>
+      <h1 class="font-headline-xl text-headline-xl text-inverse-on-surface mb-stack-sm">
+        Transparencia, seguridad y uso<br class="hidden md:block"> responsable de datos
+      </h1>
+      <p class="font-body-lg text-body-lg text-surface-variant max-w-3xl">
+        AlertaCuenta busca ayudarte a actuar frente al fraude <strong class="text-inverse-on-surface">sin exponerte a una segunda vulneración</strong>. Aquí encontrarás todo lo que necesitas saber sobre cómo protegemos tu información.
+      </p>
+    </div>
+  </section>
+
+  <!-- Mensaje de alerta rojo -->
+  <section class="bg-error py-4">
+    <div class="max-w-container-max mx-auto px-margin-mobile flex items-center gap-4">
+      <span class="material-symbols-outlined text-white text-[28px]" style="font-variation-settings:'FILL' 1;">warning</span>
+      <p class="font-body-md text-body-md text-white">
+        <strong>AlertaCuenta nunca te pedirá claves, PIN, contraseñas, códigos SMS ni acceso remoto.</strong> Si alguien lo solicita en nuestro nombre, es una señal de alerta.
+      </p>
+    </div>
+  </section>
+
+  <!-- Compromisos clave -->
+  <section class="bg-surface-container-low py-stack-lg border-b-2 border-outline-variant">
+    <div class="max-w-container-max mx-auto px-margin-mobile">
+      <h2 class="font-headline-md text-headline-md text-on-surface mb-stack-md text-center">Nuestros 5 compromisos de confianza</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-gutter">
+
+        <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 flex flex-col items-center text-center gap-3">
+          <div class="w-14 h-14 rounded-full bg-secondary-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-[32px]" style="color:#002c6b; font-variation-settings:'FILL' 1;">bolt</span>
+          </div>
+          <h3 class="font-label-lg text-label-lg text-on-surface">Urgencia sin sacrificar seguridad</h3>
+          <p class="font-body-md text-body-md text-on-surface-variant text-sm" style="font-size:16px; line-height:24px;">Actuamos rápido, pero de forma ordenada y protegida.</p>
+        </div>
+
+        <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 flex flex-col items-center text-center gap-3">
+          <div class="w-14 h-14 rounded-full bg-secondary-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-[32px]" style="color:#002c6b; font-variation-settings:'FILL' 1;">lock</span>
+          </div>
+          <h3 class="font-label-lg text-label-lg text-on-surface">Sin pedir información de riesgo</h3>
+          <p class="font-body-md text-body-md text-on-surface-variant text-sm" style="font-size:16px; line-height:24px;">Nunca pedimos claves, PIN, códigos ni acceso remoto.</p>
+        </div>
+
+        <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 flex flex-col items-center text-center gap-3">
+          <div class="w-14 h-14 rounded-full bg-secondary-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-[32px]" style="color:#002c6b; font-variation-settings:'FILL' 1;">task_alt</span>
+          </div>
+          <h3 class="font-label-lg text-label-lg text-on-surface">Datos solo para fines legítimos</h3>
+          <p class="font-body-md text-body-md text-on-surface-variant text-sm" style="font-size:16px; line-height:24px;">Tu información se usa solo para orientarte y apoyar tu caso.</p>
+        </div>
+
+        <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 flex flex-col items-center text-center gap-3">
+          <div class="w-14 h-14 rounded-full bg-secondary-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-[32px]" style="color:#002c6b; font-variation-settings:'FILL' 1;">smart_toy</span>
+          </div>
+          <h3 class="font-label-lg text-label-lg text-on-surface">IA con control humano</h3>
+          <p class="font-body-md text-body-md text-on-surface-variant text-sm" style="font-size:16px; line-height:24px;">La IA apoya, pero no decide sola en cuestiones críticas.</p>
+        </div>
+
+        <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 flex flex-col items-center text-center gap-3">
+          <div class="w-14 h-14 rounded-full bg-secondary-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-[32px]" style="color:#002c6b; font-variation-settings:'FILL' 1;">design_services</span>
+          </div>
+          <h3 class="font-label-lg text-label-lg text-on-surface">Confianza desde el diseño</h3>
+          <p class="font-body-md text-body-md text-on-surface-variant text-sm" style="font-size:16px; line-height:24px;">La seguridad y privacidad están integradas desde el inicio.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Tabs de documentos -->
+  <section class="bg-surface py-stack-lg">
+    <div class="max-w-container-max mx-auto px-margin-mobile">
+      <h2 class="font-headline-md text-headline-md text-on-surface mb-stack-md">Documentos del Centro de Confianza</h2>
+
+      <!-- Tab buttons -->
+      <div class="flex flex-wrap gap-2 mb-stack-md border-b-2 border-outline-variant pb-4" role="tablist">
+        <button role="tab" aria-selected="true" aria-controls="tab-resumen" class="tab-btn active font-label-lg text-label-lg px-5 py-3 rounded-lg focus-halo" onclick="showTab('resumen', this)">
+          <span class="flex items-center gap-2"><span class="material-symbols-outlined text-[20px]">home</span>Resumen</span>
+        </button>
+        <button role="tab" aria-selected="false" aria-controls="tab-privacidad" class="tab-btn font-label-lg text-label-lg px-5 py-3 rounded-lg focus-halo" onclick="showTab('privacidad', this)">
+          <span class="flex items-center gap-2"><span class="material-symbols-outlined text-[20px]">privacy_tip</span>Privacidad</span>
+        </button>
+        <button role="tab" aria-selected="false" aria-controls="tab-seguridad" class="tab-btn font-label-lg text-label-lg px-5 py-3 rounded-lg focus-halo" onclick="showTab('seguridad', this)">
+          <span class="flex items-center gap-2"><span class="material-symbols-outlined text-[20px]">security</span>Seguridad</span>
+        </button>
+        <button role="tab" aria-selected="false" aria-controls="tab-terminos" class="tab-btn font-label-lg text-label-lg px-5 py-3 rounded-lg focus-halo" onclick="showTab('terminos', this)">
+          <span class="flex items-center gap-2"><span class="material-symbols-outlined text-[20px]">gavel</span>Términos de uso</span>
+        </button>
+        <button role="tab" aria-selected="false" aria-controls="tab-ia" class="tab-btn font-label-lg text-label-lg px-5 py-3 rounded-lg focus-halo" onclick="showTab('ia', this)">
+          <span class="flex items-center gap-2"><span class="material-symbols-outlined text-[20px]">smart_toy</span>Gobernanza de IA</span>
+        </button>
+        <button role="tab" aria-selected="false" aria-controls="tab-datos" class="tab-btn font-label-lg text-label-lg px-5 py-3 rounded-lg focus-halo" onclick="showTab('datos', this)">
+          <span class="flex items-center gap-2"><span class="material-symbols-outlined text-[20px]">account_balance</span>Datos financieros</span>
+        </button>
+      </div>
+
+      <!-- TAB: Resumen -->
+      <div id="tab-resumen" class="tab-panel active" role="tabpanel">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+          <div class="lg:col-span-2 space-y-stack-md">
+
+            <div class="bg-surface-container-low rounded-xl p-8 border border-outline-variant">
+              <h3 class="font-headline-md text-headline-md text-on-surface mb-4">¿Qué información puede solicitar AlertaCuenta?</h3>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <h4 class="font-label-lg text-label-lg text-primary mb-3 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1;">person</span>Identificación y contacto
+                  </h4>
+                  <ul class="space-y-1 font-body-md text-body-md text-on-surface-variant" style="font-size:17px; line-height:28px;">
+                    <li>Nombre</li><li>Correo electrónico</li><li>Teléfono</li><li>Comuna o región</li><li>Canal preferente de contacto</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 class="font-label-lg text-label-lg text-primary mb-3 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1;">report</span>Información del caso
+                  </h4>
+                  <ul class="space-y-1 font-body-md text-body-md text-on-surface-variant" style="font-size:17px; line-height:28px;">
+                    <li>Fecha y hora del hecho</li><li>Banco o institución involucrada</li><li>Producto afectado</li><li>Monto aproximado</li><li>Relato de los hechos</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 class="font-label-lg text-label-lg text-primary mb-3 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1;">attach_file</span>Evidencia del caso
+                  </h4>
+                  <ul class="space-y-1 font-body-md text-body-md text-on-surface-variant" style="font-size:17px; line-height:28px;">
+                    <li>Pantallazos de mensajes sospechosos</li><li>Comprobantes de transferencia</li><li>Cartolas o movimientos</li><li>Comunicaciones con el banco</li><li>Reclamos presentados</li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 class="font-label-lg text-label-lg text-error mb-3 flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[20px]" style="font-variation-settings:'FILL' 1;">block</span>Lo que NUNCA debes entregar
+                  </h4>
+                  <ul class="space-y-1 font-body-md text-body-md text-error" style="font-size:17px; line-height:28px;">
+                    <li>Claves bancarias o PIN</li><li>Códigos SMS o autenticación</li><li>Contraseñas</li><li>Acceso remoto al dispositivo</li><li>Número completo de tarjeta + CVV</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-surface-container-low rounded-xl p-8 border border-outline-variant">
+              <h3 class="font-headline-md text-headline-md text-on-surface mb-4">¿Cómo usamos tu información?</h3>
+              <div class="space-y-4">
+                <div class="flex gap-4 items-start">
+                  <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center flex-shrink-0 mt-1">
+                    <span class="material-symbols-outlined text-[20px]" style="color:#002c6b; font-variation-settings:'FILL' 1;">emergency</span>
+                  </div>
+                  <div>
+                    <h4 class="font-label-lg text-label-lg text-on-surface">Orientación inicial</h4>
+                    <p class="font-body-md text-body-md text-on-surface-variant" style="font-size:17px; line-height:28px;">Identificar si estás ante una urgencia, sospecha o fraude consumado.</p>
+                  </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                  <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center flex-shrink-0 mt-1">
+                    <span class="material-symbols-outlined text-[20px]" style="color:#002c6b; font-variation-settings:'FILL' 1;">sort</span>
+                  </div>
+                  <div>
+                    <h4 class="font-label-lg text-label-lg text-on-surface">Ordenamiento de evidencia</h4>
+                    <p class="font-body-md text-body-md text-on-surface-variant" style="font-size:17px; line-height:28px;">Ayudarte a reunir y organizar antecedentes relevantes para tu caso.</p>
+                  </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                  <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center flex-shrink-0 mt-1">
+                    <span class="material-symbols-outlined text-[20px]" style="color:#002c6b; font-variation-settings:'FILL' 1;">description</span>
+                  </div>
+                  <div>
+                    <h4 class="font-label-lg text-label-lg text-on-surface">Generación de documentos</h4>
+                    <p class="font-body-md text-body-md text-on-surface-variant" style="font-size:17px; line-height:28px;">Preparar borradores, cartas, reclamos y resúmenes estructurados.</p>
+                  </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                  <div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center flex-shrink-0 mt-1">
+                    <span class="material-symbols-outlined text-[20px]" style="color:#002c6b; font-variation-settings:'FILL' 1;">shield</span>
+                  </div>
+                  <div>
+                    <h4 class="font-label-lg text-label-lg text-on-surface">Seguridad y cumplimiento</h4>
+                    <p class="font-body-md text-body-md text-on-surface-variant" style="font-size:17px; line-height:28px;">Detectar errores, prevenir abuso y cumplir obligaciones legales.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Sidebar: FAQ -->
+          <div class="space-y-4">
+            <div class="bg-primary rounded-xl p-6 text-on-primary">
+              <h3 class="font-callout text-callout text-white mb-4">Preguntas frecuentes</h3>
+
+              <details class="border-b border-primary-fixed-dim pb-3 mb-3">
+                <summary class="cursor-pointer font-label-lg text-label-lg text-white flex justify-between items-center py-1">
+                  ¿Me pedirán claves bancarias?
+                  <span class="material-symbols-outlined text-primary-fixed">expand_more</span>
+                </summary>
+                <p class="mt-2 font-body-md text-primary-fixed" style="font-size:16px; line-height:26px;">No. Nunca. No los necesitamos para ayudarte. Si alguien los pide en nuestro nombre, es una señal de alerta.</p>
+              </details>
+
+              <details class="border-b border-primary-fixed-dim pb-3 mb-3">
+                <summary class="cursor-pointer font-label-lg text-label-lg text-white flex justify-between items-center py-1">
+                  ¿Puedo subir pantallazos?
+                  <span class="material-symbols-outlined text-primary-fixed">expand_more</span>
+                </summary>
+                <p class="mt-2 font-body-md text-primary-fixed" style="font-size:16px; line-height:26px;">Sí, cuando sean útiles. Procura ocultar información que no sea necesaria para el caso.</p>
+              </details>
+
+              <details class="border-b border-primary-fixed-dim pb-3 mb-3">
+                <summary class="cursor-pointer font-label-lg text-label-lg text-white flex justify-between items-center py-1">
+                  ¿La IA decide sobre mi caso?
+                  <span class="material-symbols-outlined text-primary-fixed">expand_more</span>
+                </summary>
+                <p class="mt-2 font-body-md text-primary-fixed" style="font-size:16px; line-height:26px;">No. La IA orienta y clasifica, pero no toma decisiones críticas por sí sola. Los documentos deben revisarse antes de usarse.</p>
+              </details>
+
+              <details class="border-b border-primary-fixed-dim pb-3 mb-3">
+                <summary class="cursor-pointer font-label-lg text-label-lg text-white flex justify-between items-center py-1">
+                  ¿Garantizan recuperar mi dinero?
+                  <span class="material-symbols-outlined text-primary-fixed">expand_more</span>
+                </summary>
+                <p class="mt-2 font-body-md text-primary-fixed" style="font-size:16px; line-height:26px;">No. Ninguna plataforma seria puede garantizarlo. AlertaCuenta te ayuda a actuar mejor, más rápido y con más claridad.</p>
+              </details>
+
+              <details class="border-b border-primary-fixed-dim pb-3 mb-3">
+                <summary class="cursor-pointer font-label-lg text-label-lg text-white flex justify-between items-center py-1">
+                  ¿Mis datos entrenan modelos IA?
+                  <span class="material-symbols-outlined text-primary-fixed">expand_more</span>
+                </summary>
+                <p class="mt-2 font-body-md text-primary-fixed" style="font-size:16px; line-height:26px;">No usamos información identificable del usuario para entrenar modelos sin autorización expresa. Cualquier mejora usa datos agregados o anonimizados.</p>
+              </details>
+
+              <details class="pb-1">
+                <summary class="cursor-pointer font-label-lg text-label-lg text-white flex justify-between items-center py-1">
+                  ¿Qué hago si estoy en emergencia ahora?
+                  <span class="material-symbols-outlined text-primary-fixed">expand_more</span>
+                </summary>
+                <p class="mt-2 font-body-md text-primary-fixed" style="font-size:16px; line-height:26px;">Corta la comunicación sospechosa, no entregues códigos, contacta a tu banco por canales oficiales, bloquea productos y conserva evidencia.</p>
+              </details>
+            </div>
+
+            <div class="bg-secondary-container rounded-xl p-6 border border-outline-variant">
+              <h3 class="font-label-lg text-label-lg text-on-surface mb-2">¿Necesitas ayuda ahora?</h3>
+              <p class="font-body-md text-body-md text-on-surface-variant mb-4" style="font-size:16px; line-height:26px;">Si crees que eres víctima de fraude, actúa de inmediato.</p>
+              <a href="/" class="inline-flex items-center justify-center w-full min-h-[56px] font-label-lg text-label-lg rounded transition-colors focus-halo" style="background-color:#002c6b; color:white;">
+                <span class="material-symbols-outlined mr-2">arrow_forward</span>Ir al inicio
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: Privacidad -->
+      <div id="tab-privacidad" class="tab-panel" role="tabpanel">
+        <div class="max-w-3xl space-y-stack-md">
+          <div class="bg-surface-container-low rounded-xl p-8 border border-outline-variant">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-outlined text-[28px]" style="color:#002c6b; font-variation-settings:'FILL' 1;">privacy_tip</span>
+              <h3 class="font-headline-md text-headline-md text-on-surface">Política de Privacidad</h3>
+            </div>
+            <p class="font-body-md text-body-md text-on-surface-variant mb-6" style="font-size:17px; line-height:28px;">AlertaCuenta trata tu información con cuidado, transparencia y proporcionalidad. Nuestro compromiso es pedirte solo lo necesario para orientarte y apoyar tu caso.</p>
+
+            <div class="space-y-6">
+              <div>
+                <h4 class="font-label-lg text-label-lg text-primary mb-2">Marco normativo</h4>
+                <p class="font-body-md text-body-md text-on-surface-variant" style="font-size:17px; line-height:28px;">AlertaCuenta se diseña conforme a la <strong>Ley N° 19.628</strong> y bajo un enfoque de cumplimiento anticipado de la <strong>Ley N° 21.719</strong> que crea la Agencia de Protección de Datos Personales de Chile.</p>
+              </div>
+
+              <div>
+                <h4 class="font-label-lg text-label-lg text-primary mb-3">Principios que orientan el tratamiento</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div class="flex items-start gap-3 bg-surface-bright rounded-lg p-4">
+                    <span class="material-symbols-outlined text-[20px]" style="color:#002c6b;">check_circle</span>
+                    <div><strong class="font-label-lg text-label-lg text-on-surface" style="font-size:16px;">Licitud y legitimidad</strong><p class="text-on-surface-variant" style="font-size:15px; line-height:22px;">Tratamiento sobre base legítima e informada.</p></div>
+                  </div>
+                  <div class="flex items-start gap-3 bg-surface-bright rounded-lg p-4">
+                    <span class="material-symbols-outlined text-[20px]" style="color:#002c6b;">check_circle</span>
+                    <div><strong class="font-label-lg text-label-lg text-on-surface" style="font-size:16px;">Minimización</strong><p class="text-on-surface-variant" style="font-size:15px; line-height:22px;">Solo pedimos datos necesarios para la finalidad.</p></div>
+                  </div>
+                  <div class="flex items-start gap-3 bg-surface-bright rounded-lg p-4">
+                    <span class="material-symbols-outlined text-[20px]" style="color:#002c6b;">check_circle</span>
+                    <div><strong class="font-label-lg text-label-lg text-on-surface" style="font-size:16px;">Transparencia</strong><p class="text-on-surface-variant" style="font-size:15px; line-height:22px;">El usuario sabe qué datos se solicitan y para qué.</p></div>
+                  </div>
+                  <div class="flex items-start gap-3 bg-surface-bright rounded-lg p-4">
+                    <span class="material-symbols-outlined text-[20px]" style="color:#002c6b;">check_circle</span>
+                    <div><strong class="font-label-lg text-label-lg text-on-surface" style="font-size:16px;">Seguridad</strong><p class="text-on-surface-variant" style="font-size:15px; line-height:22px;">Protección frente a acceso no autorizado o filtración.</p></div>
+                  </div>
+                  <div class="flex items-start gap-3 bg-surface-bright rounded-lg p-4">
+                    <span class="material-symbols-outlined text-[20px]" style="color:#002c6b;">check_circle</span>
+                    <div><strong class="font-label-lg text-label-lg text-on-surface" style="font-size:16px;">Finalidad</strong><p class="text-on-surface-variant" style="font-size:15px; line-height:22px;">Datos recopilados solo para fines específicos y relacionados al caso.</p></div>
+                  </div>
+                  <div class="flex items-start gap-3 bg-surface-bright rounded-lg p-4">
+                    <span class="material-symbols-outlined text-[20px]" style="color:#002c6b;">check_circle</span>
+                    <div><strong class="font-label-lg text-label-lg text-on-surface" style="font-size:16px;">Responsabilidad activa</strong><p class="text-on-surface-variant" style="font-size:15px; line-height:22px;">Documentamos decisiones, roles y medidas de cumplimiento.</p></div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-label-lg text-label-lg text-primary mb-3">Tus derechos como titular de datos</h4>
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-4 py-2 bg-primary-fixed rounded-full font-label-lg text-on-surface" style="font-size:15px;">Acceso</span>
+                  <span class="px-4 py-2 bg-primary-fixed rounded-full font-label-lg text-on-surface" style="font-size:15px;">Rectificación</span>
+                  <span class="px-4 py-2 bg-primary-fixed rounded-full font-label-lg text-on-surface" style="font-size:15px;">Supresión</span>
+                  <span class="px-4 py-2 bg-primary-fixed rounded-full font-label-lg text-on-surface" style="font-size:15px;">Oposición</span>
+                  <span class="px-4 py-2 bg-primary-fixed rounded-full font-label-lg text-on-surface" style="font-size:15px;">Portabilidad</span>
+                  <span class="px-4 py-2 bg-primary-fixed rounded-full font-label-lg text-on-surface" style="font-size:15px;">Retiro del consentimiento</span>
+                </div>
+                <p class="mt-3 font-body-md text-body-md text-on-surface-variant" style="font-size:16px; line-height:26px;">Para ejercer tus derechos, escríbenos a <strong>privacidad@alertacuenta.cl</strong></p>
+              </div>
+
+              <div class="bg-error-container rounded-lg p-5 border-l-4 border-error">
+                <h4 class="font-label-lg text-label-lg text-on-error-container mb-2">Datos que AlertaCuenta NUNCA debe pedir</h4>
+                <p class="font-body-md text-body-md text-on-error-container" style="font-size:16px; line-height:26px;">Claves bancarias · Contraseñas · PIN · Coordenadas · Códigos SMS · Tokens completos · CVV · Acceso remoto · Instalación de apps de control remoto</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: Seguridad -->
+      <div id="tab-seguridad" class="tab-panel" role="tabpanel">
+        <div class="max-w-3xl space-y-stack-md">
+          <div class="bg-surface-container-low rounded-xl p-8 border border-outline-variant">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-outlined text-[28px]" style="color:#002c6b; font-variation-settings:'FILL' 1;">security</span>
+              <h3 class="font-headline-md text-headline-md text-on-surface">Declaración de Seguridad</h3>
+            </div>
+            <p class="font-body-md text-body-md text-on-surface-variant mb-6" style="font-size:17px; line-height:28px;">AlertaCuenta trata información delicada: relatos de fraude, antecedentes financieros, evidencia y reclamos. La seguridad de la información es una condición esencial del servicio.</p>
+
+            <div class="space-y-6">
+              <div>
+                <h4 class="font-label-lg text-label-lg text-primary mb-3">Marcos de referencia</h4>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                  <div class="bg-surface-bright rounded-lg p-4 text-center border border-outline-variant">
+                    <p class="font-label-lg text-label-lg text-on-surface" style="font-size:14px;">ISO/IEC 27001</p>
+                    <p class="text-on-surface-variant" style="font-size:13px; line-height:18px;">Gestión de seguridad</p>
+                  </div>
+                  <div class="bg-surface-bright rounded-lg p-4 text-center border border-outline-variant">
+                    <p class="font-label-lg text-label-lg text-on-surface" style="font-size:14px;">ISO/IEC 27701</p>
+                    <p class="text-on-surface-variant" style="font-size:13px; line-height:18px;">Privacidad y datos personales</p>
+                  </div>
+                  <div class="bg-surface-bright rounded-lg p-4 text-center border border-outline-variant">
+                    <p class="font-label-lg text-label-lg text-on-surface" style="font-size:14px;">NIST CSF</p>
+                    <p class="text-on-surface-variant" style="font-size:13px; line-height:18px;">Ciberseguridad</p>
+                  </div>
+                  <div class="bg-surface-bright rounded-lg p-4 text-center border border-outline-variant">
+                    <p class="font-label-lg text-label-lg text-on-surface" style="font-size:14px;">OWASP</p>
+                    <p class="text-on-surface-variant" style="font-size:13px; line-height:18px;">Seguridad de apps web</p>
+                  </div>
+                  <div class="bg-surface-bright rounded-lg p-4 text-center border border-outline-variant">
+                    <p class="font-label-lg text-label-lg text-on-surface" style="font-size:14px;">ISO/IEC 27002</p>
+                    <p class="text-on-surface-variant" style="font-size:13px; line-height:18px;">Controles de seguridad</p>
+                  </div>
+                  <div class="bg-surface-bright rounded-lg p-4 text-center border border-outline-variant">
+                    <p class="font-label-lg text-label-lg text-on-surface" style="font-size:14px;">Cloud Nativo</p>
+                    <p class="text-on-surface-variant" style="font-size:13px; line-height:18px;">Buenas prácticas de proveedores</p>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-label-lg text-label-lg text-primary mb-3">Principios de seguridad</h4>
+                <div class="space-y-3">
+                  <div class="flex items-start gap-3"><span class="material-symbols-outlined text-[20px] mt-1" style="color:#002c6b; font-variation-settings:'FILL' 1;">lock</span><div><strong style="font-size:16px;">Confidencialidad:</strong><span class="text-on-surface-variant" style="font-size:16px;"> Accesible solo para personas autorizadas.</span></div></div>
+                  <div class="flex items-start gap-3"><span class="material-symbols-outlined text-[20px] mt-1" style="color:#002c6b; font-variation-settings:'FILL' 1;">verified</span><div><strong style="font-size:16px;">Integridad:</strong><span class="text-on-surface-variant" style="font-size:16px;"> Datos protegidos frente a alteraciones no autorizadas.</span></div></div>
+                  <div class="flex items-start gap-3"><span class="material-symbols-outlined text-[20px] mt-1" style="color:#002c6b; font-variation-settings:'FILL' 1;">cloud_done</span><div><strong style="font-size:16px;">Disponibilidad:</strong><span class="text-on-surface-variant" style="font-size:16px;"> Sistemas accesibles dentro de parámetros razonables.</span></div></div>
+                  <div class="flex items-start gap-3"><span class="material-symbols-outlined text-[20px] mt-1" style="color:#002c6b; font-variation-settings:'FILL' 1;">manage_search</span><div><strong style="font-size:16px;">Trazabilidad:</strong><span class="text-on-surface-variant" style="font-size:16px;"> Acciones relevantes registradas y auditables.</span></div></div>
+                  <div class="flex items-start gap-3"><span class="material-symbols-outlined text-[20px] mt-1" style="color:#002c6b; font-variation-settings:'FILL' 1;">key</span><div><strong style="font-size:16px;">Mínimo privilegio:</strong><span class="text-on-surface-variant" style="font-size:16px;"> Acceso solo a lo estrictamente necesario.</span></div></div>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-label-lg text-label-lg text-primary mb-3">Controles técnicos aplicados</h4>
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-3 py-1 bg-primary-fixed rounded-full text-on-surface" style="font-size:15px;">Control de acceso por roles</span>
+                  <span class="px-3 py-1 bg-primary-fixed rounded-full text-on-surface" style="font-size:15px;">Autenticación multifactor</span>
+                  <span class="px-3 py-1 bg-primary-fixed rounded-full text-on-surface" style="font-size:15px;">Cifrado en tránsito</span>
+                  <span class="px-3 py-1 bg-primary-fixed rounded-full text-on-surface" style="font-size:15px;">Cifrado en reposo</span>
+                  <span class="px-3 py-1 bg-primary-fixed rounded-full text-on-surface" style="font-size:15px;">Gestión segura de secretos</span>
+                  <span class="px-3 py-1 bg-primary-fixed rounded-full text-on-surface" style="font-size:15px;">Separación de ambientes</span>
+                  <span class="px-3 py-1 bg-primary-fixed rounded-full text-on-surface" style="font-size:15px;">Monitoreo de anomalías</span>
+                  <span class="px-3 py-1 bg-primary-fixed rounded-full text-on-surface" style="font-size:15px;">Respaldos y recuperación</span>
+                  <span class="px-3 py-1 bg-primary-fixed rounded-full text-on-surface" style="font-size:15px;">Revisión de vulnerabilidades</span>
+                  <span class="px-3 py-1 bg-primary-fixed rounded-full text-on-surface" style="font-size:15px;">Protocolo de incidentes</span>
+                </div>
+              </div>
+
+              <div class="bg-surface-bright rounded-lg p-5 border border-outline-variant">
+                <h4 class="font-label-lg text-label-lg text-on-surface mb-2 flex items-center gap-2">
+                  <span class="material-symbols-outlined" style="color:#002c6b;">mail</span>Canal de seguridad
+                </h4>
+                <p class="text-on-surface-variant" style="font-size:16px; line-height:26px;">Para reportar incidentes o vulnerabilidades: <strong>seguridad@alertacuenta.cl</strong></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: Términos -->
+      <div id="tab-terminos" class="tab-panel" role="tabpanel">
+        <div class="max-w-3xl space-y-stack-md">
+          <div class="bg-surface-container-low rounded-xl p-8 border border-outline-variant">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-outlined text-[28px]" style="color:#002c6b; font-variation-settings:'FILL' 1;">gavel</span>
+              <h3 class="font-headline-md text-headline-md text-on-surface">Términos de Uso</h3>
+            </div>
+            <p class="font-body-md text-body-md text-on-surface-variant mb-6" style="font-size:17px; line-height:28px;">Al usar AlertaCuenta, aceptas estas reglas básicas de uso de la plataforma. El uso debe realizarse de buena fe, con información verdadera.</p>
+
+            <div class="space-y-6">
+              <div>
+                <h4 class="font-label-lg text-label-lg text-primary mb-3">¿Qué es AlertaCuenta?</h4>
+                <p class="text-on-surface-variant" style="font-size:17px; line-height:28px;">Una plataforma de apoyo frente a fraudes financieros que puede incluir orientación preventiva, flujos de primera respuesta, carga de evidencia, asistentes conversacionales, generación de documentos y rutas de escalamiento.</p>
+              </div>
+
+              <div>
+                <h4 class="font-label-lg text-label-lg text-primary mb-3">¿Qué NO es AlertaCuenta?</h4>
+                <div class="bg-surface-container-high rounded-lg p-4 space-y-1">
+                  <p class="text-on-surface-variant flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px] text-error">close</span>No es un banco ni canal oficial bancario</p>
+                  <p class="text-on-surface-variant flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px] text-error">close</span>No garantiza recuperación de dinero</p>
+                  <p class="text-on-surface-variant flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px] text-error">close</span>No sustituye asesoría legal o financiera profesional</p>
+                  <p class="text-on-surface-variant flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px] text-error">close</span>No determina responsabilidades legales definitivas</p>
+                  <p class="text-on-surface-variant flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px] text-error">close</span>No es una plataforma del SERNAC, CMF o PDI</p>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-label-lg text-label-lg text-primary mb-3">Uso permitido</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  <p class="text-on-surface-variant flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px]" style="color:#002c6b;">check</span>Reportar sospechas o fraudes</p>
+                  <p class="text-on-surface-variant flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px]" style="color:#002c6b;">check</span>Recibir orientación inicial</p>
+                  <p class="text-on-surface-variant flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px]" style="color:#002c6b;">check</span>Subir evidencia relevante</p>
+                  <p class="text-on-surface-variant flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px]" style="color:#002c6b;">check</span>Preparar documentos o borradores</p>
+                  <p class="text-on-surface-variant flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px]" style="color:#002c6b;">check</span>Revisar checklists y rutas de acción</p>
+                  <p class="text-on-surface-variant flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px]" style="color:#002c6b;">check</span>Acceder a materiales educativos</p>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-label-lg text-label-lg text-error mb-3">Uso prohibido</h4>
+                <div class="bg-error-container rounded-lg p-4 space-y-1">
+                  <p class="text-on-error-container flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px]">block</span>Cometer fraude, engaño o suplantación</p>
+                  <p class="text-on-error-container flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px]">block</span>Fabricar o manipular evidencia</p>
+                  <p class="text-on-error-container flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px]">block</span>Vulnerar sistemas o bases de datos</p>
+                  <p class="text-on-error-container flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px]">block</span>Manipular prompts o sistemas de IA</p>
+                  <p class="text-on-error-container flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px]">block</span>Intentar obtener datos de otros usuarios</p>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-label-lg text-label-lg text-primary mb-2">Ley aplicable</h4>
+                <p class="text-on-surface-variant" style="font-size:17px; line-height:28px;">Estos Términos se rigen por las leyes de la República de Chile. Para controversias, las partes se someterán a los tribunales ordinarios de justicia que correspondan.</p>
+              </div>
+
+              <div class="bg-surface-bright rounded-lg p-5 border border-outline-variant">
+                <h4 class="font-label-lg text-label-lg text-on-surface mb-2">Contacto</h4>
+                <p class="text-on-surface-variant" style="font-size:16px;">Soporte: <strong>soporte@alertacuenta.cl</strong></p>
+                <p class="text-on-surface-variant" style="font-size:16px;">Privacidad: <strong>privacidad@alertacuenta.cl</strong></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: IA -->
+      <div id="tab-ia" class="tab-panel" role="tabpanel">
+        <div class="max-w-3xl space-y-stack-md">
+          <div class="bg-surface-container-low rounded-xl p-8 border border-outline-variant">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-outlined text-[28px]" style="color:#002c6b; font-variation-settings:'FILL' 1;">smart_toy</span>
+              <h3 class="font-headline-md text-headline-md text-on-surface">Política de Gobernanza de IA</h3>
+            </div>
+            <p class="font-body-md text-body-md text-on-surface-variant mb-6" style="font-size:17px; line-height:28px;">AlertaCuenta puede utilizar inteligencia artificial para mejorar la experiencia del usuario. Su uso está gobernado por criterios de responsabilidad, seguridad, trazabilidad y supervisión humana proporcional al riesgo.</p>
+
+            <div class="space-y-6">
+              <div>
+                <h4 class="font-label-lg text-label-lg text-primary mb-3">¿Para qué puede usarse la IA?</h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <div class="flex items-start gap-3"><span class="material-symbols-outlined text-[20px]" style="color:#002c6b;">mic</span><p style="font-size:16px; line-height:24px;">Transformar audio en texto</p></div>
+                  <div class="flex items-start gap-3"><span class="material-symbols-outlined text-[20px]" style="color:#002c6b;">summarize</span><p style="font-size:16px; line-height:24px;">Resumir hechos del caso</p></div>
+                  <div class="flex items-start gap-3"><span class="material-symbols-outlined text-[20px]" style="color:#002c6b;">category</span><p style="font-size:16px; line-height:24px;">Clasificar preliminarmente el tipo de fraude</p></div>
+                  <div class="flex items-start gap-3"><span class="material-symbols-outlined text-[20px]" style="color:#002c6b;">checklist</span><p style="font-size:16px; line-height:24px;">Generar checklists de medidas urgentes</p></div>
+                  <div class="flex items-start gap-3"><span class="material-symbols-outlined text-[20px]" style="color:#002c6b;">description</span><p style="font-size:16px; line-height:24px;">Preparar borradores de documentos</p></div>
+                  <div class="flex items-start gap-3"><span class="material-symbols-outlined text-[20px]" style="color:#002c6b;">find_in_page</span><p style="font-size:16px; line-height:24px;">Detectar inconsistencias o vacíos en la información</p></div>
+                </div>
+              </div>
+
+              <div class="bg-surface-container-high rounded-xl p-6 border-l-4 border-primary">
+                <h4 class="font-label-lg text-label-lg text-on-surface mb-3">Límites de la IA — lo que NO hace</h4>
+                <div class="space-y-2">
+                  <p class="text-on-surface-variant flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[18px] text-error">close</span>No garantiza recuperación de dinero</p>
+                  <p class="text-on-surface-variant flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[18px] text-error">close</span>No determina responsabilidad legal del banco o usuario</p>
+                  <p class="text-on-surface-variant flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[18px] text-error">close</span>No reemplaza revisión legal cuando el caso lo requiere</p>
+                  <p class="text-on-surface-variant flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[18px] text-error">close</span>No es la única base para decisiones críticas</p>
+                  <p class="text-on-surface-variant flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[18px] text-error">close</span>No usa datos identificables para entrenar modelos sin autorización</p>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-label-lg text-label-lg text-primary mb-3">Supervisión humana proporcional</h4>
+                <p class="text-on-surface-variant mb-4" style="font-size:17px; line-height:28px;">A mayor impacto del caso, mayor nivel de revisión humana requerida:</p>
+                <div class="space-y-3">
+                  <div class="flex items-center gap-4">
+                    <div class="flex-shrink-0 w-40">
+                      <div class="h-3 rounded-full bg-secondary-container" style="width:30%"></div>
+                    </div>
+                    <p style="font-size:15px; line-height:22px;"><strong>Bajo:</strong> Mensaje preventivo simple — mayor automatización posible</p>
+                  </div>
+                  <div class="flex items-center gap-4">
+                    <div class="flex-shrink-0 w-40">
+                      <div class="h-3 rounded-full bg-secondary-fixed-dim" style="width:65%"></div>
+                    </div>
+                    <p style="font-size:15px; line-height:22px;"><strong>Medio:</strong> Resumen de caso — revisión recomendada</p>
+                  </div>
+                  <div class="flex items-center gap-4">
+                    <div class="flex-shrink-0 w-40">
+                      <div class="h-3 rounded-full bg-error" style="width:100%"></div>
+                    </div>
+                    <p style="font-size:15px; line-height:22px;"><strong>Alto:</strong> Documento legal o escalamiento — validación cuidadosa obligatoria</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-error-container rounded-lg p-5">
+                <h4 class="font-label-lg text-label-lg text-on-error-container mb-2">Protección frente al abuso de IA</h4>
+                <p class="text-on-error-container" style="font-size:16px; line-height:26px;">AlertaCuenta implementa medidas para prevenir manipulación de prompts, extracción de información, generación de contenido engañoso y suplantación de identidad.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: Datos Financieros -->
+      <div id="tab-datos" class="tab-panel" role="tabpanel">
+        <div class="max-w-3xl space-y-stack-md">
+          <div class="bg-surface-container-low rounded-xl p-8 border border-outline-variant">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-outlined text-[28px]" style="color:#002c6b; font-variation-settings:'FILL' 1;">account_balance</span>
+              <h3 class="font-headline-md text-headline-md text-on-surface">Aviso Especial: Datos Financieros y Evidencia</h3>
+            </div>
+            <p class="font-body-md text-body-md text-on-surface-variant mb-6" style="font-size:17px; line-height:28px;">La evidencia de fraude puede ser determinante para tu caso. AlertaCuenta la trata con protección reforzada y criterios estrictos de minimización.</p>
+
+            <div class="space-y-6">
+
+              <div class="bg-error-container border border-error rounded-xl p-6">
+                <h4 class="font-label-lg text-label-lg text-error mb-3 flex items-center gap-2">
+                  <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">block</span>Nunca debes entregar
+                </h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  <p class="text-on-error-container flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px]">close</span>Claves bancarias o PIN</p>
+                  <p class="text-on-error-container flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px]">close</span>Contraseñas de cualquier cuenta</p>
+                  <p class="text-on-error-container flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px]">close</span>Coordenadas de tarjeta de seguridad</p>
+                  <p class="text-on-error-container flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px]">close</span>Códigos SMS o autenticación</p>
+                  <p class="text-on-error-container flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px]">close</span>Token completo</p>
+                  <p class="text-on-error-container flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px]">close</span>CVV o código de seguridad de tarjeta</p>
+                  <p class="text-on-error-container flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px]">close</span>Número completo de tarjeta</p>
+                  <p class="text-on-error-container flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px]">close</span>Acceso remoto al dispositivo</p>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-label-lg text-label-lg text-primary mb-3">Datos financieros que SÍ podemos necesitar</h4>
+                <p class="text-on-surface-variant mb-3" style="font-size:17px; line-height:28px;">Solo lo necesario para comprender el fraude y preparar antecedentes:</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                  <p class="text-on-surface-variant flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px]" style="color:#002c6b;">check</span>Nombre de la institución financiera</p>
+                  <p class="text-on-surface-variant flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px]" style="color:#002c6b;">check</span>Tipo de producto afectado</p>
+                  <p class="text-on-surface-variant flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px]" style="color:#002c6b;">check</span>Últimos dígitos de cuenta o tarjeta</p>
+                  <p class="text-on-surface-variant flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px]" style="color:#002c6b;">check</span>Movimientos asociados al fraude</p>
+                  <p class="text-on-surface-variant flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px]" style="color:#002c6b;">check</span>Montos, fechas y descripciones de transacciones</p>
+                  <p class="text-on-surface-variant flex items-center gap-2" style="font-size:16px;"><span class="material-symbols-outlined text-[16px]" style="color:#002c6b;">check</span>Respuestas o rechazos bancarios</p>
+                </div>
+              </div>
+
+              <div>
+                <h4 class="font-label-lg text-label-lg text-primary mb-3">Consejos para subir evidencia de forma segura</h4>
+                <div class="space-y-3">
+                  <div class="flex items-start gap-3 bg-surface-bright rounded-lg p-4">
+                    <span class="material-symbols-outlined text-[24px]" style="color:#002c6b; font-variation-settings:'FILL' 1;">crop</span>
+                    <p style="font-size:16px; line-height:26px;"><strong>Recorta o tapa</strong> información no relacionada al fraude, como saldos no afectados o movimientos ajenos al caso.</p>
+                  </div>
+                  <div class="flex items-start gap-3 bg-surface-bright rounded-lg p-4">
+                    <span class="material-symbols-outlined text-[24px]" style="color:#002c6b; font-variation-settings:'FILL' 1;">visibility_off</span>
+                    <p style="font-size:16px; line-height:26px;"><strong>Oculta datos excesivos</strong> de terceros que no sean relevantes para explicar el evento.</p>
+                  </div>
+                  <div class="flex items-start gap-3 bg-surface-bright rounded-lg p-4">
+                    <span class="material-symbols-outlined text-[24px]" style="color:#002c6b; font-variation-settings:'FILL' 1;">save</span>
+                    <p style="font-size:16px; line-height:26px;"><strong>Conserva tus propias copias</strong> de toda la evidencia relevante, independientemente de lo que subas a la plataforma.</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-surface-container-high rounded-lg p-5">
+                <h4 class="font-label-lg text-label-lg text-on-surface mb-2">Regla práctica</h4>
+                <p class="text-on-surface-variant" style="font-size:17px; line-height:28px; font-style:italic;">"Comparte solo lo necesario para entender el caso. Si un dato no ayuda a explicar el fraude o preparar el reclamo, probablemente no necesitamos pedirlo."</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Documentos legales - links -->
+  <section class="bg-surface-container-low py-stack-lg border-t-2 border-outline-variant">
+    <div class="max-w-container-max mx-auto px-margin-mobile">
+      <h2 class="font-headline-md text-headline-md text-on-surface mb-stack-md">Todos los documentos</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+
+        <a href="#" onclick="showTab('resumen', document.querySelector('[aria-controls=tab-resumen]')); window.scrollTo({top:0, behavior:'smooth'}); return false;" class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 flex items-start gap-4 hover:border-primary transition-colors focus-halo group">
+          <span class="material-symbols-outlined text-[32px] mt-1" style="color:#002c6b; font-variation-settings:'FILL' 1;">verified_user</span>
+          <div>
+            <h3 class="font-label-lg text-label-lg text-on-surface group-hover:text-primary transition-colors">Centro de Confianza</h3>
+            <p class="text-on-surface-variant mt-1" style="font-size:15px; line-height:22px;">Resumen general de compromisos, datos y uso de IA.</p>
+          </div>
+        </a>
+
+        <a href="#" onclick="showTab('privacidad', document.querySelector('[aria-controls=tab-privacidad]')); window.scrollTo({top:0, behavior:'smooth'}); return false;" class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 flex items-start gap-4 hover:border-primary transition-colors focus-halo group">
+          <span class="material-symbols-outlined text-[32px] mt-1" style="color:#002c6b; font-variation-settings:'FILL' 1;">privacy_tip</span>
+          <div>
+            <h3 class="font-label-lg text-label-lg text-on-surface group-hover:text-primary transition-colors">Política de Privacidad</h3>
+            <p class="text-on-surface-variant mt-1" style="font-size:15px; line-height:22px;">Qué datos tratamos, con qué finalidad y cómo ejercer derechos.</p>
+          </div>
+        </a>
+
+        <a href="#" onclick="showTab('seguridad', document.querySelector('[aria-controls=tab-seguridad]')); window.scrollTo({top:0, behavior:'smooth'}); return false;" class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 flex items-start gap-4 hover:border-primary transition-colors focus-halo group">
+          <span class="material-symbols-outlined text-[32px] mt-1" style="color:#002c6b; font-variation-settings:'FILL' 1;">security</span>
+          <div>
+            <h3 class="font-label-lg text-label-lg text-on-surface group-hover:text-primary transition-colors">Declaración de Seguridad</h3>
+            <p class="text-on-surface-variant mt-1" style="font-size:15px; line-height:22px;">Controles técnicos, principios y marcos de referencia.</p>
+          </div>
+        </a>
+
+        <a href="#" onclick="showTab('terminos', document.querySelector('[aria-controls=tab-terminos]')); window.scrollTo({top:0, behavior:'smooth'}); return false;" class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 flex items-start gap-4 hover:border-primary transition-colors focus-halo group">
+          <span class="material-symbols-outlined text-[32px] mt-1" style="color:#002c6b; font-variation-settings:'FILL' 1;">gavel</span>
+          <div>
+            <h3 class="font-label-lg text-label-lg text-on-surface group-hover:text-primary transition-colors">Términos de Uso</h3>
+            <p class="text-on-surface-variant mt-1" style="font-size:15px; line-height:22px;">Reglas de uso, prohibiciones, responsabilidades y ley aplicable.</p>
+          </div>
+        </a>
+
+        <a href="#" onclick="showTab('ia', document.querySelector('[aria-controls=tab-ia]')); window.scrollTo({top:0, behavior:'smooth'}); return false;" class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 flex items-start gap-4 hover:border-primary transition-colors focus-halo group">
+          <span class="material-symbols-outlined text-[32px] mt-1" style="color:#002c6b; font-variation-settings:'FILL' 1;">smart_toy</span>
+          <div>
+            <h3 class="font-label-lg text-label-lg text-on-surface group-hover:text-primary transition-colors">Gobernanza de IA</h3>
+            <p class="text-on-surface-variant mt-1" style="font-size:15px; line-height:22px;">Cómo usamos IA, sus límites y supervisión humana.</p>
+          </div>
+        </a>
+
+        <a href="#" onclick="showTab('datos', document.querySelector('[aria-controls=tab-datos]')); window.scrollTo({top:0, behavior:'smooth'}); return false;" class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 flex items-start gap-4 hover:border-primary transition-colors focus-halo group">
+          <span class="material-symbols-outlined text-[32px] mt-1" style="color:#002c6b; font-variation-settings:'FILL' 1;">account_balance</span>
+          <div>
+            <h3 class="font-label-lg text-label-lg text-on-surface group-hover:text-primary transition-colors">Datos Financieros y Evidencia</h3>
+            <p class="text-on-surface-variant mt-1" style="font-size:15px; line-height:22px;">Qué información financiera se puede y no se puede pedir.</p>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Mensaje de cierre -->
+  <section class="bg-inverse-surface py-stack-lg">
+    <div class="max-w-container-max mx-auto px-margin-mobile text-center">
+      <h2 class="font-headline-lg text-headline-lg text-inverse-on-surface mb-stack-sm">La confianza no se declara solamente.<br>Se diseña en cada paso del proceso.</h2>
+      <p class="font-body-lg text-body-lg text-surface-variant max-w-2xl mx-auto mb-stack-md">
+        AlertaCuenta busca que una persona afectada por fraude no quede sola, confundida o paralizada. La plataforma existe para convertir una situación de urgencia en un camino ordenado de acción.
+      </p>
+      <a href="/" class="inline-flex items-center justify-center min-h-[56px] px-8 font-label-lg text-label-lg rounded transition-colors focus-halo" style="background-color: rgb(254, 215, 78); color: rgb(115, 93, 0);">
+        <span class="material-symbols-outlined mr-2">arrow_forward</span>Volver al inicio
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="bg-inverse-surface text-inverse-on-surface mt-auto">
+  <div class="max-w-container-max mx-auto px-margin-mobile py-stack-lg">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-stack-lg border-b border-outline pb-stack-lg">
+      <div class="flex flex-col gap-stack-sm lg:col-span-1">
+        <img src="https://vqenacwaqmquwnrvykmb.supabase.co/storage/v1/object/public/cuenta-alerta/logo.svg" alt="Alerta Cuenta" class="h-9 w-auto" style="filter: brightness(0) invert(1);">
+        <p class="font-body-md text-body-md text-surface-variant">Tu guía ciudadana ante el fraude financiero: orientación gratuita, clara y respaldada en cada paso.</p>
+      </div>
+      <div class="flex flex-col gap-stack-sm">
+        <h3 class="font-callout text-callout font-bold text-inverse-on-surface mb-2">Acerca de nosotros</h3>
+        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" href="#">Quiénes somos</a>
+        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" href="#">Nuestra misión</a>
+        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" href="#">Noticias y reportes</a>
+      </div>
+      <div class="flex flex-col gap-stack-sm">
+        <h3 class="font-callout text-callout font-bold text-inverse-on-surface mb-2">Ayuda y recursos</h3>
+        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" href="#">Preguntas frecuentes</a>
+        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" href="#">Glosario financiero</a>
+        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" href="#">Material educativo</a>
+      </div>
+      <div class="flex flex-col gap-stack-sm">
+        <h3 class="font-callout text-callout font-bold text-inverse-on-surface mb-2">Centro de Confianza</h3>
+        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" href="#">Política de Privacidad</a>
+        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" href="#">Seguridad</a>
+        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" href="#">Términos de uso</a>
+      </div>
+    </div>
+    <div class="pt-stack-md flex flex-col md:flex-row justify-between items-start md:items-center gap-stack-sm">
+      <nav aria-label="Enlaces legales" class="flex flex-wrap gap-x-gutter gap-y-2">
+        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline min-h-[44px] flex items-center" href="#">Privacidad</a>
+        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline min-h-[44px] flex items-center" href="#">Seguridad</a>
+        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline min-h-[44px] flex items-center" href="#">Términos de uso</a>
+        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline min-h-[44px] flex items-center" href="#">Accesibilidad</a>
+      </nav>
+      <p class="font-body-md text-body-md text-surface-variant">© 2024 Alerta Cuenta.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+function showTab(tabId, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.remove('active');
+    b.setAttribute('aria-selected', 'false');
+  });
+  document.getElementById('tab-' + tabId).classList.add('active');
+  if (btn) {
+    btn.classList.add('active');
+    btn.setAttribute('aria-selected', 'true');
+  }
+}
+</script>
+</body></html>
