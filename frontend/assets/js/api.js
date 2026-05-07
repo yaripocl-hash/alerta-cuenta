@@ -61,6 +61,7 @@ const api = {
   getCase: (trackingCode) => api.get(`/cases/${trackingCode}`),
   classify: (data) => api.post('/ai/classify', data),
   summarize: (data) => api.post('/ai/summarize', data),
+  orientar: (data) => api.post('/ai/orientar', data),
   uploadEvidence: (caseId, file) => api.uploadFile(`/evidence/${caseId}`, file),
   healthCheck: () => api.get('/health'),
 };

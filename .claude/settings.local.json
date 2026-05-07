@@ -4,7 +4,21 @@
       "mcp__plugin_playwright_playwright__browser_evaluate",
       "mcp__plugin_playwright_playwright__browser_navigate",
       "mcp__plugin_playwright_playwright__browser_click",
-      "mcp__plugin_playwright_playwright__browser_take_screenshot"
+      "mcp__plugin_playwright_playwright__browser_take_screenshot",
+      "Bash(python -c \"from app.api import ai; print\\('Import OK'\\); print\\([r.path for r in ai.router.routes]\\)\")",
+      "Bash(.venv\\\\Scripts\\\\python.exe -c \"from app.api import ai; print\\('Import OK'\\); print\\([r.path for r in ai.router.routes]\\)\")",
+      "PowerShell(Invoke-WebRequest -Uri \"http://localhost:8000/api/health\" -Method GET -UseBasicParsing 2>&1 | Select-Object -ExpandProperty StatusCode)",
+      "PowerShell(Invoke-WebRequest -Uri \"http://localhost:8000/api/ai/orientar\" -Method POST -ContentType \"application/json\" -Body '{\"description\": \"Recibí un llamado sospechoso de alguien que decía ser de mi banco\"}' -UseBasicParsing 2>&1 | Select-Object StatusCode, StatusDescription)",
+      "PowerShell(Invoke-WebRequest -Uri \"http://localhost:8000/docs\" -Method GET -UseBasicParsing 2>&1 | Select-Object StatusCode)",
+      "PowerShell(Invoke-WebRequest -Uri \"http://localhost:8000/openapi.json\" -UseBasicParsing 2>&1 | Select-Object -ExpandProperty Content | python -c \"import sys,json; data=json.load\\(sys.stdin\\); print\\(list\\(data['paths'].keys\\(\\)\\)\\)\")",
+      "PowerShell(Start-Sleep -Seconds 8; Invoke-WebRequest -Uri \"http://localhost:8000/openapi.json\" -UseBasicParsing 2>&1 | Select-Object -ExpandProperty Content | python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\('/api/ai/orientar' in d['paths']\\)\")",
+      "PowerShell(Invoke-WebRequest -Uri \"http://localhost:8000/openapi.json\" -UseBasicParsing 2>&1 | Select-Object -ExpandProperty Content | python -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(list\\(d['paths'].keys\\(\\)\\)\\)\")",
+      "PowerShell(Get-Process *)",
+      "PowerShell(Get-NetTCPConnection *)",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:8000/api/health\" -Method GET -UseBasicParsing -TimeoutSec 3; \"Status: $\\($r.StatusCode\\)\" } catch { \"Error: $_\" })",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:8000/api/health\" -UseBasicParsing -TimeoutSec 3; \"Sigue respondiendo: $\\($r.StatusCode\\)\" } catch { \"No responde: $_\" })",
+      "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:8000/api/health\" -UseBasicParsing -TimeoutSec 3; \"Responde: $\\($r.StatusCode\\)\" } catch { \"No responde: $_\" })",
+      "PowerShell(netstat *)"
     ]
   },
   "enableAllProjectMcpServers": true,

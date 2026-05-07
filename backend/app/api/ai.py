@@ -7,9 +7,10 @@ from fastapi import APIRouter, File, HTTPException, UploadFile
 
 from app.agents.case_summary_agent import CaseSummaryAgent
 from app.agents.fraud_classifier_agent import FraudClassifierAgent
+from app.agents.fraud_guidance_agent import FraudGuidanceAgent
 from app.config import get_settings
 from app.db.supabase import get_supabase
-from app.schemas.ai import AIRequest, AIResponse
+from app.schemas.ai import AIRequest, AIResponse, GuidanceRequest
 from app.services.audit_service import log_action
 from app.services.phishtank_service import check_urls_in_description
 
@@ -133,6 +134,22 @@ async def summarize_case(payload: AIRequest):
 
     await _persist_ai_output(payload.case_id, agent, output, latency_ms)
 
+    return AIResponse(
+        agent=agent.agent_name,
+        prompt_version=agent.prompt_version,
+        output=output,
+        model_used=settings.anthropic_model,
+    )
+
+
+@router.post("/orientar", response_model=AIResponse)
+async def orientar_caso(payload: GuidanceRequest):
+    settings = get_settings()
+    agent = FraudGuidanceAgent()
+    try:
+        output = await agent.run(payload.description, payload.additional_context)
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc
     return AIResponse(
         agent=agent.agent_name,
         prompt_version=agent.prompt_version,
