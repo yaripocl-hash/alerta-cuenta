@@ -47,3 +47,4 @@ tmp/
 .vscode/
 .idea/
 *.swp
+*.example
