@@ -18,36 +18,39 @@ SCHEMA_SQL = """
 PRAGMA foreign_keys = ON;
 
 CREATE TABLE IF NOT EXISTS sources (
-    id                 INTEGER PRIMARY KEY AUTOINCREMENT,
-    title              TEXT    NOT NULL,
-    source_type        TEXT    DEFAULT 'unknown',
-    jurisdiction       TEXT    DEFAULT 'Chile',
-    authority          TEXT,
-    source_url         TEXT,
-    original_path      TEXT,
-    normalized_text    TEXT,
-    date_published     TEXT,
+    id                  INTEGER PRIMARY KEY AUTOINCREMENT,
+    title               TEXT    NOT NULL,
+    source_type         TEXT    DEFAULT 'unknown',
+    jurisdiction        TEXT    DEFAULT 'Chile',
+    authority           TEXT,
+    source_url          TEXT,
+    original_path       TEXT,
+    normalized_text     TEXT,
+    content_hash        TEXT,
+    date_published      TEXT,
     date_effective_from TEXT,
-    date_effective_to  TEXT,
-    version_label      TEXT,
-    status             TEXT    DEFAULT 'active',
-    trust_level        TEXT    DEFAULT 'medium',
-    topics_json        TEXT    DEFAULT '[]',
-    created_at         TEXT    DEFAULT (datetime('now')),
-    updated_at         TEXT    DEFAULT (datetime('now'))
+    date_effective_to   TEXT,
+    version_label       TEXT,
+    status              TEXT    DEFAULT 'active',
+    trust_level         TEXT    DEFAULT 'medium',
+    topics_json         TEXT    DEFAULT '[]',
+    created_at          TEXT    DEFAULT (datetime('now')),
+    updated_at          TEXT    DEFAULT (datetime('now'))
 );
 
 CREATE TABLE IF NOT EXISTS segments (
-    id           INTEGER PRIMARY KEY AUTOINCREMENT,
-    source_id    INTEGER NOT NULL REFERENCES sources(id) ON DELETE CASCADE,
-    segment_type TEXT    DEFAULT 'unknown',
-    locator      TEXT,
-    title        TEXT,
-    text         TEXT    NOT NULL,
-    start_char   INTEGER,
-    end_char     INTEGER,
-    page         INTEGER,
-    order_index  INTEGER DEFAULT 0
+    id             INTEGER PRIMARY KEY AUTOINCREMENT,
+    source_id      INTEGER NOT NULL REFERENCES sources(id) ON DELETE CASCADE,
+    segment_type   TEXT    DEFAULT 'unknown',
+    locator        TEXT,
+    title          TEXT,
+    text           TEXT    NOT NULL,
+    start_char     INTEGER,
+    end_char       INTEGER,
+    page           INTEGER,
+    order_index    INTEGER DEFAULT 0,
+    depth          INTEGER DEFAULT 0,
+    parent_locator TEXT
 );
 
 CREATE TABLE IF NOT EXISTS audit_log (
@@ -59,10 +62,20 @@ CREATE TABLE IF NOT EXISTS audit_log (
     created_at   TEXT    DEFAULT (datetime('now'))
 );
 
+CREATE INDEX IF NOT EXISTS idx_sources_hash       ON sources(content_hash);
+CREATE INDEX IF NOT EXISTS idx_sources_path       ON sources(original_path);
 CREATE INDEX IF NOT EXISTS idx_segments_source_id ON segments(source_id);
 CREATE INDEX IF NOT EXISTS idx_segments_locator   ON segments(locator);
+CREATE INDEX IF NOT EXISTS idx_segments_parent    ON segments(source_id, parent_locator);
 CREATE INDEX IF NOT EXISTS idx_audit_entity       ON audit_log(entity_type, entity_id);
 """
+
+# Migrations applied to databases created before v0.2
+_MIGRATIONS = [
+    "ALTER TABLE sources ADD COLUMN content_hash TEXT",
+    "ALTER TABLE segments ADD COLUMN depth INTEGER DEFAULT 0",
+    "ALTER TABLE segments ADD COLUMN parent_locator TEXT",
+]
 
 
 # ---------------------------------------------------------------------------
@@ -98,6 +111,16 @@ def init_db(db_path: Path) -> None:
     db_path.parent.mkdir(parents=True, exist_ok=True)
     with get_db(db_path) as conn:
         conn.executescript(SCHEMA_SQL)
+        _apply_migrations(conn)
+
+
+def _apply_migrations(conn: sqlite3.Connection) -> None:
+    """Add columns introduced in later versions; safe to run on any DB."""
+    for sql in _MIGRATIONS:
+        try:
+            conn.execute(sql)
+        except sqlite3.OperationalError:
+            pass  # Column already exists
 
 
 # ---------------------------------------------------------------------------
@@ -110,10 +133,10 @@ def insert_source(conn: sqlite3.Connection, source: Source) -> int:
         """
         INSERT INTO sources (
             title, source_type, jurisdiction, authority, source_url,
-            original_path, normalized_text,
+            original_path, normalized_text, content_hash,
             date_published, date_effective_from, date_effective_to,
             version_label, status, trust_level, topics_json
-        ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+        ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
         """,
         (
             source.title,
@@ -123,6 +146,7 @@ def insert_source(conn: sqlite3.Connection, source: Source) -> int:
             source.source_url,
             source.original_path,
             source.normalized_text,
+            source.content_hash,
             source.date_published,
             source.date_effective_from,
             source.date_effective_to,
@@ -133,6 +157,22 @@ def insert_source(conn: sqlite3.Connection, source: Source) -> int:
         ),
     )
     return cur.lastrowid  # type: ignore[return-value]
+
+
+def find_duplicate_source(
+    conn: sqlite3.Connection, original_path: str, content_hash: str
+) -> Optional[int]:
+    """
+    Return the id of an existing source with the same path AND content hash,
+    or None if no duplicate exists.
+
+    Same path + different hash = new version, not a duplicate.
+    """
+    row = conn.execute(
+        "SELECT id FROM sources WHERE original_path = ? AND content_hash = ?",
+        (original_path, content_hash),
+    ).fetchone()
+    return int(row["id"]) if row else None
 
 
 def get_source(conn: sqlite3.Connection, source_id: int) -> Optional[dict]:
@@ -190,8 +230,9 @@ def insert_segment(conn: sqlite3.Connection, segment: Segment) -> int:
         """
         INSERT INTO segments (
             source_id, segment_type, locator, title, text,
-            start_char, end_char, page, order_index
-        ) VALUES (?,?,?,?,?,?,?,?,?)
+            start_char, end_char, page, order_index,
+            depth, parent_locator
+        ) VALUES (?,?,?,?,?,?,?,?,?,?,?)
         """,
         (
             segment.source_id,
@@ -203,6 +244,8 @@ def insert_segment(conn: sqlite3.Connection, segment: Segment) -> int:
             segment.end_char,
             segment.page,
             segment.order_index,
+            segment.depth,
+            segment.parent_locator,
         ),
     )
     return cur.lastrowid  # type: ignore[return-value]

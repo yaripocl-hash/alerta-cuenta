@@ -56,10 +56,10 @@ def test_list_sources_empty_db(tmp_db):
 
 
 def test_search_limit(sample_law_path, sample_law_yaml, tmp_db):
-    # Ingest same source multiple times to have multiple results
-    ingest_source(sample_law_path, sample_law_yaml, db_path=tmp_db)
-    ingest_source(sample_law_path, sample_law_yaml, db_path=tmp_db)
-    ingest_source(sample_law_path, sample_law_yaml, db_path=tmp_db)
+    # force=True to bypass dedup — we want multiple rows for the limit test
+    ingest_source(sample_law_path, sample_law_yaml, db_path=tmp_db, force=True)
+    ingest_source(sample_law_path, sample_law_yaml, db_path=tmp_db, force=True)
+    ingest_source(sample_law_path, sample_law_yaml, db_path=tmp_db, force=True)
 
     results = search_sources("Ley", limit=2, db_path=tmp_db)
     assert len(results) <= 2

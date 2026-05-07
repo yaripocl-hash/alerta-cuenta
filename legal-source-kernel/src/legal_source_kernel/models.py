@@ -28,6 +28,7 @@ class Source(SourceMetadata):
     id: Optional[int] = None
     original_path: Optional[str] = None
     normalized_text: Optional[str] = None
+    content_hash: Optional[str] = None
     created_at: Optional[str] = None
     updated_at: Optional[str] = None
 
@@ -45,6 +46,8 @@ class Segment(BaseModel):
     end_char: Optional[int] = None
     page: Optional[int] = None
     order_index: int = 0
+    depth: int = 0
+    parent_locator: Optional[str] = None
 
 
 class Citation(BaseModel):

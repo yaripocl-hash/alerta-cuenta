@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 import pytest
-from legal_source_kernel.segment import segment_text, _ARTICLE_RE, _CLAUSE_RE
+from legal_source_kernel.segment import segment_text, _ARTICLE_RE, _CLAUSE_RE, _INCISO_LETTER_RE
 
 
 # ---------------------------------------------------------------------------
@@ -124,3 +124,95 @@ Artículo 3. Tercero.\nTexto tres.
 """
     segs = segment_text(text, source_type="law")
     assert [s.order_index for s in segs] == [0, 1, 2]
+
+
+# ---------------------------------------------------------------------------
+# Sub-segmentation: incisos y letras
+# ---------------------------------------------------------------------------
+
+_ARTICLE_WITH_LETTERS = """Artículo 2. Definiciones.
+Para los efectos de esta ley se entenderá por:
+
+a) Certificado: documento que acredita la identidad del firmante.
+b) Documento electrónico: representación de un hecho en formato digital.
+c) Firma electrónica: mecanismo que permite identificar al autor.
+d) Firma electrónica avanzada: firma certificada por un prestador acreditado.
+"""
+
+def test_sub_segments_letter_incisos():
+    segs = segment_text(_ARTICLE_WITH_LETTERS, source_type="law")
+    inciso_segs = [s for s in segs if s.depth == 1]
+    assert len(inciso_segs) == 4
+
+
+def test_sub_segments_locator_formato_jerarquico():
+    segs = segment_text(_ARTICLE_WITH_LETTERS, source_type="law")
+    locators = [s.locator for s in segs if s.depth == 1]
+    assert "artículo 2, letra a" in locators
+    assert "artículo 2, letra b" in locators
+    assert "artículo 2, letra d" in locators
+
+
+def test_sub_segments_parent_locator():
+    segs = segment_text(_ARTICLE_WITH_LETTERS, source_type="law")
+    sub = [s for s in segs if s.depth == 1]
+    assert all(s.parent_locator == "artículo 2" for s in sub)
+
+
+def test_sub_segments_depth_zero_for_articles():
+    segs = segment_text(_ARTICLE_WITH_LETTERS, source_type="law")
+    top = [s for s in segs if s.depth == 0]
+    assert all(s.segment_type == "article" for s in top)
+
+
+def test_sub_segments_depth_one_for_incisos():
+    segs = segment_text(_ARTICLE_WITH_LETTERS, source_type="law")
+    sub = [s for s in segs if s.depth == 1]
+    assert all(s.segment_type == "inciso" for s in sub)
+
+
+def test_sub_segments_order_index_sequential_across_all():
+    segs = segment_text(_ARTICLE_WITH_LETTERS, source_type="law")
+    indices = [s.order_index for s in segs]
+    assert indices == list(range(len(segs)))
+
+
+def test_no_sub_segments_without_list():
+    text = "Artículo 1. Objeto.\nTexto sin lista de incisos."
+    segs = segment_text(text, source_type="law")
+    assert all(s.depth == 0 for s in segs)
+
+
+def test_sub_segments_with_n_notation():
+    text = """Artículo 3. Requisitos.
+Son requisitos del sistema:
+
+N° 1. Disponibilidad permanente.
+N° 2. Integridad de los datos.
+N° 3. Confidencialidad garantizada.
+"""
+    segs = segment_text(text, source_type="law")
+    sub = [s for s in segs if s.depth == 1]
+    assert len(sub) == 3
+    assert any("n° 1" in s.locator for s in sub)
+
+
+def test_sub_segments_contract_letter_incisos():
+    text = """Cláusula segunda. Obligaciones del prestador.
+El prestador se obliga a:
+
+a) Desarrollar la plataforma conforme a especificaciones.
+b) Proveer soporte técnico durante horario laboral.
+c) Mantener confidencialidad de los datos.
+"""
+    segs = segment_text(text, source_type="contract")
+    sub = [s for s in segs if s.depth == 1]
+    assert len(sub) == 3
+    locators = [s.locator for s in sub]
+    assert "cláusula segunda, letra a" in locators
+
+
+def test_inciso_text_preserved():
+    segs = segment_text(_ARTICLE_WITH_LETTERS, source_type="law")
+    letra_a = next(s for s in segs if s.locator == "artículo 2, letra a")
+    assert "Certificado" in letra_a.text

@@ -29,26 +29,31 @@ def ingest_source(
     file_path: str,
     metadata_path: Optional[str] = None,
     db_path: Optional[str] = None,
+    force: bool = False,
 ) -> dict:
     """
     Ingest a file into the kernel.
 
-    Returns: {"source_id": int, "title": str, "segments": int}
+    Returns: {"source_id": int, "title": str, "segments": int, "sub_segments": int}
+    Raises DuplicateSourceError if the file was already ingested (unless force=True).
     """
     _db = Path(db_path) if db_path else get_db_path()
     source_id = _ingest(
         file_path=Path(file_path),
         metadata_path=Path(metadata_path) if metadata_path else None,
         db_path=_db,
+        force=force,
     )
     with get_db(_db) as conn:
         from .db import get_source, list_segments_for_source
         src = get_source(conn, source_id)
         segs = list_segments_for_source(conn, source_id)
+    top = sum(1 for s in segs if s.get("depth", 0) == 0)
     return {
         "source_id": source_id,
         "title": src["title"] if src else "?",
-        "segments": len(segs),
+        "segments": top,
+        "sub_segments": len(segs) - top,
     }
 
 
