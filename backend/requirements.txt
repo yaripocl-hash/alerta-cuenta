@@ -13,3 +13,5 @@ ruff==0.8.4
 email-validator
 aiofiles==24.1.0
 fastmcp>=2.0
+# Transcripción de audio local (requiere ffmpeg instalado en el sistema)
+openai-whisper>=20231117

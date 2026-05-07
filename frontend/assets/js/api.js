@@ -44,6 +44,18 @@ const api = {
     return res.json();
   },
 
+  transcribeAudio: async (blob, mimeType) => {
+    const ext = mimeType.includes('mp4') ? 'mp4' : mimeType.includes('ogg') ? 'ogg' : 'webm';
+    const form = new FormData();
+    form.append('audio', blob, `recording.${ext}`);
+    const res = await fetch(`${API_BASE}/ai/transcribe`, { method: 'POST', body: form });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.detail || `Error ${res.status}`);
+    }
+    return res.json();
+  },
+
   createCase: (data) => api.post('/cases/', data),
   lookupCase: (data) => api.post('/tracking/lookup', data),
   getCase: (trackingCode) => api.get(`/cases/${trackingCode}`),

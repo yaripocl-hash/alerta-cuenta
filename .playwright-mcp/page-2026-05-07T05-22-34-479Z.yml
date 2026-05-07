@@ -1,0 +1,65 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "Alerta Cuenta" [ref=e4] [cursor=pointer]:
+        - /url: index.html
+        - img "Alerta Cuenta" [ref=e5]
+      - link "Inicio" [ref=e6] [cursor=pointer]:
+        - /url: index.html
+  - main [ref=e7]:
+    - generic [ref=e8]:
+      - heading "Registrar mi caso" [level=1] [ref=e9]
+      - paragraph [ref=e10]: Responde las preguntas del formulario. Puedes tomarte el tiempo que necesites.
+      - navigation "Pasos del formulario" [ref=e11]:
+        - generic [ref=e13]: Qué pasó
+        - generic [ref=e15]: Cuándo y cuánto
+        - generic [ref=e17]: Contacto
+        - generic [ref=e19]: Confirmar
+      - generic [ref=e21]:
+        - heading "¿Qué fue lo que pasó?" [level=2] [ref=e22]
+        - generic [ref=e23]: Cuéntanos con tus propias palabras. No necesitas usar términos técnicos. Mientras más detalles, mejor podemos ayudarte.
+        - generic [ref=e24]:
+          - generic [ref=e25]: Descripción del fraude *
+          - textbox "Descripción del fraude" [ref=e26]:
+            - /placeholder: "Ejemplo: Recibí un SMS que parecía de mi banco diciéndome que mi cuenta tenía un problema. Hice clic en el link y puse mi clave. Después me llegó una transferencia que yo no hice..."
+          - generic [ref=e27]: Mínimo 20 caracteres. También puedes grabar tu voz y lo transcribiremos.
+          - generic [ref=e50]:
+            - paragraph [ref=e51]: Antes de grabar
+            - generic [ref=e52] [cursor=pointer]:
+              - checkbox "Acepto grabar mi voz para transcribir mi relato. El audio es procesado en el servidor y no se almacena ni comparte." [checked] [active] [ref=e53]
+              - generic [ref=e54]:
+                - text: Acepto grabar mi voz para transcribir mi relato. El audio es procesado en el servidor y
+                - strong [ref=e55]: no se almacena ni comparte
+                - text: .
+            - generic [ref=e56]:
+              - button "Cancelar" [ref=e57] [cursor=pointer]
+              - button "Iniciar grabación" [ref=e58] [cursor=pointer]
+        - generic [ref=e33]:
+          - generic [ref=e34]: ¿Sabes qué tipo de fraude fue?
+          - combobox "¿Sabes qué tipo de fraude fue?" [ref=e35]:
+            - option "No estoy seguro (Claude lo clasificará)" [selected]
+            - option "Phishing (correo o sitio web falso)"
+            - option "Vishing (llamada telefónica falsa)"
+            - option "Smishing (SMS con link malicioso)"
+            - option "Suplantación por WhatsApp"
+            - option "Transferencia engañosa"
+            - option "Compra online falsa"
+            - option "Acceso no autorizado a mi cuenta"
+            - option "Otro"
+        - button "Continuar" [ref=e37] [cursor=pointer]
+  - contentinfo [ref=e38]:
+    - generic [ref=e39]:
+      - generic [ref=e40]:
+        - generic [ref=e41]:
+          - img "Alerta Cuenta" [ref=e42]
+          - paragraph [ref=e43]: "Tu guía ciudadana ante el fraude financiero: orientación gratuita, clara y respaldada en cada paso."
+        - paragraph [ref=e44]: © 2024 Alerta Cuenta.
+      - navigation "Legal" [ref=e45]:
+        - link "Centro de Confianza" [ref=e46] [cursor=pointer]:
+          - /url: trust-center.html
+        - link "Privacidad" [ref=e47] [cursor=pointer]:
+          - /url: trust-center.html#tab-privacidad
+        - link "Seguridad" [ref=e48] [cursor=pointer]:
+          - /url: trust-center.html#tab-seguridad
+        - link "Términos de uso" [ref=e49] [cursor=pointer]:
+          - /url: trust-center.html#tab-terminos

@@ -32,6 +32,10 @@ class Settings(BaseSettings):
 
     log_level: str = "INFO"
 
+    # Modelo de Whisper local: tiny | base | small | medium
+    # "base" (~74 MB) es el mejor balance para demo
+    whisper_model: str = "base"
+
     @property
     def cors_origins_list(self) -> list[str]:
         return [o.strip() for o in self.cors_origins.split(",")]
