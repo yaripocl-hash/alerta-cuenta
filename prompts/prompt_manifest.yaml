@@ -1,4 +1,8 @@
 agents:
+  fraud_guidance:
+    active_version: v2
+    description: Evalúa el relato y genera orientación estructurada para el expediente
+
   fraud_classifier:
     active_version: v1
     description: Clasifica el tipo de fraude según el relato del usuario

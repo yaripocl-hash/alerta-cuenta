@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AlertaCuenta — Tu defensa ante el fraude financiero</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --surface:#f7f9fb;
+    --surface-container-lowest:#ffffff;
+    --surface-container-low:#f2f4f6;
+    --surface-container:#eceef0;
+    --on-surface:#191c1e;
+    --on-surface-variant:#434651;
+    --inverse-surface:#2d3133;
+    --inverse-on-surface:#eff1f3;
+    --outline:#747782;
+    --outline-variant:#c4c6d2;
+    --primary:#0C2340;
+    --primary-strong:#0C2340;
+    --on-primary:#ffffff;
+    --primary-fixed:#d9e2ff;
+    --secondary:#efc941;
+    --secondary-deep:#735d00;
+    --error:#ba1a1a;
+  }
+
+  *,*::before,*::after{ box-sizing:border-box; }
+  html{
+    scroll-behavior:smooth;
+    scroll-snap-type:y mandatory;
+    height:100%;
+    overflow-y:scroll;
+  }
+  body{
+    margin:0;
+    font-family:'Public Sans', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    font-size:20px;
+    line-height:1.6;
+    color:var(--on-surface);
+    background:var(--surface);
+    -webkit-font-smoothing:antialiased;
+    height:100%;
+  }
+  /* Full-page scroll-snap: each section snaps to the viewport */
+  main#main > section,
+  .hero,
+  footer.site{
+    scroll-snap-align:start;
+    scroll-snap-stop:always;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+  footer.site{ min-height:auto; }
+  @media (max-width:860px){
+    html{ scroll-snap-type:none; }
+    main#main > section,
+    .hero{ min-height:auto; display:block; }
+  }
+  img{ max-width:100%; display:block; }
+  a{ color:var(--primary-strong); text-decoration:none; }
+  a:hover{ text-decoration:underline; }
+
+  .container{
+    max-width:1280px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+  @media (max-width:720px){ .container{ padding:0 24px; } }
+
+  /* --- Header --- */
+  header.site{
+    position:sticky; top:0; z-index:50;
+    background:#ffffff;
+    color:var(--on-surface);
+    border-bottom:2px solid var(--outline-variant);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 0;
+    gap:24px;
+  }
+  .brand{
+    display:flex; align-items:center; gap:12px;
+    font-weight:700; font-size:22px; letter-spacing:-0.01em;
+    color:var(--primary);
+  }
+  .brand .logo{
+    width:40px; height:40px; border-radius:10px;
+    background:var(--primary);
+    display:grid; place-items:center;
+    color:#ffffff; font-weight:700;
+  }
+  .nav ul{
+    list-style:none; padding:0; margin:0;
+    display:flex; gap:8px; flex-wrap:wrap;
+  }
+  .nav a.navlink{
+    color:var(--primary);
+    padding:12px 16px;
+    border-radius:8px;
+    font-size:18px; font-weight:600;
+    min-height:44px; display:inline-flex; align-items:center;
+  }
+  .nav a.navlink:hover{ background:var(--primary-fixed); text-decoration:none; }
+  .nav a.cta{
+    background:var(--secondary);
+    color:#231b00;
+    padding:14px 22px;
+    border-radius:10px;
+    font-weight:700;
+  }
+  .nav a.cta:hover{ background:#fed74e; text-decoration:none; }
+
+  @media (max-width:860px){
+    .nav ul.menu{ display:none; }
+  }
+
+  /* --- Hero --- */
+  .hero{
+    background:
+      radial-gradient(1100px 600px at 95% -10%, var(--primary-fixed) 0%, transparent 60%),
+      #ffffff;
+    color:var(--on-surface);
+    padding:96px 0 112px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero .container{ text-align:center; }
+  .hero h1{
+    font-size:clamp(36px, 5.2vw, 60px);
+    line-height:1.1; letter-spacing:-0.02em;
+    font-weight:700;
+    margin:0 auto 20px;
+    max-width:18ch;
+    color:var(--primary);
+  }
+  .hero .tagline{
+    font-size:clamp(20px, 2.4vw, 26px);
+    color:var(--on-surface-variant);
+    max-width:52ch;
+    margin:0 auto 40px;
+    line-height:1.5;
+  }
+  .hero .actions{
+    display:flex; flex-direction:column;
+    gap:20px; align-items:center;
+  }
+  .hero .hero-badges{ justify-content:center; }
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center;
+    min-height:56px; padding:14px 28px;
+    border-radius:12px;
+    font-weight:700; font-size:18px;
+    letter-spacing:0.02em;
+    border:2px solid transparent;
+    cursor:pointer;
+    transition:transform .1s ease, background .15s ease, color .15s ease;
+  }
+  .btn:hover{ text-decoration:none; }
+  .btn-primary{
+    background:var(--secondary);
+    color:#231b00;
+    border-color:var(--secondary);
+  }
+  .btn-primary:hover{ background:#fed74e; }
+  .btn-outline{
+    background:transparent; color:var(--primary);
+    border-color:var(--primary);
+  }
+  .btn-outline:hover{ background:var(--primary-fixed); }
+
+  /* --- Countdown widget (informational, not a button) --- */
+  .countdown-widget{
+    display:inline-flex;
+    flex-direction:column;
+    align-items:center;
+    gap:12px;
+    padding:0;
+    background:transparent;
+  }
+  .cd-eyebrow{
+    display:inline-flex; align-items:center; gap:10px;
+    font-size:13px; font-weight:700;
+    letter-spacing:0.18em; text-transform:uppercase;
+    color:var(--primary);
+  }
+  .cd-dot{
+    width:10px; height:10px; border-radius:9999px;
+    background:var(--secondary);
+    box-shadow:0 0 0 0 rgba(239,201,65,0.7);
+    animation:cd-pulse 1.6s ease-out infinite;
+  }
+  @keyframes cd-pulse{
+    0%   { box-shadow:0 0 0 0 rgba(239,201,65,0.7); }
+    70%  { box-shadow:0 0 0 12px rgba(239,201,65,0); }
+    100% { box-shadow:0 0 0 0 rgba(239,201,65,0); }
+  }
+  .cd-units{
+    display:flex; align-items:flex-end; gap:10px;
+    font-variant-numeric:tabular-nums;
+  }
+  .cd-units .cu{
+    display:inline-flex; flex-direction:column; align-items:center;
+    min-width:72px;
+  }
+  .cd-units .cu > span{
+    font-size:56px; font-weight:700;
+    line-height:1;
+    color:var(--primary);
+    letter-spacing:-0.02em;
+  }
+  .cd-units .cu small{
+    margin-top:6px;
+    font-size:12px; font-weight:700;
+    letter-spacing:0.16em; text-transform:uppercase;
+    color:var(--on-surface-variant);
+  }
+  .cu-sep{
+    font-size:40px; font-weight:700;
+    color:var(--outline-variant);
+    line-height:1;
+    padding-bottom:22px;
+  }
+  .cd-hint{
+    font-size:13px; font-weight:600;
+    letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--on-surface-variant);
+  }
+
+  /* --- Visit link (below countdown) --- */
+  .visit-link{
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:18px; font-weight:700;
+    letter-spacing:0.04em;
+    color:var(--outline);
+    text-decoration:none;
+    padding:10px 4px;
+    border-bottom:2px dashed var(--outline-variant);
+    transition:color .2s ease, border-color .2s ease, transform .2s ease;
+  }
+  .visit-link .visit-arrow{
+    display:inline-block;
+    transition:transform .2s ease;
+  }
+  .visit-link.is-disabled{
+    cursor:not-allowed;
+    pointer-events:none;
+    opacity:.55;
+  }
+  .visit-link.is-enabled{
+    color:var(--primary);
+    border-bottom-color:var(--primary);
+    border-bottom-style:solid;
+    opacity:1;
+    cursor:pointer;
+    pointer-events:auto;
+  }
+  .visit-link.is-enabled:hover{
+    color:var(--primary-strong);
+    text-decoration:none;
+  }
+  .visit-link.is-enabled:hover .visit-arrow{ transform:translateX(4px); }
+
+  @media (max-width:560px){
+    .cd-units .cu > span{ font-size:40px; }
+    .cd-units .cu{ min-width:52px; }
+    .cu-sep{ font-size:30px; padding-bottom:16px; }
+  }
+
+  .hero-badges{
+    margin-top:48px;
+    display:flex; gap:12px; flex-wrap:wrap;
+  }
+  .badge{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:8px 14px; border-radius:9999px;
+    background:var(--primary-fixed);
+    border:1px solid var(--outline-variant);
+    color:var(--primary);
+    font-size:15px; font-weight:600;
+  }
+
+  /* --- Sections --- */
+  section{ padding:80px 0; }
+  section.alt{ background:var(--surface-container-low); }
+  .eyebrow{
+    display:inline-block;
+    font-size:14px; font-weight:700; letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--primary-strong);
+    background:var(--primary-fixed);
+    padding:6px 12px; border-radius:9999px;
+    margin-bottom:16px;
+  }
+  h2.section-title{
+    font-size:clamp(28px, 3.6vw, 40px);
+    font-weight:700; letter-spacing:-0.01em;
+    line-height:1.2;
+    margin:0 0 20px;
+    color:var(--primary);
+  }
+  .lead{
+    font-size:22px; line-height:1.6;
+    color:var(--on-surface-variant);
+    max-width:62ch;
+    margin:0 0 40px;
+  }
+
+  /* --- Conócenos --- */
+  .grid-2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:32px;
+  }
+  @media (max-width:860px){ .grid-2{ grid-template-columns:1fr; } }
+  .card{
+    background:var(--surface-container-lowest);
+    border:2px solid var(--outline-variant);
+    border-radius:16px;
+    padding:32px;
+  }
+  .card h3{
+    margin:0 0 12px;
+    color:var(--primary);
+    font-size:24px; font-weight:600;
+  }
+
+  /* --- Equipo --- */
+  .team-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:24px;
+  }
+  @media (max-width:1024px){ .team-grid{ grid-template-columns:repeat(2, 1fr); } }
+  @media (max-width:560px){ .team-grid{ grid-template-columns:1fr; } }
+
+  .team-card{
+    background:var(--surface-container-lowest);
+    border:2px solid var(--outline-variant);
+    border-radius:20px;
+    padding:24px;
+    display:flex; flex-direction:column;
+    transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+  }
+  .team-card:hover{
+    border-color:var(--primary-strong);
+    transform:translateY(-2px);
+    box-shadow:0 8px 24px rgba(0, 44, 107, 0.08);
+  }
+  .team-card .photo{
+    width:100%; aspect-ratio:1/1;
+    border-radius:16px;
+    overflow:hidden;
+    background:var(--surface-container);
+    margin-bottom:20px;
+    border:2px solid var(--outline-variant);
+  }
+  .team-card .photo img{ width:100%; height:100%; object-fit:cover; }
+  .team-card h4{
+    margin:0 0 4px;
+    font-size:20px; font-weight:700;
+    color:var(--primary);
+  }
+  .team-card .role{
+    font-size:15px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--secondary-deep);
+    margin-bottom:12px;
+  }
+  .team-card p.bio{
+    font-size:16px; line-height:1.55;
+    color:var(--on-surface-variant);
+    margin:0 0 16px;
+    flex:1;
+  }
+  .team-card a.linkedin{
+    display:inline-flex; align-items:center; gap:8px;
+    min-height:44px; padding:10px 14px;
+    border-radius:10px;
+    background:var(--primary-fixed);
+    color:var(--primary);
+    font-weight:700; font-size:15px;
+    align-self:flex-start;
+  }
+  .team-card a.linkedin:hover{ background:#afc6ff; text-decoration:none; }
+
+  /* --- Problema --- */
+  .stats{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:24px;
+    margin-bottom:40px;
+  }
+  @media (max-width:860px){ .stats{ grid-template-columns:1fr; } }
+  .stat{
+    background:var(--surface-container-lowest);
+    border:2px solid var(--outline-variant);
+    border-left:8px solid var(--secondary);
+    border-radius:16px;
+    padding:28px;
+  }
+  .stat .num{
+    font-size:48px; font-weight:700; line-height:1;
+    color:var(--primary);
+    letter-spacing:-0.02em;
+    margin-bottom:8px;
+  }
+  .stat .label{
+    font-size:17px; color:var(--on-surface-variant);
+    line-height:1.5;
+  }
+
+  /* --- Solución --- */
+  .moments{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:24px;
+  }
+  @media (max-width:860px){ .moments{ grid-template-columns:1fr; } }
+  .moment{
+    background:var(--surface-container-lowest);
+    border:2px solid var(--outline-variant);
+    border-radius:20px;
+    padding:32px;
+    position:relative;
+  }
+  .moment .step{
+    width:48px; height:48px;
+    border-radius:9999px;
+    background:var(--primary);
+    color:var(--on-primary);
+    display:grid; place-items:center;
+    font-weight:700; font-size:20px;
+    margin-bottom:20px;
+  }
+  .moment h3{
+    margin:0 0 8px;
+    color:var(--primary);
+    font-size:22px;
+  }
+  .moment .when{
+    display:inline-block;
+    font-size:13px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--secondary-deep);
+    margin-bottom:12px;
+  }
+  .moment p{ margin:0; color:var(--on-surface-variant); font-size:18px; line-height:1.6; }
+
+  .b2b2c{
+    margin-top:32px;
+    background:var(--primary);
+    color:var(--on-primary);
+    border-radius:20px;
+    padding:32px;
+    font-size:19px; line-height:1.6;
+  }
+  .b2b2c strong{ color:var(--secondary); }
+
+  /* --- Impacto --- */
+  .impact-list{
+    list-style:none; padding:0; margin:0;
+    display:grid; gap:16px;
+  }
+  .impact-list li{
+    background:var(--surface-container-lowest);
+    border:2px solid var(--outline-variant);
+    border-left:8px solid var(--primary);
+    border-radius:12px;
+    padding:24px 28px;
+    font-size:19px;
+    color:var(--on-surface);
+  }
+
+  /* --- Contacto --- */
+  form.contact{
+    background:var(--surface-container-lowest);
+    border:2px solid var(--outline-variant);
+    border-radius:20px;
+    padding:32px;
+    display:grid; gap:20px;
+    max-width:680px;
+  }
+  .field label{
+    display:block;
+    font-size:18px; font-weight:600;
+    margin-bottom:8px;
+    color:var(--on-surface);
+  }
+  .field input, .field textarea{
+    width:100%;
+    min-height:60px;
+    padding:14px 16px;
+    border:2px solid var(--outline-variant);
+    border-radius:10px;
+    font:inherit;
+    font-size:18px;
+    background:var(--surface);
+    color:var(--on-surface);
+  }
+  .field textarea{ min-height:140px; resize:vertical; }
+  .field input:focus, .field textarea:focus{
+    outline:4px solid var(--secondary);
+    outline-offset:2px;
+    border-color:var(--primary);
+  }
+  .field .help{
+    font-size:15px; color:var(--on-surface-variant); margin-top:6px;
+  }
+
+  /* --- Footer --- */
+  footer.site{
+    background:var(--inverse-surface);
+    color:var(--inverse-on-surface);
+    padding:48px 0 32px;
+    margin-top:48px;
+  }
+  footer.site .row{
+    display:flex; justify-content:space-between; gap:24px; flex-wrap:wrap;
+    align-items:center;
+  }
+  footer.site small{ color:#c4c6d2; font-size:15px; }
+  footer.site .brand{ color:#fff; }
+
+  /* skip link */
+  .skip{
+    position:absolute; left:-9999px; top:0;
+    background:var(--secondary); color:#231b00;
+    padding:12px 16px; font-weight:700; border-radius:0 0 8px 0;
+    z-index:100;
+  }
+  .skip:focus{ left:0; }
+</style>
+</head>
+<body>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero" id="home" aria-labelledby="hero-title">
+    <div class="container">
+      <h1 id="hero-title">Tu defensa ante el fraude financiero, en menos de 3 minutos.</h1>
+      <p class="tagline">AlertaCuenta es una plataforma de emergencia y defensa ciudadana que protege a las personas frente al fraude financiero digital — antes, durante y después.</p>
+      <div class="actions">
+        <div id="countdown-widget" class="countdown-widget is-locked">
+          <span class="cd-eyebrow">
+            <span class="cd-dot" aria-hidden="true"></span>
+            Lanzamiento en
+          </span>
+          <span class="cd-units" role="timer" aria-live="polite">
+            <span class="cu"><span id="cd-days">00</span><small>días</small></span>
+            <span class="cu-sep" aria-hidden="true">:</span>
+            <span class="cu"><span id="cd-hours">00</span><small>horas</small></span>
+            <span class="cu-sep" aria-hidden="true">:</span>
+            <span class="cu"><span id="cd-mins">00</span><small>min</small></span>
+            <span class="cu-sep" aria-hidden="true">:</span>
+            <span class="cu"><span id="cd-secs">00</span><small>seg</small></span>
+          </span>
+          <span class="cd-hint">7 de mayo · 12:00 PM</span>
+        </div>
+        <a id="visit-link"
+           class="visit-link is-enabled"
+           href="https://alerta-cuenta-production.up.railway.app/"
+           target="_blank"
+           rel="noopener"
+           aria-disabled="false">
+          Visitar AlertaCuenta.cl <span class="visit-arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+      <div class="hero-badges" aria-label="Distinciones">
+        <span class="badge">Claude Impact Lab Chile 2026</span>
+        <span class="badge">Equipo Yaripo</span>
+        <span class="badge">Fintech Forum Chile</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEMA -->
+  <section id="problema" aria-labelledby="problema-title">
+    <div class="container">
+      <span class="eyebrow">El problema</span>
+      <h2 class="section-title" id="problema-title">Urgente y estructural</h2>
+      <p class="lead">Según la Agenda Antifraudes del SERNAC (julio 2025), tras la modificación de la Ley N° 21.673 en mayo de 2024, los reclamos por fraude financiero subieron — pero la tasa de reclamos acogidos se desplomó. Las víctimas no pierden porque mientan, sino porque no saben cómo armar su defensa.</p>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="num">51% → 7%</div>
+          <div class="label">Caída en la tasa de reclamos acogidos por fraude financiero tras la Ley N° 21.673.</div>
+        </div>
+        <div class="stat">
+          <div class="num">+109%</div>
+          <div class="label">Aumento de reclamos por fraude financiero en el mismo período.</div>
+        </div>
+        <div class="stat">
+          <div class="num">5×</div>
+          <div class="label">El adulto mayor pierde, en promedio, cinco veces más dinero que un joven por estafa exitosa.</div>
+        </div>
+      </div>
+
+      <p class="lead">El costo no es solo financiero: el fraude genera aislamiento digital, culpa y pérdida de autonomía. Cuando el sistema responde con un 7% de reclamos acogidos, el mensaje implícito es claro — defenderse es inútil. <strong>AlertaCuenta existe para cambiar eso.</strong></p>
+    </div>
+  </section>
+
+  <!-- SOLUCIÓN -->
+  <section class="alt" id="solucion" aria-labelledby="solucion-title">
+    <div class="container">
+      <span class="eyebrow">La solución</span>
+      <h2 class="section-title" id="solucion-title">Actuamos en los tres momentos críticos del fraude</h2>
+      <p class="lead">AlertaCuenta acompaña a la víctima paso a paso con IA generativa en tiempo real — antes de que ocurra el fraude, durante el intento, y después de consumado.</p>
+
+      <div class="moments">
+        <article class="moment">
+          <div class="step" aria-hidden="true">1</div>
+          <span class="when">Antes</span>
+          <h3>Sospecha de fraude</h3>
+          <p>Detecta correos, SMS o llamadas sospechosas antes de que la víctima haga clic o entregue datos.</p>
+        </article>
+        <article class="moment">
+          <div class="step" aria-hidden="true">2</div>
+          <span class="when">Durante</span>
+          <h3>Llamada en tiempo real</h3>
+          <p>Alerta al usuario si detecta patrones de vishing durante una llamada activa, permitiendo cortar el contacto a tiempo.</p>
+        </article>
+        <article class="moment">
+          <div class="step" aria-hidden="true">3</div>
+          <span class="when">Después</span>
+          <h3>Víctima consumada</h3>
+          <p>Guía paso a paso: recopila evidencia, reconstruye el timeline y genera automáticamente los documentos legales para reclamar ante banco, SERNAC, PDI o CSIRT.</p>
+        </article>
+      </div>
+
+      <div class="b2b2c">
+        Operamos bajo un modelo <strong>B2B2C</strong>, integrándonos en los canales de bancos, cajas de compensación, cooperativas de ahorro y crédito, emisoras de tarjetas prepago y fintechs — las instituciones en las que el adulto mayor ya confía.
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPACTO -->
+  <section id="impacto" aria-labelledby="impacto-title">
+    <div class="container">
+      <span class="eyebrow">Impacto cívico</span>
+      <h2 class="section-title" id="impacto-title">Un sistema de antifraude social</h2>
+      <p class="lead">AlertaCuenta no es solo una herramienta técnica — convierte el dolor de cada víctima en prevención para toda la comunidad.</p>
+      <ul class="impact-list">
+        <li>Reducir las <strong>72 horas</strong> promedio de detección de fraude a cero.</li>
+        <li>Devolver al adulto mayor su <strong>autonomía, su dinero y su dignidad</strong>.</li>
+        <li>Transformar el dolor de cada víctima en <strong>datos de prevención</strong> para toda la comunidad.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONÓCENOS -->
+  <section id="conocenos" aria-labelledby="conocenos-title">
+    <div class="container">
+      <span class="eyebrow">Conócenos</span>
+      <h2 class="section-title" id="conocenos-title">Quiénes somos</h2>
+      <p class="lead">AlertaCuenta es una plataforma de emergencia y defensa ciudadana diseñada para proteger a adultos mayores de 60 a 80 años frente al fraude financiero digital en Chile. Actuamos en los tres momentos críticos del ciclo del fraude — antes, durante y después — guiando a la víctima paso a paso mediante inteligencia artificial generativa en tiempo real.</p>
+      <p class="lead">Nacimos en el <strong>Claude Impact Lab Chile 2026</strong>, el primer hackathon de impacto cívico fintech en Latinoamérica, convocado por Anthropic en el contexto del Fintech Forum Chile. Somos el equipo Yaripo: cuatro profesionales que combinamos expertise en IA, derecho, tecnología, producto y experiencia de cliente, unidos por la convicción de que la tecnología debe proteger a quienes más lo necesitan.</p>
+
+      <div class="grid-2" style="margin-top:24px;">
+        <article class="card">
+          <h3>Misión</h3>
+          <p>Transformar el ecosistema financiero en un entorno radicalmente más seguro para los adultos mayores, poniendo la inteligencia artificial al servicio de quienes menos herramientas tienen para defenderse.</p>
+        </article>
+        <article class="card">
+          <h3>Visión</h3>
+          <p>Ser el estándar de protección ciudadana ante el fraude financiero digital en Chile y América Latina, construyendo un sistema de antifraude social donde el dolor de cada víctima se convierte en datos de prevención para toda la comunidad.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPO -->
+  <section class="alt" id="equipo" aria-labelledby="equipo-title">
+    <div class="container">
+      <span class="eyebrow">Nuestro equipo</span>
+      <h2 class="section-title" id="equipo-title">Quienes están detrás de AlertaCuenta</h2>
+      <p class="lead">Cuatro profesionales que combinan datos, IA, derecho, producto y comunicación — unidos por la convicción de que la tecnología debe proteger a quienes más lo necesitan.</p>
+
+      <div class="team-grid">
+
+        <article class="team-card">
+          <div class="photo"><img src="https://vqenacwaqmquwnrvykmb.supabase.co/storage/v1/object/public/cuenta-alerta/andres-parra.png" alt="Retrato de Andrés Parra Carrillo"></div>
+          <h4>Andrés Parra Carrillo</h4>
+          <div class="role">Líder · Data &amp; IA</div>
+          <p class="bio">Founder &amp; CEO de Yaripo.cl. Ing. en Computación (UCV), MBA Candidate (U. Chile). Construyó su carrera en datos en cinco países; consultor BID a los 24, con proyectos en PDVSA, Walmart y Falabella. En BCI lideró la transformación del ecosistema de datos corporativo durante 7 años.</p>
+           <a class="linkedin" href="https://yaripo.cl" target="_blank" rel="noopener">yaripo.cl ↗</a>
+		   <a class="linkedin" href="https://www.linkedin.com/in/andresparracarrillo/" style="margin-top:8px;" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </article>
+
+        <article class="team-card">
+          <div class="photo"><img src="https://vqenacwaqmquwnrvykmb.supabase.co/storage/v1/object/public/cuenta-alerta/carola-acevedo.jpg" alt="Retrato de Carola Acevedo"></div>
+          <h4>Carola Acevedo</h4>
+          <div class="role">Comercial &amp; Producto</div>
+          <p class="bio">Ingeniera Industrial, MBA Candidate (U. Chile). 13 años en Los Héroes liderando transformación digital: creó el canal de venta remota y la Tarjeta Prepago (50% de las ventas del segmento). Cuadruplicó ventas PYME, redujo tiempos de atención en 75% y alcanzó 87% de satisfacción digital. Reconocida por la ONU bajo los ODS.</p>
+          <a class="linkedin" href="https://www.linkedin.com/in/carola-acevedo-iturra" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </article>
+
+        <article class="team-card">
+          <div class="photo"><img src="https://vqenacwaqmquwnrvykmb.supabase.co/storage/v1/object/public/cuenta-alerta/felipe-aedo.jpg" alt="Retrato de Felipe Aedo Orellana"></div>
+          <h4>Felipe Aedo Orellana</h4>
+          <div class="role">Legal · Legaltech</div>
+          <p class="bio">Director de Estudio Jurídico. Abogado especializado en Derecho Comercial y Legaltech, enfocado en la gestión preventiva de controversias contractuales en proyectos mineros y de infraestructura mediante pensamiento sistémico y herramientas tecnológicas.</p>
+          <a class="linkedin" href="https://www.linkedin.com/in/felipe-aedo-orellana-a2b080234/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </article>
+
+        <article class="team-card">
+          <div class="photo"><img src="https://vqenacwaqmquwnrvykmb.supabase.co/storage/v1/object/public/cuenta-alerta/diego-alvarez.jpg" alt="Retrato de Diego Álvarez Arancibia"></div>
+          <h4>Diego Álvarez Arancibia</h4>
+          <div class="role">Tecnología &amp; Automatización</div>
+          <p class="bio">Periodista con Diplomado en Periodismo de Investigación CIPER-UDP. Investiga registros públicos y explora cómo la inteligencia artificial transforma el oficio. Perfil JournoTech del equipo.</p>
+          <a class="linkedin" href="https://www.linkedin.com/in/diegoalvarezarancibia/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+
+</main>
+
+<footer class="site">
+  <div class="container row">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">A</span>
+      <span>AlertaCuenta</span>
+    </div>
+    <small>© 2026 AlertaCuenta · Equipo Yaripo · Claude Impact Lab Chile</small>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var target = new Date(2026, 4, 7, 12, 0, 0).getTime();
+    var widget = document.getElementById('countdown-widget');
+    var visitLink = document.getElementById('visit-link');
+    var d = document.getElementById('cd-days'),
+        h = document.getElementById('cd-hours'),
+        m = document.getElementById('cd-mins'),
+        s = document.getElementById('cd-secs');
+    var interval = null;
+    function pad(n){ return n < 10 ? '0' + n : '' + n; }
+    function unlock(){
+      d.textContent='00'; h.textContent='00'; m.textContent='00'; s.textContent='00';
+      if (widget){
+        widget.classList.remove('is-locked');
+        widget.classList.add('is-live');
+      }
+      if (visitLink){
+        visitLink.classList.remove('is-disabled');
+        visitLink.classList.add('is-enabled');
+        visitLink.setAttribute('aria-disabled','false');
+        visitLink.removeAttribute('tabindex');
+      }
+      if (interval){ clearInterval(interval); interval = null; }
+    }
+    function tick(){
+      var diff = target - Date.now();
+      if (diff <= 0){ unlock(); return; }
+      var sec = Math.floor(diff/1000);
+      d.textContent = pad(Math.floor(sec/86400));
+      h.textContent = pad(Math.floor((sec%86400)/3600));
+      m.textContent = pad(Math.floor((sec%3600)/60));
+      s.textContent = pad(sec%60);
+    }
+    tick();
+    interval = setInterval(tick, 1000);
+  })();
+</script>
+</body>
+</html>

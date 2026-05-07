@@ -13,7 +13,7 @@ class FraudGuidanceAgent(BaseAgent):
     """
 
     agent_name = "fraud_guidance"
-    prompt_version = "v1"
+    prompt_version = "v2"
 
     async def run(self, description: str, context: dict = None) -> dict:
         user_content = json.dumps(

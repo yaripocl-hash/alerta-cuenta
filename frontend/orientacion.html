@@ -171,7 +171,7 @@
         </div>
         <div class="flex flex-col gap-stack-sm">
           <h3 class="text-inverse-on-surface mb-2" style="font-size:24px;line-height:36px;font-weight:500;">Acerca de nosotros</h3>
-          <a href="#" class="text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" style="font-size:20px;line-height:32px;">Para qué existimos</a>
+          <a href="nosotros.html" class="text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" style="font-size:20px;line-height:32px;">Para qué existimos</a>
         </div>
         <div class="flex flex-col gap-stack-sm">
           <h3 class="text-inverse-on-surface mb-2" style="font-size:24px;line-height:36px;font-weight:500;">Kit de Apoyo</h3>
@@ -247,13 +247,6 @@
     });
 
     // ── Análisis ─────────────────────────────────────────────────────────────
-    var ASSESSMENT_CONFIG = {
-      alta_sospecha:    { bg: '#fef2f2', border: '#b91c1c', color: '#b91c1c', icon: '🚨' },
-      posible_fraude:   { bg: '#fffbeb', border: '#b45309', color: '#b45309', icon: '⚠️' },
-      poca_evidencia:   { bg: '#e8f0fe', border: '#1a4fa0', color: '#1a4fa0', icon: 'ℹ️' },
-      no_parece_fraude: { bg: '#f0fdf4', border: '#1b7d4f', color: '#1b7d4f', icon: '✅' },
-    };
-
     function makeList(items) {
       var ul = document.createElement('ul');
       ul.style.cssText = 'padding-left:1.25rem;margin:0;display:flex;flex-direction:column;gap:.5rem;font-size:1rem;line-height:1.65;';
@@ -289,46 +282,27 @@
       var container = document.getElementById('result-container');
       while (container.firstChild) container.removeChild(container.firstChild);
 
-      var cfg = ASSESSMENT_CONFIG[output.assessment] || ASSESSMENT_CONFIG.poca_evidencia;
-
-      var chip = document.createElement('div');
-      chip.style.cssText = 'display:inline-flex;align-items:center;gap:.5rem;padding:.6rem 1.25rem;border-radius:999px;background:' + cfg.bg + ';border:2px solid ' + cfg.border + ';color:' + cfg.color + ';font-weight:700;font-size:1.1rem;margin-bottom:1.25rem;';
-      var chipIcon = document.createElement('span');
-      chipIcon.setAttribute('aria-hidden', 'true');
-      chipIcon.textContent = cfg.icon;
-      var chipLabel = document.createElement('span');
-      chipLabel.textContent = output.assessment_label || output.assessment;
-      chip.appendChild(chipIcon);
-      chip.appendChild(chipLabel);
-      container.appendChild(chip);
-
-      if (output.red_flags && output.red_flags.length) {
-        container.appendChild(makeSection('Señales de alerta detectadas', output.red_flags, '#fffbeb', '#b45309', '#78350f'));
-      }
-      if (output.immediate_actions && output.immediate_actions.length) {
-        container.appendChild(makeSection('Qué hacer AHORA', output.immediate_actions, '#fef2f2', '#b91c1c', '#7f1d1d'));
-      }
-      if (output.recommended_steps && output.recommended_steps.length) {
-        container.appendChild(makeSection('Próximos pasos', output.recommended_steps, '#f8fafc', '#1a4fa0', '#1a1a2e'));
+      if (output.summary) {
+        var summaryDiv = document.createElement('div');
+        summaryDiv.style.cssText = 'background:#e8f0fe;border-left:4px solid #1a4fa0;border-radius:8px;padding:1rem 1.25rem;margin-bottom:1rem;';
+        var summaryText = document.createElement('p');
+        summaryText.textContent = output.summary;
+        summaryText.style.cssText = 'font-size:1rem;line-height:1.65;color:#1a1a2e;margin:0;';
+        summaryDiv.appendChild(summaryText);
+        container.appendChild(summaryDiv);
       }
 
-      if (output.institutions && output.institutions.length) {
-        var instDiv = document.createElement('div');
-        instDiv.style.cssText = 'margin-bottom:1.25rem;';
-        var instLabel = document.createElement('p');
-        instLabel.textContent = 'Puedes contactar a:';
-        instLabel.style.cssText = 'font-weight:600;margin-bottom:.5rem;font-size:1rem;';
-        instDiv.appendChild(instLabel);
-        var tags = document.createElement('div');
-        tags.style.cssText = 'display:flex;flex-wrap:wrap;gap:.5rem;';
-        output.institutions.forEach(function (inst) {
-          var tag = document.createElement('span');
-          tag.textContent = inst;
-          tag.style.cssText = 'background:#e8f0fe;color:#1a4fa0;border:1px solid #bfdbfe;border-radius:999px;padding:.35rem 1rem;font-size:.95rem;font-weight:600;';
-          tags.appendChild(tag);
-        });
-        instDiv.appendChild(tags);
-        container.appendChild(instDiv);
+      if (output.key_facts && output.key_facts.length) {
+        container.appendChild(makeSection('Hechos relevantes del caso', output.key_facts, '#fffbeb', '#b45309', '#78350f'));
+      }
+      if (output.timeline && output.timeline.length) {
+        container.appendChild(makeSection('Línea de tiempo', output.timeline, '#f8fafc', '#1a4fa0', '#1a1a2e'));
+      }
+      if (output.recommended_actions && output.recommended_actions.length) {
+        container.appendChild(makeSection('Qué hacer ahora', output.recommended_actions, '#fef2f2', '#b91c1c', '#7f1d1d'));
+      }
+      if (output.missing_info && output.missing_info.length) {
+        container.appendChild(makeSection('Información que ayudaría a completar el expediente', output.missing_info, '#f0fdf4', '#1b7d4f', '#14532d'));
       }
 
       var ctaDiv = document.createElement('div');
@@ -336,7 +310,7 @@
 
       var btnFile = document.createElement('a');
       btnFile.href = 'denuncia.html';
-      btnFile.textContent = 'Iniciar expediente de denuncia →';
+      btnFile.textContent = 'Iniciar reporte de denuncia →';
       btnFile.className = 'btn btn-primary btn-lg focus-halo';
       btnFile.style.textDecoration = 'none';
       ctaDiv.appendChild(btnFile);
