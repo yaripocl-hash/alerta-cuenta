@@ -14,6 +14,16 @@ class FraudClassifierAgent(BaseAgent):
     agent_name = "fraud_classifier"
     prompt_version = "v2"
 
+    _PRE = (
+        "El usuario no necesariamente conoce el nombre técnico del fraude. "
+        "Clasifica basándote en los hechos descritos, no en las palabras que usó:"
+    )
+    _POST = (
+        "Si el relato no tiene suficiente información para clasificar con confianza 'high' o 'medium', "
+        "usa needs_clarification: true y formula una sola pregunta concreta en clarification_question. "
+        "Responde solo con JSON válido."
+    )
+
     async def run(self, description: str, context: dict) -> dict:
         user_content = json.dumps(
             {
@@ -23,4 +33,7 @@ class FraudClassifierAgent(BaseAgent):
             },
             ensure_ascii=False,
         )
-        return await run_agent(self.agent_name, user_content, self.prompt_version)
+        return await run_agent(
+            self.agent_name, user_content, self.prompt_version,
+            pre_prompt=self._PRE, post_prompt=self._POST,
+        )

@@ -14,6 +14,15 @@ class CaseSummaryAgent(BaseAgent):
     agent_name = "case_summary"
     prompt_version = "v1"
 
+    _PRE = (
+        "Los datos adicionales (fraud_type, incident_date, amount_affected, institution) "
+        "fueron ingresados por el usuario en el formulario — tratalos como hechos informados, no como inferencias:"
+    )
+    _POST = (
+        "El campo 'disclaimer' debe terminar siempre con la frase: 'No constituye asesoría legal.' "
+        "Responde solo con JSON válido."
+    )
+
     async def run(self, description: str, context: dict) -> dict:
         user_content = json.dumps(
             {
@@ -25,4 +34,7 @@ class CaseSummaryAgent(BaseAgent):
             },
             ensure_ascii=False,
         )
-        return await run_agent(self.agent_name, user_content, self.prompt_version)
+        return await run_agent(
+            self.agent_name, user_content, self.prompt_version,
+            pre_prompt=self._PRE, post_prompt=self._POST,
+        )

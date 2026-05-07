@@ -45,7 +45,13 @@ def _load_tool_for_agent(agent_name: str) -> Optional[dict]:
     return None
 
 
-async def run_agent(agent_name: str, user_content: str, version: str = "v1") -> dict:
+async def run_agent(
+    agent_name: str,
+    user_content: str,
+    version: str = "v1",
+    pre_prompt: str = "",
+    post_prompt: str = "",
+) -> dict:
     """Ejecuta un agente Claude con el prompt versionado correspondiente.
 
     Usa tool_use si el agente tiene tool definida en tools.json,
@@ -56,12 +62,15 @@ async def run_agent(agent_name: str, user_content: str, version: str = "v1") -> 
     system_prompt = _extract_system_prompt(markdown)
     tool = _load_tool_for_agent(agent_name)
 
+    parts = [p for p in [pre_prompt, user_content, post_prompt] if p]
+    full_content = "\n\n".join(parts)
+
     if tool:
-        result = await call_claude(system_prompt, user_content, tools=[tool])
+        result = await call_claude(system_prompt, full_content, tools=[tool])
         if isinstance(result, dict):
             return result
         # Fallback: call_claude retornó texto (no debería ocurrir con tool_choice=any)
         return json.loads(_extract_json(result))
 
-    raw = await call_claude(system_prompt, user_content)
+    raw = await call_claude(system_prompt, full_content)
     return json.loads(_extract_json(raw))

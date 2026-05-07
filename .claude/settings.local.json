@@ -18,7 +18,37 @@
       "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:8000/api/health\" -Method GET -UseBasicParsing -TimeoutSec 3; \"Status: $\\($r.StatusCode\\)\" } catch { \"Error: $_\" })",
       "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:8000/api/health\" -UseBasicParsing -TimeoutSec 3; \"Sigue respondiendo: $\\($r.StatusCode\\)\" } catch { \"No responde: $_\" })",
       "PowerShell(try { $r = Invoke-WebRequest -Uri \"http://localhost:8000/api/health\" -UseBasicParsing -TimeoutSec 3; \"Responde: $\\($r.StatusCode\\)\" } catch { \"No responde: $_\" })",
-      "PowerShell(netstat *)"
+      "PowerShell(netstat *)",
+      "Bash(Get-ChildItem -Path \"C:\\\\Users\\\\andre\\\\OneDrive\\\\Documentos\\\\Claude\\\\AlertaCuenta\" -Recurse -ErrorAction SilentlyContinue)",
+      "Bash(Select-Object FullName)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -Command \"$content = $env:CLAUDE_TOOL_INPUT; if ($content -match 'ANTHROPIC_API_KEY\\s*=\\s*sk-' -or $content -match 'SUPABASE_SERVICE_ROLE_KEY\\s*=\\s*ey') { Write-Host '⚠️  ALERTA DE SEGURIDAD: Posible secreto real detectado. Revisa el contenido antes de continuar.' }\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -Command \"$f = $env:CLAUDE_TOOL_RESULT_FILE_PATH; if (-not $f) { $f = $env:CLAUDE_FILE_PATH }; if ($f -and $f -match '\\.py$') { $ruff = Join-Path $PSScriptRoot '..\\backend\\.venv\\Scripts\\python.exe'; if (Test-Path $ruff) { & $ruff -m ruff check $f 2>&1 | ForEach-Object { Write-Host $_ } } }\""
+          },
+          {
+            "type": "command",
+            "command": "powershell -Command \"$f = $env:CLAUDE_TOOL_RESULT_FILE_PATH; if (-not $f) { $f = $env:CLAUDE_FILE_PATH }; if ($f -and ($f -match '[/\\\\]prompts[/\\\\]' -or $f -match 'prompt_manifest')) { Write-Host '📋 Recuerda actualizar prompt_manifest.yaml si cambiaste la versión activa de un agente.' }\""
+          }
+        ]
+      }
     ]
   },
   "enableAllProjectMcpServers": true,
