@@ -119,6 +119,11 @@ document.addEventListener('DOMContentLoaded', () => {
           additional_context: {},
         });
         sessionStorage.setItem('ac_classify_output', JSON.stringify(classifyResult.output));
+        if (classifyResult.url_checks?.length) {
+          sessionStorage.setItem('ac_url_checks', JSON.stringify(classifyResult.url_checks));
+        } else {
+          sessionStorage.removeItem('ac_url_checks');
+        }
 
         const fraudType = classifyResult.output?.classification?.fraud_type || classifyResult.output?.fraud_type;
         const summarizeResult = await api.summarize({

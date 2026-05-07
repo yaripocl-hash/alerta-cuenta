@@ -55,12 +55,7 @@
   <!-- Hero -->
   <section class="bg-inverse-surface py-stack-lg">
     <div class="max-w-container-max mx-auto px-margin-mobile">
-      <div class="flex items-center gap-4 mb-stack-sm">
-        <div class="w-14 h-14 rounded-full bg-primary-fixed flex items-center justify-center">
-          <span class="material-symbols-outlined text-[32px]" style="color:#002c6b; font-variation-settings:'FILL' 1;">verified_user</span>
-        </div>
-        <p class="font-label-lg text-label-lg text-inverse-primary uppercase tracking-widest">Centro de Confianza</p>
-      </div>
+     
       <h1 class="font-headline-xl text-headline-xl text-inverse-on-surface mb-stack-sm">
         Transparencia, seguridad y uso<br class="hidden md:block"> responsable de datos
       </h1>
@@ -154,6 +149,12 @@
         </button>
         <button role="tab" aria-selected="false" aria-controls="tab-datos" class="tab-btn font-label-lg text-label-lg px-5 py-3 rounded-lg focus-halo" onclick="showTab('datos', this)">
           <span class="flex items-center gap-2"><span class="material-symbols-outlined text-[20px]">account_balance</span>Datos financieros</span>
+        </button>
+        <button role="tab" aria-selected="false" aria-controls="tab-cookies" class="tab-btn font-label-lg text-label-lg px-5 py-3 rounded-lg focus-halo" onclick="showTab('cookies', this)">
+          <span class="flex items-center gap-2"><span class="material-symbols-outlined text-[20px]">cookie</span>Cookies</span>
+        </button>
+        <button role="tab" aria-selected="false" aria-controls="tab-derechos" class="tab-btn font-label-lg text-label-lg px-5 py-3 rounded-lg focus-halo" onclick="showTab('derechos', this)">
+          <span class="flex items-center gap-2"><span class="material-symbols-outlined text-[20px]">how_to_reg</span>Ejercer mis derechos</span>
         </button>
       </div>
 
@@ -658,6 +659,363 @@
         </div>
       </div>
 
+      <!-- TAB: Cookies -->
+      <div id="tab-cookies" class="tab-panel" role="tabpanel">
+        <div class="max-w-3xl space-y-stack-md">
+          <div class="bg-surface-container-low rounded-xl p-8 border border-outline-variant">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-outlined text-[28px]" style="color:#002c6b; font-variation-settings:'FILL' 1;">cookie</span>
+              <h3 class="font-headline-md text-headline-md text-on-surface">Política de Cookies</h3>
+            </div>
+            <p class="font-body-md text-body-md text-on-surface-variant mb-6" style="font-size:17px; line-height:28px;">AlertaCuenta puede utilizar cookies y tecnologías similares para el funcionamiento técnico del sitio, la seguridad, la medición y la mejora de experiencia. Tú decides qué categorías no esenciales aceptas.</p>
+
+            <div class="space-y-6">
+
+              <!-- Qué son las cookies -->
+              <div>
+                <h4 class="font-label-lg text-label-lg text-primary mb-3">¿Qué son las cookies?</h4>
+                <p class="text-on-surface-variant" style="font-size:17px; line-height:28px;">Las cookies son pequeños archivos de texto que un sitio web deposita en tu dispositivo al visitarlo. Permiten que el sitio recuerde información entre visitas, como preferencias de idioma o estado de sesión. Pueden ser propias (del mismo sitio) o de terceros (de otros servicios integrados).</p>
+              </div>
+
+              <!-- Categorías -->
+              <div>
+                <h4 class="font-label-lg text-label-lg text-primary mb-3">Categorías de cookies que utilizamos</h4>
+                <div class="space-y-4">
+
+                  <div class="bg-surface-bright rounded-xl border border-outline-variant overflow-hidden">
+                    <div class="flex items-center justify-between p-5">
+                      <div class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-[22px] mt-0.5" style="color:#002c6b; font-variation-settings:'FILL' 1;">lock</span>
+                        <div>
+                          <p class="font-label-lg text-label-lg text-on-surface" style="font-size:16px;">Estrictamente necesarias</p>
+                          <p class="text-on-surface-variant mt-1" style="font-size:14px; line-height:20px;">Indispensables para la navegación, seguridad básica y prestación del servicio. No pueden desactivarse.</p>
+                        </div>
+                      </div>
+                      <span class="px-3 py-1 rounded-full font-label-lg text-on-surface bg-secondary-container flex-shrink-0" style="font-size:13px;">Siempre activas</span>
+                    </div>
+                    <div class="border-t border-outline-variant px-5 py-3 bg-surface-container-low">
+                      <table class="w-full text-left" style="font-size:13px;">
+                        <thead><tr class="text-on-surface-variant"><th class="pb-1 pr-4">Cookie</th><th class="pb-1 pr-4">Finalidad</th><th class="pb-1">Duración</th></tr></thead>
+                        <tbody class="text-on-surface-variant">
+                          <tr><td class="py-1 pr-4 font-mono">session_id</td><td class="py-1 pr-4">Gestión de sesión del usuario</td><td class="py-1">Sesión</td></tr>
+                          <tr><td class="py-1 pr-4 font-mono">csrf_token</td><td class="py-1 pr-4">Protección contra ataques CSRF</td><td class="py-1">Sesión</td></tr>
+                          <tr><td class="py-1 pr-4 font-mono">cookie_consent</td><td class="py-1 pr-4">Guardar tus preferencias de cookies</td><td class="py-1">12 meses</td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div class="bg-surface-bright rounded-xl border border-outline-variant overflow-hidden">
+                    <div class="flex items-center justify-between p-5">
+                      <div class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-[22px] mt-0.5" style="color:#002c6b; font-variation-settings:'FILL' 1;">bar_chart</span>
+                        <div>
+                          <p class="font-label-lg text-label-lg text-on-surface" style="font-size:16px;">Analíticas</p>
+                          <p class="text-on-surface-variant mt-1" style="font-size:14px; line-height:20px;">Nos permiten entender cómo se usa el sitio para mejorarlo. Los datos se procesan de forma agregada y anonimizada.</p>
+                        </div>
+                      </div>
+                      <label class="relative inline-flex items-center cursor-pointer flex-shrink-0" aria-label="Activar cookies analíticas">
+                        <input type="checkbox" id="toggle-analytics" class="sr-only peer" onchange="updateCookiePrefs()">
+                        <div class="w-11 h-6 bg-outline rounded-full peer peer-checked:bg-primary peer-focus:outline-none transition-colors duration-200"></div>
+                        <div class="absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform duration-200 peer-checked:translate-x-5"></div>
+                      </label>
+                    </div>
+                    <div class="border-t border-outline-variant px-5 py-3 bg-surface-container-low">
+                      <table class="w-full text-left" style="font-size:13px;">
+                        <thead><tr class="text-on-surface-variant"><th class="pb-1 pr-4">Cookie</th><th class="pb-1 pr-4">Proveedor</th><th class="pb-1">Duración</th></tr></thead>
+                        <tbody class="text-on-surface-variant">
+                          <tr><td class="py-1 pr-4 font-mono">_ga</td><td class="py-1 pr-4">Google Analytics</td><td class="py-1">2 años</td></tr>
+                          <tr><td class="py-1 pr-4 font-mono">_ga_*</td><td class="py-1 pr-4">Google Analytics</td><td class="py-1">2 años</td></tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div class="bg-surface-bright rounded-xl border border-outline-variant overflow-hidden">
+                    <div class="flex items-center justify-between p-5">
+                      <div class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-[22px] mt-0.5" style="color:#002c6b; font-variation-settings:'FILL' 1;">tune</span>
+                        <div>
+                          <p class="font-label-lg text-label-lg text-on-surface" style="font-size:16px;">Preferencias</p>
+                          <p class="text-on-surface-variant mt-1" style="font-size:14px; line-height:20px;">Recuerdan ajustes que has definido, como tamaño de texto, modo de contraste o idioma preferido.</p>
+                        </div>
+                      </div>
+                      <label class="relative inline-flex items-center cursor-pointer flex-shrink-0" aria-label="Activar cookies de preferencias">
+                        <input type="checkbox" id="toggle-prefs" class="sr-only peer" onchange="updateCookiePrefs()">
+                        <div class="w-11 h-6 bg-outline rounded-full peer peer-checked:bg-primary peer-focus:outline-none transition-colors duration-200"></div>
+                        <div class="absolute left-0.5 top-0.5 w-5 h-5 bg-white rounded-full shadow transition-transform duration-200 peer-checked:translate-x-5"></div>
+                      </label>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Botones de acción -->
+              <div class="flex flex-wrap gap-3">
+                <button onclick="acceptAllCookies()" class="flex items-center gap-2 min-h-[52px] px-6 font-label-lg text-label-lg rounded focus-halo transition-colors" style="background-color:#002c6b; color:white;">
+                  <span class="material-symbols-outlined text-[20px]">check_circle</span>Aceptar todas
+                </button>
+                <button onclick="rejectOptionalCookies()" class="flex items-center gap-2 min-h-[52px] px-6 font-label-lg text-label-lg rounded focus-halo transition-colors border-2 border-outline text-on-surface hover:bg-surface-container-low">
+                  <span class="material-symbols-outlined text-[20px]">remove_circle</span>Solo necesarias
+                </button>
+                <button onclick="saveCookiePrefs()" class="flex items-center gap-2 min-h-[52px] px-6 font-label-lg text-label-lg rounded focus-halo transition-colors border-2 border-primary text-primary hover:bg-surface-container-low">
+                  <span class="material-symbols-outlined text-[20px]">save</span>Guardar mi selección
+                </button>
+              </div>
+              <div id="cookie-saved-msg" class="hidden bg-secondary-container rounded-lg p-4 flex items-center gap-2">
+                <span class="material-symbols-outlined" style="color:#002c6b; font-variation-settings:'FILL' 1;">check_circle</span>
+                <p class="font-label-lg text-on-surface" style="font-size:15px;">Tus preferencias de cookies han sido guardadas.</p>
+              </div>
+
+              <!-- Marco legal -->
+              <div class="bg-primary-fixed rounded-lg p-5 border border-outline-variant">
+                <h4 class="font-label-lg text-label-lg text-on-surface mb-2 flex items-center gap-2">
+                  <span class="material-symbols-outlined text-[18px]" style="color:#002c6b;">menu_book</span>Marco legal
+                </h4>
+                <p class="text-on-surface-variant" style="font-size:15px; line-height:24px;">El uso de cookies no esenciales está sujeto al consentimiento previo del usuario conforme a la <strong>Ley N° 21.719</strong> sobre protección y tratamiento de datos personales y a la normativa chilena aplicable. Puedes retirar tu consentimiento en cualquier momento desde este panel.</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: Ejercer Derechos ARCOP -->
+      <div id="tab-derechos" class="tab-panel" role="tabpanel">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
+
+          <!-- Columna principal: formulario -->
+          <div class="lg:col-span-2">
+            <div class="bg-surface-container-low rounded-xl p-8 border border-outline-variant">
+              <div class="flex items-center gap-3 mb-2">
+                <span class="material-symbols-outlined text-[28px]" style="color:#002c6b; font-variation-settings:'FILL' 1;">how_to_reg</span>
+                <h3 class="font-headline-md text-headline-md text-on-surface">Ejercer mis derechos sobre mis datos</h3>
+              </div>
+              <p class="font-body-md text-body-md text-on-surface-variant mb-2" style="font-size:16px; line-height:26px;">Conforme a la <strong>Ley N° 21.719</strong> de Protección y Tratamiento de Datos Personales de Chile, puedes ejercer tus derechos ARCOP. Responderemos dentro de los <strong>30 días hábiles</strong> que establece la ley.</p>
+              <p class="text-on-surface-variant mb-6" style="font-size:14px; line-height:22px;">Versión: Ley 21.719 · Agencia de Protección de Datos Personales (APDP) · Vigencia 2024–2025</p>
+
+              <form id="arcop-form" onsubmit="submitArcopForm(event)" novalidate class="space-y-6">
+
+                <!-- Sección 1: Identidad -->
+                <fieldset class="space-y-4">
+                  <legend class="font-label-lg text-label-lg text-primary flex items-center gap-2 mb-3">
+                    <span class="w-6 h-6 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0" style="background:#002c6b;">1</span>
+                    Identidad del solicitante
+                  </legend>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label for="arcop-nombre" class="block font-label-lg text-on-surface mb-1" style="font-size:15px;">Nombre completo <span class="text-error">*</span></label>
+                      <input type="text" id="arcop-nombre" name="nombre" required autocomplete="name"
+                        class="w-full border-2 border-outline rounded-lg px-4 py-3 font-body-md text-on-surface bg-surface-bright focus:border-primary focus:outline-none transition-colors min-h-[52px]"
+                        style="font-size:16px;" placeholder="Ej: María González">
+                      <p class="text-error mt-1 hidden" id="err-nombre" style="font-size:13px;">Este campo es obligatorio.</p>
+                    </div>
+                    <div>
+                      <label for="arcop-rut" class="block font-label-lg text-on-surface mb-1" style="font-size:15px;">RUT <span class="text-error">*</span></label>
+                      <input type="text" id="arcop-rut" name="rut" required
+                        class="w-full border-2 border-outline rounded-lg px-4 py-3 font-body-md text-on-surface bg-surface-bright focus:border-primary focus:outline-none transition-colors min-h-[52px]"
+                        style="font-size:16px;" placeholder="Ej: 12.345.678-9">
+                      <p class="text-error mt-1 hidden" id="err-rut" style="font-size:13px;">Ingresa un RUT válido.</p>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label for="arcop-email" class="block font-label-lg text-on-surface mb-1" style="font-size:15px;">Correo electrónico <span class="text-error">*</span></label>
+                      <input type="email" id="arcop-email" name="email" required autocomplete="email"
+                        class="w-full border-2 border-outline rounded-lg px-4 py-3 font-body-md text-on-surface bg-surface-bright focus:border-primary focus:outline-none transition-colors min-h-[52px]"
+                        style="font-size:16px;" placeholder="correo@ejemplo.com">
+                      <p class="text-error mt-1 hidden" id="err-email" style="font-size:13px;">Ingresa un correo válido.</p>
+                    </div>
+                    <div>
+                      <label for="arcop-telefono" class="block font-label-lg text-on-surface mb-1" style="font-size:15px;">Teléfono (opcional)</label>
+                      <input type="tel" id="arcop-telefono" name="telefono" autocomplete="tel"
+                        class="w-full border-2 border-outline rounded-lg px-4 py-3 font-body-md text-on-surface bg-surface-bright focus:border-primary focus:outline-none transition-colors min-h-[52px]"
+                        style="font-size:16px;" placeholder="+56 9 1234 5678">
+                    </div>
+                  </div>
+
+                  <!-- Representación -->
+                  <div class="bg-surface-bright rounded-lg border border-outline-variant p-4">
+                    <label class="flex items-center gap-3 cursor-pointer">
+                      <input type="checkbox" id="arcop-representante" class="w-5 h-5 rounded border-outline accent-primary" onchange="toggleRepresentante()">
+                      <span class="font-label-lg text-on-surface" style="font-size:15px;">Actúo en representación de otra persona</span>
+                    </label>
+                    <div id="representante-fields" class="hidden mt-4 space-y-3">
+                      <div>
+                        <label for="arcop-rep-nombre" class="block font-label-lg text-on-surface mb-1" style="font-size:14px;">Nombre del titular de los datos <span class="text-error">*</span></label>
+                        <input type="text" id="arcop-rep-nombre" name="rep_nombre"
+                          class="w-full border-2 border-outline rounded-lg px-4 py-3 bg-surface-bright focus:border-primary focus:outline-none transition-colors min-h-[48px]" style="font-size:15px;" placeholder="Nombre completo del titular">
+                      </div>
+                      <div>
+                        <label for="arcop-rep-rut" class="block font-label-lg text-on-surface mb-1" style="font-size:14px;">RUT del titular <span class="text-error">*</span></label>
+                        <input type="text" id="arcop-rep-rut" name="rep_rut"
+                          class="w-full border-2 border-outline rounded-lg px-4 py-3 bg-surface-bright focus:border-primary focus:outline-none transition-colors min-h-[48px]" style="font-size:15px;" placeholder="12.345.678-9">
+                      </div>
+                      <p class="text-on-surface-variant" style="font-size:13px; line-height:20px;">Puede solicitarse documento que acredite la representación (poder notarial, resolución judicial u otro).</p>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <!-- Sección 2: Derecho a ejercer -->
+                <fieldset class="space-y-4">
+                  <legend class="font-label-lg text-label-lg text-primary flex items-center gap-2 mb-3">
+                    <span class="w-6 h-6 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0" style="background:#002c6b;">2</span>
+                    Derecho que deseas ejercer
+                  </legend>
+
+                  <div>
+                    <label for="arcop-derecho" class="block font-label-lg text-on-surface mb-1" style="font-size:15px;">Selecciona el derecho <span class="text-error">*</span></label>
+                    <select id="arcop-derecho" name="derecho" required onchange="updateDerechoDesc()"
+                      class="w-full border-2 border-outline rounded-lg px-4 py-3 font-body-md text-on-surface bg-surface-bright focus:border-primary focus:outline-none transition-colors min-h-[52px] appearance-none"
+                      style="font-size:16px; background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2224%22 height=%2224%22 viewBox=%220 0 24 24%22><path fill=%22%23434651%22 d=%22M7 10l5 5 5-5z%22/></svg>'); background-repeat:no-repeat; background-position:right 12px center;">
+                      <option value="">— Selecciona una opción —</option>
+                      <option value="acceso">Acceso — saber qué datos tenemos sobre ti</option>
+                      <option value="rectificacion">Rectificación — corregir datos inexactos o incompletos</option>
+                      <option value="cancelacion">Cancelación / Supresión — eliminar tus datos</option>
+                      <option value="oposicion">Oposición — oponerte a un tratamiento específico</option>
+                      <option value="portabilidad">Portabilidad — recibir tus datos en formato reutilizable</option>
+                      <option value="automatizadas">No a decisiones automatizadas — revisión humana de una decisión</option>
+                      <option value="bloqueo">Bloqueo temporal — suspender el tratamiento mientras se resuelve una disputa</option>
+                      <option value="revocacion">Revocación del consentimiento — retirar un consentimiento previo</option>
+                    </select>
+                    <p class="text-error mt-1 hidden" id="err-derecho" style="font-size:13px;">Selecciona el derecho que deseas ejercer.</p>
+                  </div>
+
+                  <!-- Descripción dinámica del derecho -->
+                  <div id="derecho-desc" class="hidden bg-primary-fixed rounded-lg p-4 border border-outline-variant">
+                    <p id="derecho-desc-text" class="text-on-surface" style="font-size:15px; line-height:24px;"></p>
+                  </div>
+                </fieldset>
+
+                <!-- Sección 3: Descripción -->
+                <fieldset class="space-y-4">
+                  <legend class="font-label-lg text-label-lg text-primary flex items-center gap-2 mb-3">
+                    <span class="w-6 h-6 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0" style="background:#002c6b;">3</span>
+                    Descripción de tu solicitud
+                  </legend>
+
+                  <div>
+                    <label for="arcop-caso" class="block font-label-lg text-on-surface mb-1" style="font-size:15px;">Código de seguimiento (si tienes uno)</label>
+                    <input type="text" id="arcop-caso" name="codigo_caso"
+                      class="w-full border-2 border-outline rounded-lg px-4 py-3 font-body-md text-on-surface bg-surface-bright focus:border-primary focus:outline-none transition-colors min-h-[52px]"
+                      style="font-size:16px;" placeholder="Ej: AC-2024-00123">
+                  </div>
+
+                  <div>
+                    <label for="arcop-descripcion" class="block font-label-lg text-on-surface mb-1" style="font-size:15px;">Describe tu solicitud <span class="text-error">*</span></label>
+                    <textarea id="arcop-descripcion" name="descripcion" required rows="5"
+                      class="w-full border-2 border-outline rounded-lg px-4 py-3 font-body-md text-on-surface bg-surface-bright focus:border-primary focus:outline-none transition-colors resize-y"
+                      style="font-size:16px; line-height:26px;" placeholder="Explica claramente qué datos o tratamiento se refiere tu solicitud, el período aproximado y cualquier contexto que nos ayude a procesarla correctamente."></textarea>
+                    <p class="text-error mt-1 hidden" id="err-descripcion" style="font-size:13px;">Por favor describe tu solicitud.</p>
+                  </div>
+                </fieldset>
+
+                <!-- Sección 4: Declaración y envío -->
+                <fieldset class="space-y-4">
+                  <legend class="font-label-lg text-label-lg text-primary flex items-center gap-2 mb-3">
+                    <span class="w-6 h-6 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0" style="background:#002c6b;">4</span>
+                    Confirmación
+                  </legend>
+
+                  <label class="flex items-start gap-3 cursor-pointer">
+                    <input type="checkbox" id="arcop-confirm" required class="w-5 h-5 rounded border-outline accent-primary mt-0.5 flex-shrink-0">
+                    <span class="text-on-surface-variant" style="font-size:15px; line-height:24px;">Declaro que la información entregada es verídica y que actúo de buena fe. Entiendo que AlertaCuenta podrá solicitar antecedentes adicionales para verificar mi identidad o representación, conforme al artículo 18 de la Ley N° 21.719.</span>
+                  </label>
+                  <p class="text-error hidden" id="err-confirm" style="font-size:13px;">Debes confirmar antes de enviar.</p>
+
+                  <button type="submit" class="w-full flex items-center justify-center gap-2 min-h-[56px] font-label-lg text-label-lg rounded-lg focus-halo transition-opacity hover:opacity-90" style="background-color:#002c6b; color:white;">
+                    <span class="material-symbols-outlined">send</span>Enviar solicitud de derechos
+                  </button>
+                </fieldset>
+
+              </form>
+
+              <!-- Mensaje de éxito -->
+              <div id="arcop-success" class="hidden mt-6 bg-secondary-container rounded-xl p-6 text-center">
+                <span class="material-symbols-outlined text-[48px] mb-3 block" style="color:#002c6b; font-variation-settings:'FILL' 1;">mark_email_read</span>
+                <h4 class="font-headline-md text-headline-md text-on-surface mb-2">Solicitud recibida</h4>
+                <p class="text-on-surface-variant" style="font-size:16px; line-height:26px;">Hemos registrado tu solicitud. Recibirás confirmación en el correo indicado y daremos respuesta dentro del plazo de <strong>30 días hábiles</strong> que establece la Ley N° 21.719.</p>
+                <p class="mt-3 text-on-surface-variant" style="font-size:14px;">Si no recibes respuesta en ese plazo, puedes recurrir a la <strong>Agencia de Protección de Datos Personales (APDP)</strong>.</p>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- Sidebar: guía de derechos -->
+          <div class="space-y-4">
+            <div class="bg-primary rounded-xl p-6">
+              <h3 class="font-callout text-callout text-white mb-4">Tus derechos ARCOP</h3>
+              <p class="text-primary-fixed mb-4" style="font-size:14px; line-height:22px;">La <strong class="text-white">Ley 21.719</strong> reconoce estos derechos a toda persona titular de datos personales:</p>
+              <div class="space-y-3">
+                <div class="bg-primary-container rounded-lg p-3">
+                  <p class="font-label-lg text-white flex items-center gap-2" style="font-size:15px;"><span class="w-7 h-7 rounded-full bg-white text-primary flex items-center justify-center font-bold flex-shrink-0" style="font-size:13px; color:#002c6b;">A</span>Acceso</p>
+                  <p class="text-primary-fixed mt-1" style="font-size:13px; line-height:20px;">Saber si tratamos tus datos y obtener una copia.</p>
+                </div>
+                <div class="bg-primary-container rounded-lg p-3">
+                  <p class="font-label-lg text-white flex items-center gap-2" style="font-size:15px;"><span class="w-7 h-7 rounded-full bg-white text-primary flex items-center justify-center font-bold flex-shrink-0" style="font-size:13px; color:#002c6b;">R</span>Rectificación</p>
+                  <p class="text-primary-fixed mt-1" style="font-size:13px; line-height:20px;">Corregir datos inexactos, incompletos o desactualizados.</p>
+                </div>
+                <div class="bg-primary-container rounded-lg p-3">
+                  <p class="font-label-lg text-white flex items-center gap-2" style="font-size:15px;"><span class="w-7 h-7 rounded-full bg-white text-primary flex items-center justify-center font-bold flex-shrink-0" style="font-size:13px; color:#002c6b;">C</span>Cancelación / Supresión</p>
+                  <p class="text-primary-fixed mt-1" style="font-size:13px; line-height:20px;">Eliminar tus datos cuando no haya base para conservarlos.</p>
+                </div>
+                <div class="bg-primary-container rounded-lg p-3">
+                  <p class="font-label-lg text-white flex items-center gap-2" style="font-size:15px;"><span class="w-7 h-7 rounded-full bg-white text-primary flex items-center justify-center font-bold flex-shrink-0" style="font-size:13px; color:#002c6b;">O</span>Oposición</p>
+                  <p class="text-primary-fixed mt-1" style="font-size:13px; line-height:20px;">Oponerte a ciertos tratamientos cuando proceda por ley.</p>
+                </div>
+                <div class="bg-primary-container rounded-lg p-3">
+                  <p class="font-label-lg text-white flex items-center gap-2" style="font-size:15px;"><span class="w-7 h-7 rounded-full bg-white text-primary flex items-center justify-center font-bold flex-shrink-0" style="font-size:13px; color:#002c6b;">P</span>Portabilidad</p>
+                  <p class="text-primary-fixed mt-1" style="font-size:13px; line-height:20px;">Recibir tus datos en formato estructurado y reutilizable.</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-surface-container-low rounded-xl border border-outline-variant p-5 space-y-3">
+              <h4 class="font-label-lg text-label-lg text-on-surface flex items-center gap-2">
+                <span class="material-symbols-outlined text-[20px]" style="color:#002c6b; font-variation-settings:'FILL' 1;">schedule</span>Plazos legales
+              </h4>
+              <div class="space-y-2">
+                <div class="flex items-start gap-2">
+                  <span class="material-symbols-outlined text-[16px] mt-0.5 flex-shrink-0" style="color:#002c6b;">timer</span>
+                  <p style="font-size:14px; line-height:22px;"><strong>30 días hábiles</strong> para responder tu solicitud (Art. 18, Ley 21.719)</p>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="material-symbols-outlined text-[16px] mt-0.5 flex-shrink-0" style="color:#002c6b;">extension</span>
+                  <p style="font-size:14px; line-height:22px;"><strong>Prórroga de 15 días hábiles</strong> adicionales si la solicitud es compleja, con aviso previo</p>
+                </div>
+                <div class="flex items-start gap-2">
+                  <span class="material-symbols-outlined text-[16px] mt-0.5 flex-shrink-0" style="color:#002c6b;">free_cancellation</span>
+                  <p style="font-size:14px; line-height:22px;"><strong>Sin costo</strong> para el titular</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-surface-container-low rounded-xl border border-outline-variant p-5">
+              <h4 class="font-label-lg text-label-lg text-on-surface flex items-center gap-2 mb-3">
+                <span class="material-symbols-outlined text-[20px]" style="color:#002c6b; font-variation-settings:'FILL' 1;">account_balance</span>¿No obtuviste respuesta?
+              </h4>
+              <p class="text-on-surface-variant mb-3" style="font-size:14px; line-height:22px;">Si AlertaCuenta no responde dentro del plazo legal o rechaza tu solicitud sin causa justificada, puedes reclamar ante la:</p>
+              <div class="bg-secondary-container rounded-lg p-3">
+                <p class="font-label-lg text-on-surface" style="font-size:14px;">Agencia de Protección de Datos Personales</p>
+                <p class="text-on-surface-variant" style="font-size:13px;">APDP — Chile</p>
+                <a href="https://www.apdp.cl" target="_blank" rel="noopener" class="text-primary underline focus-halo" style="font-size:13px;">www.apdp.cl</a>
+              </div>
+            </div>
+
+            <div class="bg-surface-container-low rounded-xl border border-outline-variant p-5">
+              <h4 class="font-label-lg text-label-lg text-on-surface mb-2">Canal de privacidad</h4>
+              <p class="text-on-surface-variant" style="font-size:14px; line-height:22px;">También puedes escribirnos directamente a:</p>
+              <p class="font-label-lg text-primary mt-1" style="font-size:15px;">privacidad@alertacuenta.cl</p>
+              <p class="text-on-surface-variant mt-1" style="font-size:13px;">Asunto sugerido: <em>Solicitud de derechos de datos personales</em></p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -712,6 +1070,23 @@
           <div>
             <h3 class="font-label-lg text-label-lg text-on-surface group-hover:text-primary transition-colors">Datos Financieros y Evidencia</h3>
             <p class="text-on-surface-variant mt-1" style="font-size:15px; line-height:22px;">Qué información financiera se puede y no se puede pedir.</p>
+          </div>
+        </a>
+
+        <a href="#" onclick="showTab('cookies', document.querySelector('[aria-controls=tab-cookies]')); window.scrollTo({top:0, behavior:'smooth'}); return false;" class="bg-surface-container-lowest rounded-xl border border-outline-variant p-6 flex items-start gap-4 hover:border-primary transition-colors focus-halo group">
+          <span class="material-symbols-outlined text-[32px] mt-1" style="color:#002c6b; font-variation-settings:'FILL' 1;">cookie</span>
+          <div>
+            <h3 class="font-label-lg text-label-lg text-on-surface group-hover:text-primary transition-colors">Política de Cookies</h3>
+            <p class="text-on-surface-variant mt-1" style="font-size:15px; line-height:22px;">Qué cookies usamos, para qué y cómo gestionar tus preferencias.</p>
+          </div>
+        </a>
+
+        <a href="#" onclick="showTab('derechos', document.querySelector('[aria-controls=tab-derechos]')); window.scrollTo({top:0, behavior:'smooth'}); return false;" class="bg-surface-container-lowest rounded-xl border-2 border-primary p-6 flex items-start gap-4 hover:bg-primary-fixed transition-colors focus-halo group">
+          <span class="material-symbols-outlined text-[32px] mt-1" style="color:#002c6b; font-variation-settings:'FILL' 1;">how_to_reg</span>
+          <div>
+            <h3 class="font-label-lg text-label-lg text-on-surface group-hover:text-primary transition-colors">Ejercer mis derechos ARCOP</h3>
+            <p class="text-on-surface-variant mt-1" style="font-size:15px; line-height:22px;">Formulario oficial conforme a la Ley N° 21.719 de Chile.</p>
+            <span class="inline-block mt-2 px-2 py-0.5 rounded font-label-lg text-white" style="background:#002c6b; font-size:12px;">Nuevo · Ley 21.719</span>
           </div>
         </a>
 
@@ -774,6 +1149,7 @@
 </footer>
 
 <script>
+/* ── Tabs ── */
 function showTab(tabId, btn) {
   document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b => {
@@ -784,6 +1160,99 @@ function showTab(tabId, btn) {
   if (btn) {
     btn.classList.add('active');
     btn.setAttribute('aria-selected', 'true');
+  }
+}
+
+/* ── Cookies ── */
+function updateCookiePrefs() { /* live preview only */ }
+
+function acceptAllCookies() {
+  document.getElementById('toggle-analytics').checked = true;
+  document.getElementById('toggle-prefs').checked = true;
+  showCookieSaved();
+}
+
+function rejectOptionalCookies() {
+  document.getElementById('toggle-analytics').checked = false;
+  document.getElementById('toggle-prefs').checked = false;
+  showCookieSaved();
+}
+
+function saveCookiePrefs() { showCookieSaved(); }
+
+function showCookieSaved() {
+  const msg = document.getElementById('cookie-saved-msg');
+  msg.classList.remove('hidden');
+  setTimeout(() => msg.classList.add('hidden'), 4000);
+}
+
+/* ── Representante ── */
+function toggleRepresentante() {
+  const show = document.getElementById('arcop-representante').checked;
+  document.getElementById('representante-fields').classList.toggle('hidden', !show);
+}
+
+/* ── Descripción dinámica del derecho ── */
+const derechoDescTextos = {
+  acceso: 'Tienes derecho a saber si AlertaCuenta trata datos personales tuyos, qué datos son, con qué finalidad, durante cuánto tiempo y con quién se comparten. Te entregaremos una copia en formato comprensible.',
+  rectificacion: 'Puedes solicitar la corrección de datos incorrectos, inexactos, incompletos o desactualizados. Indica qué dato específico deseas corregir y cuál es el valor correcto.',
+  cancelacion: 'Puedes pedir la eliminación de tus datos cuando no exista base legal para seguir tratándolos. Ten en cuenta que puede haber datos que deban conservarse por obligación legal, seguridad o defensa de derechos.',
+  oposicion: 'Puedes oponerte al tratamiento de tus datos basado en interés legítimo o para fines de prospección comercial. Indica el tratamiento concreto al que te opones y el motivo.',
+  portabilidad: 'Puedes solicitar que tus datos te sean entregados en un formato estructurado, genérico y de uso común (por ejemplo JSON o CSV), cuando sea técnicamente posible.',
+  automatizadas: 'Tienes derecho a que las decisiones que te afecten de forma significativa no se basen únicamente en tratamiento automatizado, y a solicitar revisión humana de esa decisión.',
+  bloqueo: 'Puedes solicitar la suspensión temporal del tratamiento de tus datos mientras se resuelve una controversia, impugnación o solicitud de rectificación.',
+  revocacion: 'Puedes retirar en cualquier momento el consentimiento que otorgaste para el tratamiento de tus datos. Esto no afecta la licitud del tratamiento realizado antes de la revocación.'
+};
+
+function updateDerechoDesc() {
+  const val = document.getElementById('arcop-derecho').value;
+  const box = document.getElementById('derecho-desc');
+  const txt = document.getElementById('derecho-desc-text');
+  if (val && derechoDescTextos[val]) {
+    txt.textContent = derechoDescTextos[val];
+    box.classList.remove('hidden');
+  } else {
+    box.classList.add('hidden');
+  }
+}
+
+/* ── Formulario ARCOP ── */
+function submitArcopForm(e) {
+  e.preventDefault();
+  let valid = true;
+
+  const required = [
+    { id: 'arcop-nombre', err: 'err-nombre' },
+    { id: 'arcop-rut', err: 'err-rut', check: (v) => v.trim().length >= 9 },
+    { id: 'arcop-email', err: 'err-email', check: (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) },
+    { id: 'arcop-derecho', err: 'err-derecho' },
+    { id: 'arcop-descripcion', err: 'err-descripcion' },
+  ];
+
+  required.forEach(({ id, err, check }) => {
+    const el = document.getElementById(id);
+    const errEl = document.getElementById(err);
+    const val = el.value.trim();
+    const fail = !val || (check && !check(val));
+    errEl.classList.toggle('hidden', !fail);
+    if (fail) { valid = false; if (!document.querySelector('.border-error')) el.focus(); }
+    el.classList.toggle('border-error', fail);
+    el.classList.toggle('border-outline', !fail);
+  });
+
+  const confirm = document.getElementById('arcop-confirm');
+  const errConfirm = document.getElementById('err-confirm');
+  if (!confirm.checked) {
+    errConfirm.classList.remove('hidden');
+    valid = false;
+  } else {
+    errConfirm.classList.add('hidden');
+  }
+
+  if (valid) {
+    document.getElementById('arcop-form').classList.add('hidden');
+    document.getElementById('arcop-success').classList.remove('hidden');
+    document.getElementById('arcop-success').scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 }
 </script>

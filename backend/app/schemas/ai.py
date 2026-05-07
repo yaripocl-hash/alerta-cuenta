@@ -13,3 +13,4 @@ class AIResponse(BaseModel):
     prompt_version: str
     output: dict[str, Any]
     model_used: str
+    url_checks: list[dict[str, Any]] | None = None
