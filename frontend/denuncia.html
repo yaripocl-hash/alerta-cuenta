@@ -57,19 +57,38 @@
           <div class="alert alert-info">
             Cuéntanos con tus propias palabras. No necesitas usar términos técnicos. Mientras más detalles, mejor podemos ayudarte.
           </div>
+
+          <!-- Selector de modo de entrada -->
+          <div style="margin:1.25rem 0 1rem;">
+            <p style="font-weight:600;font-size:1.05rem;margin-bottom:.75rem;color:var(--color-text);">¿Cómo prefieres contarnos lo que pasó?</p>
+            <div style="display:flex;gap:1rem;">
+              <button type="button" id="btn-mode-write" aria-pressed="true"
+                style="flex:1;min-height:72px;border-radius:var(--radius-lg);border:2px solid var(--color-primary);background:var(--color-primary);color:#fff;font-size:1.05rem;font-weight:600;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;">
+                <span style="font-size:1.6rem;" aria-hidden="true">✏️</span>
+                <span>Escribir</span>
+              </button>
+              <button type="button" id="btn-mode-speak" aria-pressed="false"
+                style="flex:1;min-height:72px;border-radius:var(--radius-lg);border:2px solid var(--color-primary);background:#fff;color:var(--color-primary);font-size:1.05rem;font-weight:600;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4rem;">
+                <span style="font-size:1.6rem;" aria-hidden="true">🎙</span>
+                <span>Hablar (voz)</span>
+              </button>
+            </div>
+          </div>
+
           <div class="form-group mt-2">
             <label for="description">Descripción del fraude <span aria-hidden="true" style="color:var(--color-danger)">*</span></label>
             <textarea id="description" name="description" rows="6"
               placeholder="Ejemplo: Recibí un SMS que parecía de mi banco diciéndome que mi cuenta tenía un problema. Hice clic en el link y puse mi clave. Después me llegó una transferencia que yo no hice..."
               aria-required="true"></textarea>
-            <span class="field-hint">Mínimo 20 caracteres. También puedes grabar tu voz y lo transcribiremos.</span>
+            <span class="field-hint" id="hint-write">Mínimo 20 caracteres.</span>
+            <span class="field-hint hidden" id="hint-speak">Graba tu relato y lo transcribiremos automáticamente.</span>
 
             <!-- Grabador de voz -->
-            <div id="recorder-container" style="margin-top:1rem; padding:1rem; background:var(--color-accent); border-radius:var(--radius); border:1px dashed var(--color-border);">
+            <div id="recorder-container" class="hidden" style="margin-top:1rem; padding:1rem; background:var(--color-accent); border-radius:var(--radius); border:1px dashed var(--color-border);">
 
               <!-- Idle: botón inicial -->
               <div id="recorder-idle">
-                <p style="font-size:.875rem; color:var(--color-muted); margin-bottom:.75rem;">¿Prefieres contarlo hablando? Graba tu relato y lo transcribiremos automáticamente.</p>
+                <p style="font-size:1rem; color:var(--color-muted); margin-bottom:.75rem;">Graba tu relato y lo transcribiremos automáticamente.</p>
                 <button type="button" id="btn-start-record" class="btn btn-outline focus-halo" style="display:inline-flex;align-items:center;gap:.5rem;">
                   <span aria-hidden="true">🎙</span> Grabar relato de voz
                 </button>
@@ -78,7 +97,7 @@
               <!-- Consentimiento -->
               <div id="recorder-consent" class="hidden">
                 <p style="font-size:.95rem;font-weight:600;margin-bottom:.75rem;">Antes de grabar</p>
-                <label style="display:flex;gap:.75rem;align-items:flex-start;font-size:.9rem;cursor:pointer;margin-bottom:1rem;line-height:1.5;">
+                <label style="display:flex;gap:.75rem;align-items:flex-start;font-size:1rem;cursor:pointer;margin-bottom:1rem;line-height:1.5;">
                   <input type="checkbox" id="consent-check" class="focus-halo" style="margin-top:.2rem;flex-shrink:0;width:18px;height:18px;">
                   <span>Acepto grabar mi voz para transcribir mi relato. El audio es procesado en el servidor y <strong>no se almacena ni comparte</strong>.</span>
                 </label>
@@ -93,14 +112,14 @@
                 <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem;flex-wrap:wrap;">
                   <span class="rec-dot" aria-hidden="true" style="width:12px;height:12px;background:#ef4444;border-radius:50%;display:inline-block;flex-shrink:0;"></span>
                   <span id="recorder-timer" style="font-family:monospace;font-size:1.2rem;font-weight:700;" aria-live="polite" aria-label="Tiempo grabado">0:00</span>
-                  <span style="font-size:.85rem;color:var(--color-muted);">/ 2:00 máx.</span>
+                  <span style="font-size:1rem;color:var(--color-muted);">/ 2:00 máx.</span>
                 </div>
                 <!-- Barra de tiempo -->
                 <div style="background:var(--color-border);border-radius:999px;height:4px;margin-bottom:.75rem;overflow:hidden;" role="progressbar" aria-label="Tiempo de grabación">
                   <div id="recorder-progress" style="width:0%;height:100%;background:var(--color-primary);border-radius:999px;transition:width .2s;"></div>
                 </div>
                 <!-- Nivel de audio -->
-                <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:1rem;font-size:.85rem;">
+                <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:1rem;font-size:1rem;">
                   <span>Nivel:</span>
                   <div style="flex:1;background:var(--color-border);border-radius:999px;height:8px;overflow:hidden;" role="meter" aria-label="Nivel de audio">
                     <div id="recorder-level" style="width:0%;height:100%;background:#22c55e;border-radius:999px;transition:width .1s;"></div>
@@ -112,15 +131,15 @@
               </div>
 
               <!-- Transcribiendo -->
-              <div id="recorder-status" class="hidden" style="align-items:center;gap:.75rem;font-size:.9rem;color:var(--color-muted);">
+              <div id="recorder-status" class="hidden" style="align-items:center;gap:.75rem;font-size:1rem;color:var(--color-muted);">
                 <span class="spinner" aria-hidden="true" style="width:20px;height:20px;border-width:3px;flex-shrink:0;"></span>
                 Transcribiendo tu relato… esto puede tomar algunos segundos.
               </div>
 
               <!-- Error -->
-              <div id="recorder-error" class="hidden" role="alert" style="color:var(--color-danger);font-size:.875rem;margin-top:.5rem;"></div>
+              <div id="recorder-error" class="hidden" role="alert" style="color:var(--color-danger);font-size:1rem;margin-top:.5rem;"></div>
               <!-- Éxito -->
-              <div id="recorder-success" class="hidden alert alert-info" role="status" style="margin-top:.75rem;font-size:.9rem;"></div>
+              <div id="recorder-success" class="hidden alert alert-info" role="status" style="margin-top:.75rem;font-size:1rem;"></div>
 
             </div>
 
@@ -140,8 +159,8 @@
               <option value="other">Otro</option>
             </select>
           </div>
-          <div style="text-align: right; margin-top: 1rem;">
-            <button type="button" class="btn btn-primary" id="btn-next-1">Continuar</button>
+          <div style="margin-top: 1.5rem;">
+            <button type="button" class="btn btn-primary btn-lg" id="btn-next-1" style="width:100%;">Continuar →</button>
           </div>
         </div>
 
@@ -285,6 +304,50 @@
     </div>
   </footer>
 
+  <script>
+  (function(){
+    function selectMode(mode, transcribed) {
+      var ta = document.getElementById('description');
+      var rec = document.getElementById('recorder-container');
+      var hw = document.getElementById('hint-write');
+      var hs = document.getElementById('hint-speak');
+      var bw = document.getElementById('btn-mode-write');
+      var bs = document.getElementById('btn-mode-speak');
+      var isWrite = mode === 'write';
+      ta.style.display = isWrite ? '' : 'none';
+      rec.classList.toggle('hidden', isWrite);
+      hw.classList.toggle('hidden', !isWrite);
+      hs.classList.toggle('hidden', isWrite);
+      if (isWrite && transcribed) {
+        hw.textContent = 'Tu relato fue transcrito. Revísalo y corrígelo si es necesario.';
+      } else if (isWrite) {
+        hw.textContent = 'Mínimo 20 caracteres.';
+      }
+      bw.style.background = isWrite ? 'var(--color-primary)' : '#fff';
+      bw.style.color = isWrite ? '#fff' : 'var(--color-primary)';
+      bs.style.background = isWrite ? '#fff' : 'var(--color-primary)';
+      bs.style.color = isWrite ? 'var(--color-primary)' : '#fff';
+      bw.setAttribute('aria-pressed', String(isWrite));
+      bs.setAttribute('aria-pressed', String(!isWrite));
+      if (isWrite && transcribed) { ta.focus(); }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('btn-mode-write').addEventListener('click', function(){ selectMode('write', false); });
+      document.getElementById('btn-mode-speak').addEventListener('click', function(){ selectMode('speak', false); });
+      // Auto-switch al modo Escribir cuando la transcripción termina
+      var successEl = document.getElementById('recorder-success');
+      if (successEl) {
+        new MutationObserver(function(mutations) {
+          mutations.forEach(function(m) {
+            if (m.type === 'attributes' && m.attributeName === 'class' && !successEl.classList.contains('hidden')) {
+              selectMode('write', true);
+            }
+          });
+        }).observe(successEl, { attributes: true });
+      }
+    });
+  })();
+  </script>
   <script src="assets/js/api.js"></script>
   <script src="assets/js/validation.js"></script>
   <script src="assets/js/recorder.js"></script>

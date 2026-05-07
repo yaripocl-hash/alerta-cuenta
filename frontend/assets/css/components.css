@@ -20,8 +20,8 @@
 .step::before {
   counter-increment: step;
   content: counter(step);
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
   background: var(--color-border);
   color: var(--color-muted);
@@ -29,7 +29,7 @@
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  font-size: .9rem;
+  font-size: 1rem;
   border: 2px solid var(--color-border);
   position: relative;
   z-index: 1;
@@ -49,10 +49,10 @@
 }
 
 .step-label {
-  font-size: .78rem;
+  font-size: .9rem;
   color: var(--color-muted);
   text-align: center;
-  max-width: 70px;
+  max-width: 80px;
 }
 
 .step.active .step-label { color: var(--color-primary); font-weight: 600; }
@@ -60,9 +60,9 @@
 .step:not(:last-child)::after {
   content: "";
   position: absolute;
-  top: 17px;
-  left: calc(50% + 20px);
-  width: calc(100% - 40px);
+  top: 21px;
+  left: calc(50% + 24px);
+  width: calc(100% - 48px);
   height: 2px;
   background: var(--color-border);
 }
