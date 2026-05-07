@@ -1,0 +1,215 @@
+[
+  {
+    "name": "fraud_classifier",
+    "description": "Clasifica el tipo de fraude financiero digital descrito por el usuario y entrega nivel de confianza y razonamiento breve.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "fraud_type": {
+          "type": "string",
+          "enum": [
+            "phishing",
+            "vishing",
+            "smishing",
+            "whatsapp_impersonation",
+            "deceptive_transfer",
+            "fake_online_purchase",
+            "unauthorized_account_access",
+            "other"
+          ],
+          "description": "Categoría del fraude detectado"
+        },
+        "confidence": {
+          "type": "string",
+          "enum": ["high", "medium", "low"],
+          "description": "Nivel de confianza en la clasificación"
+        },
+        "reasoning": {
+          "type": "string",
+          "description": "Explicación breve en lenguaje simple de por qué se clasificó así"
+        },
+        "needs_clarification": {
+          "type": "boolean",
+          "description": "true si el relato es demasiado ambiguo para clasificar con certeza"
+        },
+        "clarification_question": {
+          "type": ["string", "null"],
+          "description": "Pregunta corta si needs_clarification es true, null si no aplica"
+        }
+      },
+      "required": ["fraud_type", "confidence", "reasoning", "needs_clarification"]
+    }
+  },
+  {
+    "name": "case_summary",
+    "description": "Genera un resumen estructurado del caso de fraude para presentar ante bancos, SERNAC, CMF u otras instituciones chilenas.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "summary": {
+          "type": "string",
+          "description": "Resumen narrativo del caso en 2-3 oraciones claras"
+        },
+        "key_facts": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Lista de hechos clave del caso"
+        },
+        "timeline": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Secuencia cronológica de eventos inferibles del relato"
+        },
+        "recommended_actions": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Acciones urgentes recomendadas para la víctima"
+        },
+        "missing_info": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Datos faltantes que completarían el caso"
+        },
+        "disclaimer": {
+          "type": "string",
+          "description": "Disclaimer sobre el carácter orientativo del resumen generado con IA"
+        }
+      },
+      "required": [
+        "summary",
+        "key_facts",
+        "timeline",
+        "recommended_actions",
+        "missing_info",
+        "disclaimer"
+      ]
+    }
+  },
+  {
+    "name": "evidence_gap",
+    "description": "Identifica qué evidencia le falta al usuario para documentar mejor su caso de fraude financiero ante instituciones chilenas.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "missing_evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "item": {
+                "type": "string",
+                "description": "Nombre del elemento de evidencia faltante"
+              },
+              "why_important": {
+                "type": "string",
+                "description": "Por qué es útil para el caso"
+              },
+              "how_to_get": {
+                "type": "string",
+                "description": "Cómo obtenerlo o dónde buscarlo"
+              },
+              "priority": {
+                "type": "string",
+                "enum": ["high", "medium", "low"],
+                "description": "Nivel de prioridad para obtener este elemento"
+              }
+            },
+            "required": ["item", "why_important", "how_to_get", "priority"]
+          },
+          "description": "Lista de evidencia faltante con prioridad"
+        },
+        "evidence_already_mentioned": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Evidencia que el usuario ya mencionó tener"
+        },
+        "tip": {
+          "type": "string",
+          "description": "Consejo general sobre conservación de evidencia digital"
+        }
+      },
+      "required": ["missing_evidence", "evidence_already_mentioned", "tip"]
+    }
+  },
+  {
+    "name": "risk_flags",
+    "description": "Detecta señales de alerta, inconsistencias o riesgos adicionales en el relato del usuario víctima de fraude financiero digital.",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "risk_level": {
+          "type": "string",
+          "enum": ["high", "medium", "low"],
+          "description": "Nivel de riesgo general del caso"
+        },
+        "flags": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "flag": {
+                "type": "string",
+                "description": "Descripción breve de la señal de alerta"
+              },
+              "explanation": {
+                "type": "string",
+                "description": "Por qué es preocupante"
+              },
+              "action": {
+                "type": "string",
+                "description": "Qué hacer al respecto"
+              }
+            },
+            "required": ["flag", "explanation", "action"]
+          },
+          "description": "Lista de señales de alerta detectadas"
+        },
+        "no_flags_detected": {
+          "type": "boolean",
+          "description": "true si no se detectaron señales de alerta claras"
+        },
+        "urgent_message": {
+          "type": ["string", "null"],
+          "description": "Mensaje urgente si risk_level es high, null si no aplica"
+        }
+      },
+      "required": ["risk_level", "flags", "no_flags_detected"]
+    }
+  },
+  {
+    "name": "statement_generator",
+    "description": "Genera una declaración preliminar del caso de fraude adaptada a la institución receptora (banco, SERNAC, CMF, CSIRT, fintech).",
+    "input_schema": {
+      "type": "object",
+      "properties": {
+        "statement_text": {
+          "type": "string",
+          "description": "Texto completo de la declaración en formato carta o denuncia"
+        },
+        "institution": {
+          "type": "string",
+          "description": "Institución a la que se dirige el documento"
+        },
+        "suggested_subject": {
+          "type": "string",
+          "description": "Asunto sugerido para el correo o formulario de denuncia"
+        },
+        "format": {
+          "type": "string",
+          "description": "Formato del documento (carta, formulario, email)"
+        },
+        "disclaimer": {
+          "type": "string",
+          "description": "Disclaimer obligatorio sobre el carácter orientativo del documento generado con IA"
+        }
+      },
+      "required": [
+        "statement_text",
+        "institution",
+        "suggested_subject",
+        "format",
+        "disclaimer"
+      ]
+    }
+  }
+]
