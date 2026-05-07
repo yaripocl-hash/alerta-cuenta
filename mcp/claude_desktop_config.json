@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "alerta-cuenta": {
+      "command": "python",
+      "args": ["C:/Users/andre/OneDrive/Documentos/Claude/AlertaCuenta/mcp/alerta_cuenta_mcp.py"],
+      "env": {}
+    }
+  }
+}

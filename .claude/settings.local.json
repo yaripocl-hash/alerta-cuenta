@@ -1,0 +1,6 @@
+{
+  "enabledMcpjsonServers": [
+    "alerta-cuenta"
+  ],
+  "enableAllProjectMcpServers": true
+}
