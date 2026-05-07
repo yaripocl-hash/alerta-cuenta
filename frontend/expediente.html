@@ -1,17 +1,28 @@
 <!DOCTYPE html>
-<html lang="es">
+<html class="light" lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Expediente — Alerta Cuenta</title>
   <link rel="stylesheet" href="assets/css/main.css">
   <link rel="stylesheet" href="assets/css/components.css">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>tailwind.config={corePlugins:{preflight:false},darkMode:"class",theme:{extend:{colors:{"inverse-on-surface":"#eff1f3","on-surface":"#191c1e",error:"#ba1a1a","inverse-primary":"#afc6ff",primary:"#002c6b","outline-variant":"#c4c6d2","surface-container":"#eceef0","inverse-surface":"#2d3133","surface-bright":"#f7f9fb",secondary:"#725c00","secondary-fixed":"#ffe07f","on-primary":"#ffffff","on-surface-variant":"#434651",background:"#f7f9fb",surface:"#f7f9fb",outline:"#747782","surface-variant":"#e0e3e5","primary-container":"#1e4387","surface-container-lowest":"#ffffff","secondary-container":"#fed74e","surface-container-low":"#f2f4f6"},spacing:{unit:"8px","stack-sm":"16px","margin-mobile":"24px",gutter:"32px","container-max":"1280px","stack-md":"32px","stack-lg":"48px"}}}}</script>
+  <style>.focus-halo:focus-visible{outline:4px solid #f2e2a7;outline-offset:2px;}</style>
 </head>
 <body>
 
-  <header class="site-header" role="banner">
-    <div class="container">
-      <a href="index.html" class="site-logo">Alerta<span>Cuenta</span></a>
+  <header class="bg-surface top-0 sticky z-50 border-b-2 border-outline-variant">
+    <div class="flex justify-between items-center w-full px-6 py-2 mx-auto" style="max-width:1280px;font-family:'Public Sans',sans-serif;">
+      <a href="index.html" class="focus-halo rounded">
+        <img src="https://vqenacwaqmquwnrvykmb.supabase.co/storage/v1/object/public/cuenta-alerta/logo.svg" alt="Alerta Cuenta" style="height:40px;width:auto;">
+      </a>
+      <nav aria-label="Navegación" class="hidden md:flex items-center gap-6">
+        <a href="denuncia.html" class="text-on-surface-variant font-semibold hover:bg-surface-container-low px-3 py-2 rounded transition-colors focus-halo" style="font-size:17px;text-decoration:none;">Iniciar caso</a>
+        <a href="seguimiento.html" class="text-on-surface-variant font-semibold hover:bg-surface-container-low px-3 py-2 rounded transition-colors focus-halo" style="font-size:17px;text-decoration:none;">Consultar caso</a>
+      </nav>
+      <a href="index.html" class="font-semibold px-5 py-2 rounded transition-colors focus-halo hover:opacity-90 flex items-center" style="background-color:rgb(254,215,78);color:rgb(115,93,0);font-size:17px;text-decoration:none;min-height:48px;font-family:'Public Sans',sans-serif;">Inicio</a>
     </div>
   </header>
 
@@ -116,9 +127,13 @@
     </div>
   </main>
 
-  <footer class="site-footer" role="contentinfo">
-    <div class="container">
-      <p>Alerta Cuenta — Expediente generado con IA. No asesoría legal.</p>
+  <footer class="bg-inverse-surface text-inverse-on-surface">
+    <div class="mx-auto px-6 py-8 flex flex-col md:flex-row justify-between items-start md:items-center gap-4" style="max-width:1280px;font-family:'Public Sans',sans-serif;">
+      <div class="flex flex-col gap-2">
+        <img src="https://vqenacwaqmquwnrvykmb.supabase.co/storage/v1/object/public/cuenta-alerta/logo.svg" alt="Alerta Cuenta" style="height:36px;width:auto;filter:brightness(0) invert(1);">
+        <p class="text-surface-variant" style="font-size:17px;line-height:1.5;">Tu guía ciudadana ante el fraude financiero: orientación gratuita, clara y respaldada en cada paso.</p>
+      </div>
+      <p class="text-surface-variant" style="font-size:15px;white-space:nowrap;">© 2024 Alerta Cuenta.</p>
     </div>
   </footer>
 
