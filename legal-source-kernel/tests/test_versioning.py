@@ -66,7 +66,7 @@ Definición actualizada de firma electrónica avanzada.
 
 def test_compare_sources_identical(sample_law_path, tmp_db):
     id_a = ingest_source(sample_law_path, db_path=tmp_db)
-    id_b = ingest_source(sample_law_path, db_path=tmp_db)
+    id_b = ingest_source(sample_law_path, db_path=tmp_db, force=True)
     result = tc.compare_sources(id_a, id_b, db_path=str(tmp_db))
     assert result["identical"]
     assert result["diff"] == ""

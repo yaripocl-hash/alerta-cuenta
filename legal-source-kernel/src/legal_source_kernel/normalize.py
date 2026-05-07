@@ -74,6 +74,12 @@ def _collapse_blank_lines(lines: list[str]) -> list[str]:
     return result
 
 
+def compute_hash(text: str) -> str:
+    """Return a SHA-256 hex digest of the normalized text (UTF-8 encoded)."""
+    import hashlib
+    return hashlib.sha256(text.encode("utf-8")).hexdigest()
+
+
 def extract_title_from_text(text: str) -> Optional[str]:
     """Best-effort: return the first H1 heading or the first non-blank line."""
     for line in text.splitlines():
