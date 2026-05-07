@@ -8,6 +8,7 @@ from app.config import get_settings
 from app.db.supabase import get_supabase
 from app.schemas.ai import AIRequest, AIResponse
 from app.services.audit_service import log_action
+from app.services.phishtank_service import check_urls_in_description
 
 router = APIRouter()
 
@@ -88,9 +89,15 @@ async def _persist_ai_output(case_id: str, agent, output: dict, latency_ms: int)
 async def classify_fraud(payload: AIRequest):
     settings = get_settings()
     agent = FraudClassifierAgent()
+
+    context = dict(payload.additional_context or {})
+    urlhaus_results = await check_urls_in_description(payload.description)
+    if urlhaus_results:
+        context["urlhaus_results"] = urlhaus_results
+
     t0 = time.monotonic()
     try:
-        output = await agent.run(payload.description, payload.additional_context)
+        output = await agent.run(payload.description, context)
     except Exception as exc:
         raise HTTPException(status_code=500, detail=str(exc)) from exc
     latency_ms = int((time.monotonic() - t0) * 1000)

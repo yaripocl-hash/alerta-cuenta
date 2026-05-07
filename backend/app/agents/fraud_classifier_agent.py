@@ -12,13 +12,14 @@ class FraudClassifierAgent(BaseAgent):
     """
 
     agent_name = "fraud_classifier"
-    prompt_version = "v1"
+    prompt_version = "v2"
 
     async def run(self, description: str, context: dict) -> dict:
         user_content = json.dumps(
             {
                 "description": description,
                 "fraud_type_declared": context.get("fraud_type_declared"),
+                "urlhaus_results": context.get("urlhaus_results"),
             },
             ensure_ascii=False,
         )

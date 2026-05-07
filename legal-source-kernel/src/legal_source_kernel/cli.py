@@ -15,6 +15,7 @@ from rich.syntax import Syntax
 
 from .config import get_db_path
 from .db import init_db, get_db
+from .exceptions import DuplicateSourceError
 from . import tool_contracts as tc
 
 app = typer.Typer(
@@ -54,6 +55,7 @@ def init():
 def ingest(
     file: Path = typer.Argument(..., help="Archivo a ingestar (.md, .txt, .pdf)"),
     metadata: Optional[Path] = typer.Option(None, "--metadata", "-m", help="Manifiesto YAML externo"),
+    force: bool = typer.Option(False, "--force", "-f", help="Re-ingestar aunque ya exista"),
 ):
     """Ingesta un archivo de fuente jurídica en el kernel."""
     _ensure_db()
@@ -64,15 +66,24 @@ def ingest(
         result = tc.ingest_source(
             file_path=str(file),
             metadata_path=str(metadata) if metadata else None,
+            force=force,
         )
         console.print(Panel(
             f"[bold green]Fuente ingresada[/bold green]\n"
             f"  ID: {result['source_id']}\n"
             f"  Título: {result['title']}\n"
-            f"  Segmentos: {result['segments']}",
+            f"  Segmentos: {result['segments']}  Sub-segmentos: {result.get('sub_segments', 0)}",
             title="Ingesta exitosa",
             border_style="green",
         ))
+    except DuplicateSourceError as e:
+        console.print(Panel(
+            f"[yellow]Esta fuente ya fue ingresada (source_id={e.existing_id}).[/yellow]\n"
+            f"Usa [bold]--force[/bold] para re-ingestar.",
+            title="Duplicado detectado",
+            border_style="yellow",
+        ))
+        raise typer.Exit(0)
     except Exception as e:
         err_console.print(f"Error al ingestar: {e}")
         raise typer.Exit(1)
