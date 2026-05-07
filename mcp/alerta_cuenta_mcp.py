@@ -3,62 +3,141 @@ MCP Server — Alerta Cuenta
 Expone herramientas de fraude financiero para Claude Desktop / Claude Code.
 
 Herramientas:
-  verificar_url        → URLhaus (API pública, sin auth)
+  verificar_url        → Análisis heurístico de URL (dominios chilenos + patrones de fraude)
   ejemplos_fraude      → Dataset sintético de fraudes chilenos
   patrones_smishing    → Patrones conocidos de SMS fraudulentos en Chile
   indicadores_vishing  → Señales de alerta en llamadas telefónicas fraudulentas
 """
 
 from mcp.server.fastmcp import FastMCP
-import httpx
+from urllib.parse import urlparse
 import json
 
 mcp = FastMCP("alerta-cuenta")
 
-# ─── Tool 1: Verificación de URL contra URLhaus ────────────────────────────────
+# ─── Tool 1: Análisis heurístico de URL ───────────────────────────────────────
+
+DOMINIOS_OFICIALES = {
+    "bancoestado.cl", "bci.cl", "santander.cl", "scotiabank.cl",
+    "bancochile.cl", "itau.cl", "security.cl", "falabella.com",
+    "ripley.cl", "mercadopago.cl", "mercadopago.com", "tenpo.cl",
+    "fintual.cl", "fintual.com", "correos.cl", "cmfchile.cl",
+    "sii.cl", "registrocivil.cl", "carabineros.cl", "pdi.cl",
+    "bcn.cl", "clave.cl", "previred.com", "fonasa.cl",
+}
+
+INSTITUCIONES_CONOCIDAS = [
+    "bancoestado", "bancochile", "santander", "scotiabank", "bci",
+    "itau", "security", "falabella", "ripley", "mercadopago", "tenpo",
+    "fintual", "correos", "cmf", "sii", "carabineros", "pdi", "clave",
+    "fonasa", "previred", "afp",
+]
+
+TLDS_SOSPECHOSOS = {
+    ".xyz", ".tk", ".ml", ".ga", ".cf", ".gq", ".top", ".click",
+    ".loan", ".win", ".bid", ".stream", ".download", ".faith",
+    ".review", ".trade", ".webcam", ".accountant", ".date",
+}
+
+KEYWORDS_FRAUDE = [
+    "verificar", "confirmar", "reactivar", "activar", "alerta",
+    "seguro", "pago", "arancel", "premio", "ganador", "suspendida",
+    "bloqueada", "validar", "cuenta-segura", "rut", "clave",
+    "ingreso", "acceso-seguro",
+]
+
 
 @mcp.tool()
-async def verificar_url(url: str) -> str:
+def verificar_url(url: str) -> str:
     """
-    Verifica si una URL está reportada como maliciosa en URLhaus (abuse.ch).
-    Útil para analizar links recibidos por SMS, WhatsApp o email sospechosos.
-    Retorna el estado de la URL y si está activa en bases de datos de phishing/malware.
+    Analiza una URL con heurísticas para detectar fraude financiero en Chile.
+    Detecta dominios lookalike de bancos e instituciones chilenas, TLDs sospechosos
+    y palabras clave típicas de phishing/smishing.
+    Útil para analizar links recibidos por SMS, WhatsApp o correo sospechoso.
     """
     try:
-        async with httpx.AsyncClient(timeout=8.0) as client:
-            response = await client.post(
-                "https://urlhaus-api.abuse.ch/v1/url/",
-                data={"url": url},
-            )
-            data = response.json()
-
-        if data.get("query_status") == "no_results":
-            return json.dumps({
-                "url": url,
-                "estado": "no_encontrada",
-                "mensaje": "Esta URL no aparece en la base de datos de URLhaus. Eso no garantiza que sea segura, pero no hay reportes conocidos.",
-                "riesgo": "desconocido",
-            }, ensure_ascii=False)
-
-        if data.get("query_status") == "is_page":
-            return json.dumps({
-                "url": url,
-                "estado": "REPORTADA_MALICIOSA",
-                "fecha_reporte": data.get("date_added"),
-                "amenaza": data.get("threat"),  # malware, phishing, etc.
-                "activa": data.get("url_status") == "online",
-                "mensaje": "⚠️ Esta URL está reportada como maliciosa en URLhaus. No la visites ni la compartas.",
-                "riesgo": "ALTO",
-            }, ensure_ascii=False)
-
-        return json.dumps({"url": url, "respuesta_raw": data}, ensure_ascii=False)
-
-    except httpx.TimeoutException:
+        parsed = urlparse(url if "://" in url else "http://" + url)
+        dominio = parsed.netloc.lower().lstrip("www.")
+        ruta = parsed.path.lower()
+        url_completa = (dominio + ruta).lower()
+    except Exception:
         return json.dumps({
             "url": url,
             "estado": "error",
-            "mensaje": "No se pudo consultar URLhaus (timeout). Tratar la URL con precaución.",
+            "mensaje": "No se pudo analizar la URL. Verifique que esté bien escrita.",
+            "riesgo": "desconocido",
         }, ensure_ascii=False)
+
+    alertas = []
+    puntos_riesgo = 0
+
+    # 1. Dominio oficial conocido → seguro
+    if dominio in DOMINIOS_OFICIALES:
+        return json.dumps({
+            "url": url,
+            "dominio": dominio,
+            "estado": "dominio_oficial",
+            "mensaje": f"El dominio '{dominio}' corresponde a un sitio oficial conocido en Chile.",
+            "riesgo": "BAJO",
+            "alertas": [],
+        }, ensure_ascii=False, indent=2)
+
+    # 2. Lookalike: contiene nombre de institución pero no es el dominio oficial
+    for institucion in INSTITUCIONES_CONOCIDAS:
+        if institucion in dominio:
+            alertas.append(f"El dominio contiene '{institucion}' pero NO es el sitio oficial.")
+            puntos_riesgo += 4
+            break
+
+    # 3. TLD sospechoso
+    for tld in TLDS_SOSPECHOSOS:
+        if dominio.endswith(tld):
+            alertas.append(f"TLD '{tld}' es frecuentemente usado en sitios fraudulentos.")
+            puntos_riesgo += 3
+            break
+
+    # 4. Keywords de fraude en la URL
+    encontradas = [kw for kw in KEYWORDS_FRAUDE if kw in url_completa]
+    if encontradas:
+        alertas.append(f"La URL contiene palabras asociadas a fraude: {', '.join(encontradas)}.")
+        puntos_riesgo += len(encontradas)
+
+    # 5. Guiones en el dominio (táctica común: banco-estado-cl.xyz)
+    guiones = dominio.count("-")
+    if guiones >= 2:
+        alertas.append(f"El dominio tiene {guiones} guiones — táctica común en dominios falsos.")
+        puntos_riesgo += 2
+    elif guiones == 1:
+        puntos_riesgo += 1
+
+    # 6. HTTP sin HTTPS
+    if url.startswith("http://"):
+        alertas.append("La URL usa HTTP (sin cifrado). Sitios legítimos usan HTTPS.")
+        puntos_riesgo += 1
+
+    # Clasificar riesgo
+    if puntos_riesgo >= 5:
+        nivel_riesgo = "ALTO"
+        estado = "sospechosa"
+        mensaje = "Esta URL tiene múltiples señales de fraude. No la visites ni entregues datos."
+    elif puntos_riesgo >= 2:
+        nivel_riesgo = "MEDIO"
+        estado = "dudosa"
+        mensaje = "Esta URL tiene características sospechosas. Verifica el dominio oficial antes de continuar."
+    else:
+        nivel_riesgo = "BAJO"
+        estado = "sin_alertas"
+        mensaje = "No se detectaron señales claras de fraude, pero esto no garantiza que sea segura."
+
+    return json.dumps({
+        "url": url,
+        "dominio": dominio,
+        "estado": estado,
+        "riesgo": nivel_riesgo,
+        "puntos_riesgo": puntos_riesgo,
+        "alertas": alertas,
+        "mensaje": mensaje,
+    }, ensure_ascii=False, indent=2)
 
 
 # ─── Tool 2: Ejemplos de fraudes chilenos ─────────────────────────────────────
@@ -182,7 +261,7 @@ SEÑALES_POR_TIPO = {
 }
 
 @mcp.tool()
-def señales_de_alerta(tipo_fraude: str) -> str:
+def senales_de_alerta(tipo_fraude: str) -> str:
     """
     Retorna una checklist de señales de alerta específicas para cada tipo de fraude financiero en Chile.
     Usar para validar si el relato de la víctima coincide con patrones conocidos.
