@@ -5,6 +5,7 @@
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
 <script id="tailwind-config">tailwind.config = {darkMode: "class", theme: {extend: {colors: {"inverse-on-surface": "#eff1f3", "surface-container-high": "#e6e8ea", "surface-dim": "#d8dadc", "tertiary-fixed-dim": "#acc7ff", "on-surface": "#191c1e", "on-tertiary-fixed": "#001a40", error: "#ba1a1a", "inverse-primary": "#afc6ff", "tertiary-fixed": "#d7e2ff", "on-secondary": "#ffffff", primary: "#002c6b", "outline-variant": "#c4c6d2", "surface-container-highest": "#e0e3e5", "surface-container": "#eceef0", "primary-fixed": "#d9e2ff", "surface-tint": "#3b5ca2", "primary-fixed-dim": "#afc6ff", "on-background": "#191c1e", "inverse-surface": "#2d3133", "secondary-fixed-dim": "#e9c33b", "on-error-container": "#93000a", "on-tertiary": "#ffffff", "on-secondary-fixed": "#231b00", "surface-bright": "#f7f9fb", "on-secondary-container": "#735d00", tertiary: "#002d65", secondary: "#725c00", "secondary-fixed": "#ffe07f", "on-primary": "#ffffff", "on-surface-variant": "#434651", "tertiary-container": "#004390", background: "#f7f9fb", surface: "#f7f9fb", "on-tertiary-fixed-variant": "#004492", "on-primary-container": "#92b2fe", "surface-container-low": "#f2f4f6", "on-primary-fixed-variant": "#1f4488", outline: "#747782", "surface-variant": "#e0e3e5", "error-container": "#ffdad6", "on-secondary-fixed-variant": "#564500", "primary-container": "#1e4387", "surface-container-lowest": "#ffffff", "on-primary-fixed": "#001944", "on-tertiary-container": "#8db3ff", "on-error": "#ffffff", "secondary-container": "#fed74e"}, borderRadius: {DEFAULT: "0.25rem", lg: "0.5rem", xl: "0.75rem", full: "9999px"}, spacing: {unit: "8px", "stack-sm": "16px", "margin-mobile": "24px", "touch-target-min": "56px", gutter: "32px", "container-max": "1280px", "stack-md": "32px", "stack-lg": "48px"}, fontFamily: {"body-lg": ["Public Sans"], "headline-md": ["Public Sans"], "headline-lg": ["Public Sans"], callout: ["Public Sans"], "headline-xl": ["Public Sans"], "body-md": ["Public Sans"], "label-lg": ["Public Sans"]}, fontSize: {"body-lg": ["22px", {lineHeight: "36px", letterSpacing: "0.01em", fontWeight: "400"}], "headline-md": ["28px", {lineHeight: "36px", letterSpacing: "0", fontWeight: "600"}], "headline-lg": ["34px", {lineHeight: "44px", letterSpacing: "-0.01em", fontWeight: "700"}], callout: ["24px", {lineHeight: "36px", letterSpacing: "0", fontWeight: "500"}], "headline-xl": ["48px", {lineHeight: "60px", letterSpacing: "-0.02em", fontWeight: "700"}], "body-md": ["20px", {lineHeight: "32px", letterSpacing: "0.01em", fontWeight: "400"}], "label-lg": ["18px", {lineHeight: "24px", letterSpacing: "0.05em", fontWeight: "600"}]}}}};</script>
 <style>
         body { font-family: 'Public Sans', sans-serif; }
@@ -17,9 +18,9 @@
 <header class="bg-surface dark:bg-on-background text-primary dark:text-inverse-primary docked full-width top-0 sticky z-50 border-b-2 border-outline-variant dark:border-outline flat no shadows">
 <div class="flex justify-between items-center w-full px-margin-mobile py-unit max-w-container-max mx-auto">
 <!-- Brand -->
-<a href="/" class="focus-halo rounded">
-  <img src="https://vqenacwaqmquwnrvykmb.supabase.co/storage/v1/object/public/cuenta-alerta/logo.svg" alt="Alerta Cuenta" class="h-10 w-auto">
-</a>
+<div class="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary-fixed">
+                Alerta Cuenta
+            </div>
 <!-- Navigation Links (Desktop) -->
 <nav aria-label="Navegación principal" class="hidden md:flex items-center gap-gutter">
 <a aria-current="page" class="text-primary dark:text-primary-fixed border-b-4 border-secondary-fixed font-bold pb-2 hover:bg-surface-container-low dark:hover:bg-inverse-surface transition-colors duration-200 focus-halo" href="#">
@@ -61,7 +62,7 @@
                     </p>
 </div>
 <div class="">
-<img alt="Persona recibiendo orientación en una tablet" class="w-full h-full object-cover" src="https://vqenacwaqmquwnrvykmb.supabase.co/storage/v1/object/public/cuenta-alerta/fix-the-woman-s-face--she-is-missing-one-eye--add-.svg">
+<img alt="Persona recibiendo orientación en una tablet" class="w-full h-full object-cover" data-alt="A professional, high-quality institutional photograph showing an older adult sitting comfortably in a well-lit, modern living room, calmly looking at a tablet screen. The lighting is soft and natural, creating a reassuring and safe mood. The scene relies on a clean, light-mode aesthetic with a palette of soft whites, neutral grays, and subtle blue accents, aligning with an authoritative yet approachable corporate visual style. The overall composition suggests empowerment and clear guidance." src="https://vqenacwaqmquwnrvykmb.supabase.co/storage/v1/object/public/cuenta-alerta/fix-the-woman-s-face--she-is-missing-one-eye--add-.svg">
 </div>
 </div>
 </section>
@@ -75,9 +76,10 @@
 <!-- Card 1: Sospecha -->
 <article class="bg-surface-container-lowest rounded-xl border-2 border-outline-variant p-[32px] flex flex-col gap-stack-sm hover:border-primary transition-colors focus-within:ring-4 focus-within:ring-secondary-fixed shadow-sm">
 <div class="self-center">
-<img alt="Icono de advertencia" class="w-24 h-24 object-cover" src="https://vqenacwaqmquwnrvykmb.supabase.co/storage/v1/object/public/cuenta-alerta/prevenir-fraude.svg">
+<img alt="Icono de advertencia" class="max-width=100px heigh=auto object-contain" src="https://vqenacwaqmquwnrvykmb.supabase.co/storage/v1/object/public/cuenta-alerta/prevenir-fraude.svg">
 </div>
 <h3 class="font-callout text-callout text-on-surface">Ayuda para prevenir un fraude</h3>
+
 <p class="font-body-md text-body-md flex-grow text-on-surface">
                         Para personas que no saben si están siendo engañadas y necesitan orientación preventiva.
                     </p>
@@ -90,26 +92,26 @@
 <!-- Accent top bar for emphasis -->
 <div class="absolute top-0 left-0 right-0 h-2 bg-error"></div>
 <div class="self-center">
-<img alt="Icono de advertencia" class="w-24 h-24 object-cover" src="https://vqenacwaqmquwnrvykmb.supabase.co/storage/v1/object/public/cuenta-alerta/victima.svg">
+<img alt="Icono de advertencia" class="max-width=100px heigh=auto object-contain" src="https://vqenacwaqmquwnrvykmb.supabase.co/storage/v1/object/public/cuenta-alerta/victima.svg">
 </div>
 <h3 class="font-callout text-callout text-on-surface">He sido víctima de un fraude</h3>
 <p class="font-body-md text-body-md flex-grow text-on-surface">
                         Para orientación inmediata tras un fraude o para iniciar una denuncia/caso de forma segura.
                     </p>
-<a class="inline-flex items-center justify-center w-full min-h-[56px] font-label-lg text-label-lg rounded transition-colors focus-halo mt-stack-sm bg-secondary text-on-secondary hover:bg-secondary-container hover:opacity-90" href="denuncia.html" style="background-color: rgb(196, 30, 58); color: white;">
+<a class="inline-flex items-center justify-center w-full min-h-[56px] font-label-lg text-label-lg rounded transition-colors focus-halo mt-stack-sm bg-secondary text-on-secondary hover:bg-secondary-container hover:opacity-90" href="#" style="background-color: rgb(196, 30, 58); color: white;">
                         Iniciar reporte
                     </a>
 </article>
 <!-- Card 3: Caso Abierto -->
 <article class="bg-surface-container-lowest rounded-xl border-2 border-outline-variant p-[32px] flex flex-col gap-stack-sm hover:border-primary transition-colors focus-within:ring-4 focus-within:ring-secondary-fixed md:col-span-2 lg:col-span-1 shadow-sm">
 <div class="self-center">
-<img alt="Icono de advertencia" class="w-24 h-24 object-cover" src="https://vqenacwaqmquwnrvykmb.supabase.co/storage/v1/object/public/cuenta-alerta/ver-mi-caso.svg">
+<img alt="Icono de advertencia" class="max-width=100px heigh=auto object-contain" src="https://vqenacwaqmquwnrvykmb.supabase.co/storage/v1/object/public/cuenta-alerta/ver-mi-caso.svg">
 </div>
 <h3 class="font-callout text-callout text-on-surface">Ver el estado de mi caso</h3>
 <p class="font-body-md text-body-md flex-grow text-on-surface">
                         Para consultar el estado del caso usando código de seguimiento o número de expediente.
                     </p>
-<a class="inline-flex items-center justify-center w-full min-h-[56px] border-2 font-label-lg text-label-lg rounded hover:bg-surface-container-low transition-colors focus-halo mt-stack-sm border-secondary text-secondary" href="seguimiento.html" style="border-color: rgb(116, 119, 130); color: rgb(116, 119, 130);">
+<a class="inline-flex items-center justify-center w-full min-h-[56px] border-2 font-label-lg text-label-lg rounded hover:bg-surface-container-low transition-colors focus-halo mt-stack-sm border-secondary text-secondary" href="#" style="border-color: rgb(116, 119, 130); color: rgb(116, 119, 130);">
                         Consultar mi caso
                     </a>
 </article>
@@ -152,9 +154,11 @@
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-stack-lg border-b border-outline pb-stack-lg">
 <!-- Brand & Social -->
 <div class="flex flex-col gap-stack-sm lg:col-span-1">
-<img src="https://vqenacwaqmquwnrvykmb.supabase.co/storage/v1/object/public/cuenta-alerta/logo.svg" alt="Alerta Cuenta" class="h-9 w-auto [filter:brightness(0)_invert(1)]">
+<div class="font-headline-lg text-headline-lg font-bold text-inverse-primary">
+                    Alerta Cuenta
+                </div>
 <p class="font-body-md text-body-md text-surface-variant">
-                    Tu guía ciudadana ante el fraude financiero: orientación gratuita, clara y respaldada en cada paso.
+                    Protegiendo su seguridad financiera con transparencia y apoyo paso a paso.
                 </p>
 <div class="flex gap-4 mt-4">
 <a aria-label="Facebook" class="w-14 h-14 rounded-full bg-on-surface-variant text-inverse-on-surface flex items-center justify-center hover:bg-outline transition-colors focus-halo" href="#">
