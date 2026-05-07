@@ -11,6 +11,10 @@
   <script>tailwind.config={corePlugins:{preflight:false},darkMode:"class",theme:{extend:{colors:{"inverse-on-surface":"#eff1f3","on-surface":"#191c1e",error:"#ba1a1a","inverse-primary":"#afc6ff",primary:"#002c6b","outline-variant":"#c4c6d2","surface-container":"#eceef0","inverse-surface":"#2d3133","surface-bright":"#f7f9fb",secondary:"#725c00","secondary-fixed":"#ffe07f","on-primary":"#ffffff","on-surface-variant":"#434651",background:"#f7f9fb",surface:"#f7f9fb",outline:"#747782","surface-variant":"#e0e3e5","primary-container":"#1e4387","surface-container-lowest":"#ffffff","secondary-container":"#fed74e","surface-container-low":"#f2f4f6"},spacing:{unit:"8px","stack-sm":"16px","margin-mobile":"24px",gutter:"32px","container-max":"1280px","stack-md":"32px","stack-lg":"48px"}}}}</script>
   <style>
     .focus-halo:focus-visible { outline: 4px solid #f2e2a7; outline-offset: 2px; }
+    @media (max-width: 768px) {
+      .hero-grid { grid-template-columns: 1fr !important; }
+      .hero-grid > div:last-child { display: none; }
+    }
 
     .eyebrow {
       display: inline-block;
@@ -216,19 +220,24 @@
 
     <!-- HERO -->
     <section style="background: linear-gradient(135deg, #002c6b 0%, #1e4387 100%); color: #fff; padding: 72px 0 80px;">
-      <div class="max-w-container-max mx-auto px-margin-mobile">
-        <span style="display:inline-block;background:rgba(255,255,255,.12);color:#fed74e;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 16px;border-radius:9999px;margin-bottom:20px;">
-          Equipo Yaripo · Claude Impact Lab Chile 2026
-        </span>
-        <h1 style="font-size:clamp(32px,5vw,56px);font-weight:700;line-height:1.1;letter-spacing:-0.02em;max-width:20ch;margin:0 0 20px;">
-          Para qué existimos
-        </h1>
-        <p style="font-size:clamp(18px,2.4vw,24px);line-height:1.6;max-width:54ch;color:rgba(255,255,255,.85);margin:0 0 36px;">
-          AlertaCuenta nació para proteger a las personas frente al fraude financiero digital — con inteligencia artificial, lenguaje simple y sin barreras tecnológicas.
-        </p>
-        <a href="orientacion.html" class="focus-halo" style="display:inline-flex;align-items:center;gap:.5rem;background:#fed74e;color:#231b00;font-weight:700;font-size:18px;padding:14px 28px;border-radius:12px;text-decoration:none;min-height:56px;">
-          Obtener orientación →
-        </a>
+      <div class="max-w-container-max mx-auto px-margin-mobile hero-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;">
+        <div>
+          <span style="display:inline-block;background:rgba(255,255,255,.12);color:#fed74e;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 16px;border-radius:9999px;margin-bottom:20px;">
+            Equipo Yaripo · Claude Impact Lab Chile 2026
+          </span>
+          <h1 style="font-size:clamp(32px,5vw,56px);font-weight:700;line-height:1.1;letter-spacing:-0.02em;max-width:20ch;margin:0 0 20px;">
+            Para qué existimos
+          </h1>
+          <p style="font-size:clamp(18px,2.4vw,24px);line-height:1.6;max-width:54ch;color:rgba(255,255,255,.85);margin:0 0 36px;">
+            AlertaCuenta nació para proteger a las personas frente al fraude financiero digital — con inteligencia artificial, lenguaje simple y sin barreras tecnológicas.
+          </p>
+          <a href="orientacion.html" class="focus-halo" style="display:inline-flex;align-items:center;gap:.5rem;background:#fed74e;color:#231b00;font-weight:700;font-size:18px;padding:14px 28px;border-radius:12px;text-decoration:none;min-height:56px;">
+            Obtener orientación →
+          </a>
+        </div>
+        <div style="display:flex;justify-content:center;align-items:center;">
+          <img src="https://vqenacwaqmquwnrvykmb.supabase.co/storage/v1/object/public/cuenta-alerta/te-ayudamos.svg" alt="" aria-hidden="true" style="max-width:100%;height:auto;max-height:420px;">
+        </div>
       </div>
     </section>
 
