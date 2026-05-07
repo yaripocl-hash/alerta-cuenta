@@ -40,6 +40,9 @@ function renderExpediente(caseData, classify, summary) {
   const fraudType = classify?.classification?.fraud_type || classify?.fraud_type || caseData.fraud_type;
   document.getElementById('exp-fraud-type').textContent = fraudType || 'Clasificando...';
 
+  const urlChecks = JSON.parse(sessionStorage.getItem('ac_url_checks') || 'null');
+  if (urlChecks?.length) renderUrlChecks(urlChecks);
+
   const casoResumen = summary?.caso_resumen || {};
   const summaryText = casoResumen?.tipo_fraude?.descripcion || summary?.summary || '';
   document.getElementById('exp-summary').textContent = summaryText || 'Resumen no disponible.';
@@ -98,6 +101,46 @@ function _composeStatement(caseData, fraudType, casoResumen) {
     '',
     'Este documento fue generado con IA por Alerta Cuenta como orientación. No constituye asesoría legal.',
   ].join('\n').trim();
+}
+
+function renderUrlChecks(checks) {
+  const section = document.getElementById('exp-url-checks-section');
+  const container = document.getElementById('exp-url-checks');
+  if (!section || !container) return;
+  section.style.display = '';
+  container.textContent = '';
+  checks.forEach(({ url, urlhaus }) => {
+    const isMalicious = urlhaus?.query_status === 'is_malicious';
+    const isOnline = urlhaus?.urls_status === 'online';
+    const noResults = urlhaus?.query_status === 'no_results';
+    const div = document.createElement('div');
+    div.style.cssText = 'padding:.75rem 1rem;border-radius:var(--radius);margin-bottom:.5rem;font-size:.9rem;display:flex;align-items:flex-start;gap:.5rem;';
+    if (isMalicious || isOnline) {
+      div.style.background = '#fef2f2';
+      div.style.border = '1px solid #fca5a5';
+    } else {
+      div.style.background = 'var(--color-accent)';
+      div.style.border = '1px solid var(--color-border)';
+    }
+    const badge = document.createElement('strong');
+    badge.textContent = (isMalicious || isOnline) ? '⚠️ Reportada como maliciosa' : (noResults ? '✅ Sin reportes conocidos' : '🔍 Verificada');
+    const urlSpan = document.createElement('span');
+    urlSpan.style.fontFamily = 'monospace';
+    urlSpan.style.wordBreak = 'break-all';
+    urlSpan.textContent = url;
+    const wrap = document.createElement('div');
+    wrap.appendChild(badge);
+    wrap.appendChild(document.createTextNode(' — '));
+    wrap.appendChild(urlSpan);
+    if (isMalicious && urlhaus?.threat) {
+      const threat = document.createElement('span');
+      threat.style.cssText = 'display:block;font-size:.8rem;color:var(--color-danger);margin-top:.25rem;';
+      threat.textContent = 'Tipo de amenaza: ' + urlhaus.threat;
+      wrap.appendChild(threat);
+    }
+    div.appendChild(wrap);
+    container.appendChild(div);
+  });
 }
 
 function copyStatement() {

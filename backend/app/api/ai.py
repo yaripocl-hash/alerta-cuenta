@@ -113,6 +113,7 @@ async def classify_fraud(payload: AIRequest):
         prompt_version=agent.prompt_version,
         output=output,
         model_used=settings.anthropic_model,
+        url_checks=urlhaus_results or None,
     )
 
 

@@ -1131,17 +1131,18 @@
       </div>
       <div class="flex flex-col gap-stack-sm">
         <h3 class="font-callout text-callout font-bold text-inverse-on-surface mb-2">Centro de Confianza</h3>
-        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" href="#">Política de Privacidad</a>
-        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" href="#">Seguridad</a>
-        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" href="#">Términos de uso</a>
+        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" href="#tab-privacidad" onclick="showTab('privacidad',document.querySelector('[aria-controls=tab-privacidad]'));window.scrollTo({top:0,behavior:'smooth'});return false;">Política de Privacidad</a>
+        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" href="#tab-seguridad" onclick="showTab('seguridad',document.querySelector('[aria-controls=tab-seguridad]'));window.scrollTo({top:0,behavior:'smooth'});return false;">Seguridad</a>
+        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" href="#tab-terminos" onclick="showTab('terminos',document.querySelector('[aria-controls=tab-terminos]'));window.scrollTo({top:0,behavior:'smooth'});return false;">Términos de uso</a>
+        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" href="#tab-derechos" onclick="showTab('derechos',document.querySelector('[aria-controls=tab-derechos]'));window.scrollTo({top:0,behavior:'smooth'});return false;">Derechos ARCOP</a>
       </div>
     </div>
     <div class="pt-stack-md flex flex-col md:flex-row justify-between items-start md:items-center gap-stack-sm">
       <nav aria-label="Enlaces legales" class="flex flex-wrap gap-x-gutter gap-y-2">
-        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline min-h-[44px] flex items-center" href="#">Privacidad</a>
-        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline min-h-[44px] flex items-center" href="#">Seguridad</a>
-        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline min-h-[44px] flex items-center" href="#">Términos de uso</a>
-        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline min-h-[44px] flex items-center" href="#">Accesibilidad</a>
+        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline min-h-[44px] flex items-center" href="#tab-privacidad" onclick="showTab('privacidad',document.querySelector('[aria-controls=tab-privacidad]'));window.scrollTo({top:0,behavior:'smooth'});return false;">Privacidad</a>
+        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline min-h-[44px] flex items-center" href="#tab-seguridad" onclick="showTab('seguridad',document.querySelector('[aria-controls=tab-seguridad]'));window.scrollTo({top:0,behavior:'smooth'});return false;">Seguridad</a>
+        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline min-h-[44px] flex items-center" href="#tab-terminos" onclick="showTab('terminos',document.querySelector('[aria-controls=tab-terminos]'));window.scrollTo({top:0,behavior:'smooth'});return false;">Términos de uso</a>
+        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline min-h-[44px] flex items-center" href="#tab-derechos" onclick="showTab('derechos',document.querySelector('[aria-controls=tab-derechos]'));window.scrollTo({top:0,behavior:'smooth'});return false;">Accesibilidad / Derechos</a>
       </nav>
       <p class="font-body-md text-body-md text-surface-variant">© 2024 Alerta Cuenta.</p>
     </div>
@@ -1162,6 +1163,18 @@ function showTab(tabId, btn) {
     btn.setAttribute('aria-selected', 'true');
   }
 }
+
+/* ── Activate tab from URL hash on load ── */
+(function () {
+  const hash = window.location.hash;
+  if (!hash) return;
+  const panelId = hash.slice(1);
+  const panel = document.getElementById(panelId);
+  if (!panel || !panel.classList.contains('tab-panel')) return;
+  const tabId = panelId.replace('tab-', '');
+  const btn = document.querySelector('[aria-controls="' + panelId + '"]');
+  showTab(tabId, btn);
+})();
 
 /* ── Cookies ── */
 function updateCookiePrefs() { /* live preview only */ }
