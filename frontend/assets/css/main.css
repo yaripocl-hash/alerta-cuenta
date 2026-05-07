@@ -20,11 +20,11 @@
   --shadow-md:  0 4px 16px rgba(0,0,0,.14);
 
   --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
-  --font-size-base: 1.05rem;
-  --line-height: 1.6;
+  --font-size-base: 1.1rem;
+  --line-height: 1.65;
 }
 
-html { font-size: 16px; scroll-behavior: smooth; }
+html { font-size: 18px; scroll-behavior: smooth; }
 
 body {
   font-family: var(--font);
@@ -134,7 +134,7 @@ body {
 
 label {
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 1.05rem;
   color: var(--color-text);
 }
 
@@ -158,12 +158,12 @@ input:focus, textarea:focus, select:focus {
 textarea { resize: vertical; min-height: 120px; }
 
 .field-hint {
-  font-size: .88rem;
+  font-size: .95rem;
   color: var(--color-muted);
 }
 
 .field-error {
-  font-size: .88rem;
+  font-size: .95rem;
   color: var(--color-danger);
   display: none;
 }

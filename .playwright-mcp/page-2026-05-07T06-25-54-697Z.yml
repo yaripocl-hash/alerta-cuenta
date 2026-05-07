@@ -1,0 +1,105 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "Alerta Cuenta" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - img "Alerta Cuenta" [ref=e5]
+      - navigation "Navegación principal" [ref=e6]:
+        - link "Inicio" [ref=e7] [cursor=pointer]:
+          - /url: "#"
+        - link "Kit de Apoyo" [ref=e8] [cursor=pointer]:
+          - /url: "#"
+        - link "Ayuda" [ref=e9] [cursor=pointer]:
+          - /url: "#"
+      - generic [ref=e10]:
+        - button "Opciones de accesibilidad" [ref=e11] [cursor=pointer]:
+          - generic [ref=e12]: accessibility_new
+          - generic [ref=e13]: Accesibilidad
+        - button "Ingresar" [ref=e14] [cursor=pointer]
+  - main [ref=e15]:
+    - generic [ref=e17]:
+      - generic [ref=e18]:
+        - heading "Te ayudamos a actuar frente a un fraude financiero" [level=1] [ref=e19]
+        - paragraph [ref=e20]: Recibe orientación paso a paso, reúne evidencia y consulta el avance de tu caso. Nuestro objetivo es brindarte claridad y seguridad en momentos de incertidumbre.
+      - img "Persona recibiendo orientación en una tablet" [ref=e22]
+    - generic [ref=e24]:
+      - heading "¿En qué situación te encuentras?" [level=2] [ref=e25]
+      - generic [ref=e26]:
+        - article [ref=e27]:
+          - img "Icono de advertencia" [ref=e29]
+          - heading "Ayuda para prevenir un fraude" [level=3] [ref=e30]
+          - paragraph [ref=e31]: Para personas que no saben si están siendo engañadas y necesitan orientación preventiva.
+          - link "Ver orientación" [ref=e32] [cursor=pointer]:
+            - /url: "#"
+        - article [ref=e33]:
+          - img "Icono de advertencia" [ref=e36]
+          - heading "He sido víctima de un fraude" [level=3] [ref=e37]
+          - paragraph [ref=e38]: Para orientación inmediata tras un fraude o para iniciar una denuncia/caso de forma segura.
+          - link "Iniciar reporte" [ref=e39] [cursor=pointer]:
+            - /url: denuncia.html
+        - article [ref=e40]:
+          - img "Icono de advertencia" [ref=e42]
+          - heading "Ver el estado de mi caso" [level=3] [ref=e43]
+          - paragraph [ref=e44]: Para consultar el estado del caso usando código de seguimiento o número de expediente.
+          - link "Consultar mi caso" [ref=e45] [cursor=pointer]:
+            - /url: seguimiento.html
+    - generic [ref=e47]:
+      - heading "Compromisos de Seguridad" [level=2] [ref=e48]
+      - generic [ref=e49]:
+        - generic [ref=e50]:
+          - generic [ref=e52]: lock
+          - heading "No pedimos claves bancarias" [level=3] [ref=e53]
+          - paragraph [ref=e54]: Nunca le solicitaremos contraseñas, PINs ni códigos de verificación por ningún medio.
+        - generic [ref=e55]:
+          - generic [ref=e57]: verified_user
+          - heading "Tus datos se tratan con cuidado" [level=3] [ref=e58]
+          - paragraph [ref=e59]: Toda la información proporcionada es confidencial y está protegida bajo estrictos estándares institucionales.
+        - generic [ref=e60]:
+          - generic [ref=e62]: directions_walk
+          - heading "Puedes avanzar paso a paso" [level=3] [ref=e63]
+          - paragraph [ref=e64]: El proceso está diseñado para completarse a tu ritmo, con instrucciones claras en cada etapa.
+  - contentinfo [ref=e65]:
+    - generic [ref=e66]:
+      - generic [ref=e67]:
+        - generic [ref=e68]:
+          - img "Alerta Cuenta" [ref=e69]
+          - paragraph [ref=e70]: "Tu guía ciudadana ante el fraude financiero: orientación gratuita, clara y respaldada en cada paso."
+          - generic [ref=e71]:
+            - link "Facebook" [ref=e72] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e73]
+            - link "X (Twitter)" [ref=e75] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e76]
+            - link "Instagram" [ref=e78] [cursor=pointer]:
+              - /url: "#"
+              - img [ref=e79]
+        - generic [ref=e81]:
+          - heading "Acerca de nosotros" [level=3] [ref=e82]
+          - link "Para qué existimos" [ref=e83] [cursor=pointer]:
+            - /url: "#"
+        - generic [ref=e84]:
+          - heading "Kit de Apoyo" [level=3] [ref=e85]
+          - link "Alertas y reportes" [ref=e86] [cursor=pointer]:
+            - /url: "#"
+          - link "Preguntas frecuentes" [ref=e87] [cursor=pointer]:
+            - /url: "#"
+          - link "Glosario financiero" [ref=e88] [cursor=pointer]:
+            - /url: "#"
+          - link "Material educativo" [ref=e89] [cursor=pointer]:
+            - /url: "#"
+        - generic [ref=e90]:
+          - heading "Contáctanos" [level=3] [ref=e91]
+          - link "Formulario de contacto" [ref=e92] [cursor=pointer]:
+            - /url: "#"
+      - generic [ref=e93]:
+        - navigation "Enlaces legales y de accesibilidad" [ref=e94]:
+          - link "Centro de Confianza" [ref=e95] [cursor=pointer]:
+            - /url: trust-center.html
+          - link "Privacidad" [ref=e96] [cursor=pointer]:
+            - /url: trust-center.html#tab-privacidad
+          - link "Seguridad" [ref=e97] [cursor=pointer]:
+            - /url: trust-center.html#tab-seguridad
+          - link "Términos de uso" [ref=e98] [cursor=pointer]:
+            - /url: trust-center.html#tab-terminos
+        - paragraph [ref=e99]: © 2026 AlertaCuenta.

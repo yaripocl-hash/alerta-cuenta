@@ -22,6 +22,7 @@
   details > summary { list-style: none; }
   details > summary::-webkit-details-marker { display: none; }
 </style>
+<link rel="stylesheet" href="assets/css/a11y.css">
 </head>
 <body class="bg-background text-on-background min-h-screen flex flex-col">
 
@@ -36,13 +37,16 @@
         <span class="font-label-lg text-label-lg">Inicio</span>
       </a>
       <a href="#" class="text-on-surface-variant font-medium pb-2 hover:bg-surface-container-low transition-colors duration-200 focus-halo">
-        <span class="font-label-lg text-label-lg">Recursos</span>
+        <span class="font-label-lg text-label-lg">Kit de Apoyo</span>
       </a>
       <a href="#" class="text-on-surface-variant font-medium pb-2 hover:bg-surface-container-low transition-colors duration-200 focus-halo">
         <span class="font-label-lg text-label-lg">Ayuda</span>
       </a>
     </nav>
     <div class="flex items-center gap-stack-sm">
+      <button aria-label="Opciones de accesibilidad" class="flex items-center gap-2 text-on-surface-variant hover:bg-surface-container-low transition-colors duration-200 px-4 py-2 rounded focus-halo min-h-[56px]">
+        <span class="font-label-lg text-label-lg">Accesibilidad</span>
+      </button>
       <button class="text-on-primary font-label-lg text-label-lg px-6 py-3 rounded hover:opacity-90 transition-colors duration-200 min-h-[56px] focus-halo" style="background-color: rgb(254, 215, 78); color: rgb(115, 93, 0);">
         Ingresar
       </button>
@@ -1119,12 +1123,11 @@
       </div>
       <div class="flex flex-col gap-stack-sm">
         <h3 class="font-callout text-callout font-bold text-inverse-on-surface mb-2">Acerca de nosotros</h3>
-        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" href="#">Quiénes somos</a>
-        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" href="#">Nuestra misión</a>
-        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" href="#">Noticias y reportes</a>
+        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" href="#">Para qué existimos</a>
       </div>
       <div class="flex flex-col gap-stack-sm">
-        <h3 class="font-callout text-callout font-bold text-inverse-on-surface mb-2">Ayuda y recursos</h3>
+        <h3 class="font-callout text-callout font-bold text-inverse-on-surface mb-2">Kit de Apoyo</h3>
+        <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" href="#">Alertas y reportes</a>
         <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" href="#">Preguntas frecuentes</a>
         <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" href="#">Glosario financiero</a>
         <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" href="#">Material educativo</a>
@@ -1144,7 +1147,7 @@
         <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline min-h-[44px] flex items-center" href="#tab-terminos" onclick="showTab('terminos',document.querySelector('[aria-controls=tab-terminos]'));window.scrollTo({top:0,behavior:'smooth'});return false;">Términos de uso</a>
         <a class="font-body-md text-body-md text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline min-h-[44px] flex items-center" href="#tab-derechos" onclick="showTab('derechos',document.querySelector('[aria-controls=tab-derechos]'));window.scrollTo({top:0,behavior:'smooth'});return false;">Accesibilidad / Derechos</a>
       </nav>
-      <p class="font-body-md text-body-md text-surface-variant">© 2024 Alerta Cuenta.</p>
+      <p class="font-body-md text-body-md text-surface-variant">© 2026 AlertaCuenta.</p>
     </div>
   </div>
 </footer>
@@ -1269,4 +1272,5 @@ function submitArcopForm(e) {
   }
 }
 </script>
+<script src="assets/js/accessibility.js"></script>
 </body></html>

@@ -10,19 +10,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script>tailwind.config={corePlugins:{preflight:false},darkMode:"class",theme:{extend:{colors:{"inverse-on-surface":"#eff1f3","on-surface":"#191c1e",error:"#ba1a1a","inverse-primary":"#afc6ff",primary:"#002c6b","outline-variant":"#c4c6d2","surface-container":"#eceef0","inverse-surface":"#2d3133","surface-bright":"#f7f9fb",secondary:"#725c00","secondary-fixed":"#ffe07f","on-primary":"#ffffff","on-surface-variant":"#434651",background:"#f7f9fb",surface:"#f7f9fb",outline:"#747782","surface-variant":"#e0e3e5","primary-container":"#1e4387","surface-container-lowest":"#ffffff","secondary-container":"#fed74e","surface-container-low":"#f2f4f6"},spacing:{unit:"8px","stack-sm":"16px","margin-mobile":"24px",gutter:"32px","container-max":"1280px","stack-md":"32px","stack-lg":"48px"}}}}</script>
   <style>.focus-halo:focus-visible{outline:4px solid #f2e2a7;outline-offset:2px;}</style>
+  <link rel="stylesheet" href="assets/css/a11y.css">
 </head>
 <body>
 
-  <header class="bg-surface top-0 sticky z-50 border-b-2 border-outline-variant">
-    <div class="flex justify-between items-center w-full px-6 py-2 mx-auto" style="max-width:1280px;font-family:'Public Sans',sans-serif;">
+  <header class="bg-surface text-primary sticky top-0 z-50 border-b-2 border-outline-variant">
+    <div class="flex justify-between items-center w-full px-margin-mobile py-unit max-w-container-max mx-auto">
       <a href="index.html" class="focus-halo rounded">
-        <img src="https://vqenacwaqmquwnrvykmb.supabase.co/storage/v1/object/public/cuenta-alerta/logo-AlertaCuenta.svg" alt="Alerta Cuenta" style="height:40px;width:auto;">
+        <img src="https://vqenacwaqmquwnrvykmb.supabase.co/storage/v1/object/public/cuenta-alerta/logo-AlertaCuenta.svg" alt="Alerta Cuenta" class="h-10 w-auto">
       </a>
-      <nav aria-label="Navegación" class="hidden md:flex items-center gap-6">
-        <a href="denuncia.html" class="text-on-surface-variant font-semibold hover:bg-surface-container-low px-3 py-2 rounded transition-colors focus-halo" style="font-size:17px;text-decoration:none;">Iniciar caso</a>
-        <a href="seguimiento.html" class="text-on-surface-variant font-semibold hover:bg-surface-container-low px-3 py-2 rounded transition-colors focus-halo" style="font-size:17px;text-decoration:none;">Consultar caso</a>
+      <nav aria-label="Navegación principal" class="flex items-center gap-gutter">
+        <a href="index.html" class="text-on-surface-variant font-medium pb-2 hover:bg-surface-container-low transition-colors duration-200 focus-halo" style="font-size:18px;letter-spacing:0.05em;font-weight:600;text-decoration:none;">Inicio</a>
+        <a href="#" class="text-on-surface-variant font-medium pb-2 hover:bg-surface-container-low transition-colors duration-200 focus-halo" style="font-size:18px;letter-spacing:0.05em;font-weight:600;text-decoration:none;">Kit de Apoyo</a>
+        <a href="#" class="text-on-surface-variant font-medium pb-2 hover:bg-surface-container-low transition-colors duration-200 focus-halo" style="font-size:18px;letter-spacing:0.05em;font-weight:600;text-decoration:none;">Ayuda</a>
       </nav>
-      <a href="index.html" class="font-semibold px-5 py-2 rounded transition-colors focus-halo hover:opacity-90 flex items-center" style="background-color:rgb(254,215,78);color:rgb(115,93,0);font-size:17px;text-decoration:none;min-height:48px;font-family:'Public Sans',sans-serif;">Inicio</a>
+      <div class="flex items-center gap-stack-sm">
+        <button aria-label="Opciones de accesibilidad" class="flex items-center gap-2 text-on-surface-variant hover:bg-surface-container-low transition-colors duration-200 px-4 py-2 rounded focus-halo min-h-[56px]" style="font-size:18px;letter-spacing:0.05em;font-weight:600;">Accesibilidad</button>
+        <button class="px-6 py-3 rounded hover:opacity-90 transition-colors duration-200 min-h-[56px] focus-halo" style="background-color:rgb(254,215,78);color:rgb(115,93,0);font-size:18px;letter-spacing:0.05em;font-weight:600;">Ingresar</button>
+      </div>
     </div>
   </header>
 
@@ -134,24 +139,53 @@
   </main>
 
   <footer class="bg-inverse-surface text-inverse-on-surface">
-    <div class="mx-auto px-6 py-8 flex flex-col gap-4" style="max-width:1280px;font-family:'Public Sans',sans-serif;">
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <div class="flex flex-col gap-2">
-          <img src="https://vqenacwaqmquwnrvykmb.supabase.co/storage/v1/object/public/cuenta-alerta/logo-AlertaCuenta.svg" alt="Alerta Cuenta" style="height:36px;width:auto;filter:brightness(0) invert(1);">
-          <p class="text-surface-variant" style="font-size:17px;line-height:1.5;">Tu guía ciudadana ante el fraude financiero: orientación gratuita, clara y respaldada en cada paso.</p>
+    <div class="max-w-container-max mx-auto px-margin-mobile py-stack-lg">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-stack-lg border-b border-outline pb-stack-lg">
+        <div class="flex flex-col gap-stack-sm lg:col-span-1">
+          <img src="https://vqenacwaqmquwnrvykmb.supabase.co/storage/v1/object/public/cuenta-alerta/logo-AlertaCuenta.svg" alt="Alerta Cuenta" class="h-9 w-auto" style="filter:brightness(0) invert(1);">
+          <p class="text-surface-variant" style="font-size:20px;line-height:32px;letter-spacing:0.01em;">Tu guía ciudadana ante el fraude financiero: orientación gratuita, clara y respaldada en cada paso.</p>
+          <div class="flex gap-4 mt-4">
+            <a aria-label="Facebook" class="w-14 h-14 rounded-full text-white flex items-center justify-center hover:opacity-80 transition-opacity focus-halo" href="#" style="background-color:#265DB0;">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"></path></svg>
+            </a>
+            <a aria-label="X (Twitter)" class="w-14 h-14 rounded-full text-white flex items-center justify-center hover:opacity-80 transition-opacity focus-halo" href="#" style="background-color:#000000;">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+            </a>
+            <a aria-label="Instagram" class="w-14 h-14 rounded-full text-white flex items-center justify-center hover:opacity-80 transition-opacity focus-halo" href="#" style="background-color:#E1306C;">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+          </div>
         </div>
-        <p class="text-surface-variant" style="font-size:15px;white-space:nowrap;">© 2024 Alerta Cuenta.</p>
+        <div class="flex flex-col gap-stack-sm">
+          <h3 class="text-inverse-on-surface mb-2" style="font-size:24px;line-height:36px;font-weight:500;">Acerca de nosotros</h3>
+          <a href="#" class="text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" style="font-size:20px;line-height:32px;">Para qué existimos</a>
+        </div>
+        <div class="flex flex-col gap-stack-sm">
+          <h3 class="text-inverse-on-surface mb-2" style="font-size:24px;line-height:36px;font-weight:500;">Kit de Apoyo</h3>
+          <a href="#" class="text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" style="font-size:20px;line-height:32px;">Alertas y reportes</a>
+          <a href="#" class="text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" style="font-size:20px;line-height:32px;">Preguntas frecuentes</a>
+          <a href="#" class="text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" style="font-size:20px;line-height:32px;">Glosario financiero</a>
+          <a href="#" class="text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" style="font-size:20px;line-height:32px;">Material educativo</a>
+        </div>
+        <div class="flex flex-col gap-stack-sm">
+          <h3 class="text-inverse-on-surface mb-2" style="font-size:24px;line-height:36px;font-weight:500;">Contáctanos</h3>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdgmgOY2fXy_nL-gGZ8JnqJkNIkEruL9mdjBUoL1WgJuNXn5Q/viewform?usp=dialog" target="_blank" rel="noopener" class="text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" style="font-size:20px;line-height:32px;">Formulario de contacto</a>
+        </div>
       </div>
-      <nav aria-label="Legal" class="flex flex-wrap gap-x-6 gap-y-1 border-t border-outline pt-4">
-        <a href="trust-center.html" class="text-surface-variant hover:text-inverse-primary transition-colors underline flex items-center" style="font-size:15px;min-height:44px;">Centro de Confianza</a>
-        <a href="trust-center.html#tab-privacidad" class="text-surface-variant hover:text-inverse-primary transition-colors underline flex items-center" style="font-size:15px;min-height:44px;">Privacidad</a>
-        <a href="trust-center.html#tab-seguridad" class="text-surface-variant hover:text-inverse-primary transition-colors underline flex items-center" style="font-size:15px;min-height:44px;">Seguridad</a>
-        <a href="trust-center.html#tab-terminos" class="text-surface-variant hover:text-inverse-primary transition-colors underline flex items-center" style="font-size:15px;min-height:44px;">Términos de uso</a>
-      </nav>
+      <div class="pt-stack-md flex flex-col md:flex-row justify-between items-start md:items-center gap-stack-sm">
+        <nav aria-label="Legal" class="flex flex-wrap gap-x-gutter gap-y-2">
+          <a href="trust-center.html" class="text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline min-h-[44px] flex items-center" style="font-size:20px;line-height:32px;">Centro de Confianza</a>
+          <a href="trust-center.html#tab-privacidad" class="text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline min-h-[44px] flex items-center" style="font-size:20px;line-height:32px;">Privacidad</a>
+          <a href="trust-center.html#tab-seguridad" class="text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline min-h-[44px] flex items-center" style="font-size:20px;line-height:32px;">Seguridad</a>
+          <a href="trust-center.html#tab-terminos" class="text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline min-h-[44px] flex items-center" style="font-size:20px;line-height:32px;">Términos de uso</a>
+        </nav>
+        <p class="text-surface-variant" style="font-size:20px;line-height:32px;">© 2026 AlertaCuenta.</p>
+      </div>
     </div>
   </footer>
 
   <script src="assets/js/api.js"></script>
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/accessibility.js"></script>
 </body>
 </html>

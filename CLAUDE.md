@@ -48,7 +48,7 @@ Los archivos en `backend/app/integrations/sernac_stub.py`, `cmf_stub.py`, `csirt
 
 ## Orientación de la Demo
 
-- Este proyecto se presenta en el **Claude Impact Lab Chile 2026**.
+- Este proyecto se presenta en el **Claude Impact Lab Chile 2026 **.
 - La demo debe ser clara, funcional y demostrar uso real de Claude.
 - Priorizar impacto ciudadano visible sobre complejidad técnica oculta.
 - El flujo principal: usuario describe fraude → Claude clasifica → Claude genera expediente.
@@ -115,7 +115,7 @@ Si el usuario entrega accidentalmente esos datos, el sistema debe advertir que n
 
 ## Criterio de competencia
 
-Este proyecto está orientado al Claude Impact Lab Chile 2026. Prioriza siempre:
+Este proyecto está orientado al Claude Impact Lab Chile 2026 . Prioriza siempre:
 
 - Impacto ciudadano visible.
 - Uso real y demostrable de Claude.

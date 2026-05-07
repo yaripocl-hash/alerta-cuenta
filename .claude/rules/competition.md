@@ -1,4 +1,4 @@
-# Reglas de Competencia — Claude Impact Lab Chile 2026
+# Reglas de Competencia — Claude Impact Lab Chile 2026 
 
 Estamos construyendo para una competencia de impacto cívico. Estas reglas guían las decisiones de diseño y priorización.
 

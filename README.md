@@ -2,7 +2,7 @@
 
 **Plataforma web de emergencia y orientación ciudadana para fraude financiero digital.**
 
-Creada para el **Claude Impact Lab Chile 2026** dentro del Chile Fintech Forum.
+Creada para el **Claude Impact Lab Chile 2026 ** dentro del Chile Fintech Forum.
 
 ---
 

@@ -1,0 +1,56 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - link "Alerta Cuenta" [ref=e4] [cursor=pointer]:
+      - /url: index.html
+      - img "Alerta Cuenta" [ref=e5]
+  - main [ref=e6]:
+    - generic [ref=e7]:
+      - heading "Registrar mi caso" [level=1] [ref=e8]
+      - paragraph [ref=e9]: Responde las preguntas del formulario. Puedes tomarte el tiempo que necesites.
+      - navigation "Pasos del formulario" [ref=e10]:
+        - generic [ref=e12]: Qué pasó
+        - generic [ref=e14]: Cuándo y cuánto
+        - generic [ref=e16]: Contacto
+        - generic [ref=e18]: Confirmar
+      - generic [ref=e20]:
+        - heading "¿Qué fue lo que pasó?" [level=2] [ref=e21]
+        - generic [ref=e22]: Cuéntanos con tus propias palabras. No necesitas usar términos técnicos. Mientras más detalles, mejor podemos ayudarte.
+        - generic [ref=e23]:
+          - generic [ref=e24]: Descripción del fraude *
+          - textbox "Descripción del fraude" [ref=e25]:
+            - /placeholder: "Ejemplo: Recibí un SMS que parecía de mi banco diciéndome que mi cuenta tenía un problema. Hice clic en el link y puse mi clave. Después me llegó una transferencia que yo no hice..."
+          - generic [ref=e26]: Mínimo 20 caracteres. También puedes grabar tu voz y lo transcribiremos.
+          - generic [ref=e28]:
+            - paragraph [ref=e29]: ¿Prefieres contarlo hablando? Graba tu relato y lo transcribiremos automáticamente.
+            - button "Grabar relato de voz" [ref=e30] [cursor=pointer]:
+              - generic [ref=e31]: 🎙
+              - text: Grabar relato de voz
+        - generic [ref=e32]:
+          - generic [ref=e33]: ¿Sabes qué tipo de fraude fue?
+          - combobox "¿Sabes qué tipo de fraude fue?" [ref=e34]:
+            - option "No estoy seguro (Claude lo clasificará)" [selected]
+            - option "Phishing (correo o sitio web falso)"
+            - option "Vishing (llamada telefónica falsa)"
+            - option "Smishing (SMS con link malicioso)"
+            - option "Suplantación por WhatsApp"
+            - option "Transferencia engañosa"
+            - option "Compra online falsa"
+            - option "Acceso no autorizado a mi cuenta"
+            - option "Otro"
+        - button "Continuar" [ref=e36] [cursor=pointer]
+  - contentinfo [ref=e37]:
+    - generic [ref=e38]:
+      - generic [ref=e39]:
+        - generic [ref=e40]:
+          - img "Alerta Cuenta" [ref=e41]
+          - paragraph [ref=e42]: "Tu guía ciudadana ante el fraude financiero: orientación gratuita, clara y respaldada en cada paso."
+        - paragraph [ref=e43]: © 2026 AlertaCuenta.
+      - navigation "Legal" [ref=e44]:
+        - link "Centro de Confianza" [ref=e45] [cursor=pointer]:
+          - /url: trust-center.html
+        - link "Privacidad" [ref=e46] [cursor=pointer]:
+          - /url: trust-center.html#tab-privacidad
+        - link "Seguridad" [ref=e47] [cursor=pointer]:
+          - /url: trust-center.html#tab-seguridad
+        - link "Términos de uso" [ref=e48] [cursor=pointer]:
+          - /url: trust-center.html#tab-terminos

@@ -1,0 +1,41 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "Alerta Cuenta" [ref=e4] [cursor=pointer]:
+        - /url: index.html
+        - img "Alerta Cuenta" [ref=e5]
+      - generic [ref=e6]:
+        - button "Opciones de accesibilidad" [ref=e7]: Accesibilidad
+        - link "Inicio" [ref=e8] [cursor=pointer]:
+          - /url: index.html
+  - main [ref=e9]:
+    - generic [ref=e10]:
+      - heading "Consultar mi caso" [level=1] [ref=e11]
+      - paragraph [ref=e12]: Ingresa tu código de seguimiento y el email que usaste al registrar el caso.
+      - generic [ref=e14]:
+        - generic [ref=e15]:
+          - generic [ref=e16]: Código de seguimiento
+          - textbox "Código de seguimiento" [ref=e17]:
+            - /placeholder: AC-XXXXXXXXXXXX
+        - generic [ref=e18]:
+          - generic [ref=e19]: Correo electrónico
+          - textbox "Correo electrónico" [ref=e20]:
+            - /placeholder: tucorreo@ejemplo.cl
+        - button "Consultar caso" [ref=e21] [cursor=pointer]:
+          - generic [ref=e22]: Consultar caso
+  - contentinfo [ref=e23]:
+    - generic [ref=e24]:
+      - generic [ref=e25]:
+        - generic [ref=e26]:
+          - img "Alerta Cuenta" [ref=e27]
+          - paragraph [ref=e28]: "Tu guía ciudadana ante el fraude financiero: orientación gratuita, clara y respaldada en cada paso."
+        - paragraph [ref=e29]: © 2026 AlertaCuenta.
+      - navigation "Legal" [ref=e30]:
+        - link "Centro de Confianza" [ref=e31] [cursor=pointer]:
+          - /url: trust-center.html
+        - link "Privacidad" [ref=e32] [cursor=pointer]:
+          - /url: trust-center.html#tab-privacidad
+        - link "Seguridad" [ref=e33] [cursor=pointer]:
+          - /url: trust-center.html#tab-seguridad
+        - link "Términos de uso" [ref=e34] [cursor=pointer]:
+          - /url: trust-center.html#tab-terminos

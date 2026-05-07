@@ -104,7 +104,7 @@ legal-kernel cite --segment-id 3
 
 Salida de ejemplo:
 ```
-Ley de prueba, artículo 3, versión v0.1-test, consultado 2026-05-06.
+Ley de prueba, artículo 3, versión v0.1-test, consultado 2026 -05-06.
 Fuente: https://example.com/ley
 ```
 

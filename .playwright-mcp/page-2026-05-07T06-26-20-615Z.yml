@@ -1,0 +1,294 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "Alerta Cuenta" [ref=e4] [cursor=pointer]:
+        - /url: /
+        - img "Alerta Cuenta" [ref=e5]
+      - navigation "Navegación principal" [ref=e6]:
+        - link "Inicio" [ref=e7] [cursor=pointer]:
+          - /url: /
+        - link "Kit de Apoyo" [ref=e8] [cursor=pointer]:
+          - /url: "#"
+        - link "Ayuda" [ref=e9] [cursor=pointer]:
+          - /url: "#"
+      - generic [ref=e10]:
+        - button "Opciones de accesibilidad" [ref=e11] [cursor=pointer]:
+          - generic [ref=e12]: Accesibilidad
+        - button "Ingresar" [ref=e13] [cursor=pointer]
+  - main [ref=e14]:
+    - generic [ref=e16]:
+      - heading "Transparencia, seguridad y uso responsable de datos" [level=1] [ref=e17]:
+        - text: Transparencia, seguridad y uso
+        - text: responsable de datos
+      - paragraph [ref=e18]:
+        - text: AlertaCuenta busca ayudarte a actuar frente al fraude
+        - strong [ref=e19]: sin exponerte a una segunda vulneración
+        - text: . Aquí encontrarás todo lo que necesitas saber sobre cómo protegemos tu información.
+    - generic [ref=e21]:
+      - generic [ref=e22]: warning
+      - paragraph [ref=e23]:
+        - strong [ref=e24]: AlertaCuenta nunca te pedirá claves, PIN, contraseñas, códigos SMS ni acceso remoto.
+        - text: Si alguien lo solicita en nuestro nombre, es una señal de alerta.
+    - generic [ref=e26]:
+      - heading "Nuestros 5 compromisos de confianza" [level=2] [ref=e27]
+      - generic [ref=e28]:
+        - generic [ref=e29]:
+          - generic [ref=e31]: bolt
+          - heading "Urgencia sin sacrificar seguridad" [level=3] [ref=e32]
+          - paragraph [ref=e33]: Actuamos rápido, pero de forma ordenada y protegida.
+        - generic [ref=e34]:
+          - generic [ref=e36]: lock
+          - heading "Sin pedir información de riesgo" [level=3] [ref=e37]
+          - paragraph [ref=e38]: Nunca pedimos claves, PIN, códigos ni acceso remoto.
+        - generic [ref=e39]:
+          - generic [ref=e41]: task_alt
+          - heading "Datos solo para fines legítimos" [level=3] [ref=e42]
+          - paragraph [ref=e43]: Tu información se usa solo para orientarte y apoyar tu caso.
+        - generic [ref=e44]:
+          - generic [ref=e46]: smart_toy
+          - heading "IA con control humano" [level=3] [ref=e47]
+          - paragraph [ref=e48]: La IA apoya, pero no decide sola en cuestiones críticas.
+        - generic [ref=e49]:
+          - generic [ref=e51]: design_services
+          - heading "Confianza desde el diseño" [level=3] [ref=e52]
+          - paragraph [ref=e53]: La seguridad y privacidad están integradas desde el inicio.
+    - generic [ref=e55]:
+      - heading "Documentos del Centro de Confianza" [level=2] [ref=e56]
+      - tablist [ref=e57]:
+        - tab "home Resumen" [selected] [ref=e58] [cursor=pointer]:
+          - generic [ref=e59]:
+            - generic [ref=e60]: home
+            - text: Resumen
+        - tab "privacy_tip Privacidad" [ref=e61] [cursor=pointer]:
+          - generic [ref=e62]:
+            - generic [ref=e63]: privacy_tip
+            - text: Privacidad
+        - tab "security Seguridad" [ref=e64] [cursor=pointer]:
+          - generic [ref=e65]:
+            - generic [ref=e66]: security
+            - text: Seguridad
+        - tab "gavel Términos de uso" [ref=e67] [cursor=pointer]:
+          - generic [ref=e68]:
+            - generic [ref=e69]: gavel
+            - text: Términos de uso
+        - tab "smart_toy Gobernanza de IA" [ref=e70] [cursor=pointer]:
+          - generic [ref=e71]:
+            - generic [ref=e72]: smart_toy
+            - text: Gobernanza de IA
+        - tab "account_balance Datos financieros" [ref=e73] [cursor=pointer]:
+          - generic [ref=e74]:
+            - generic [ref=e75]: account_balance
+            - text: Datos financieros
+        - tab "cookie Cookies" [ref=e76] [cursor=pointer]:
+          - generic [ref=e77]:
+            - generic [ref=e78]: cookie
+            - text: Cookies
+        - tab "how_to_reg Ejercer mis derechos" [ref=e79] [cursor=pointer]:
+          - generic [ref=e80]:
+            - generic [ref=e81]: how_to_reg
+            - text: Ejercer mis derechos
+      - tabpanel [ref=e82]:
+        - generic [ref=e83]:
+          - generic [ref=e84]:
+            - generic [ref=e85]:
+              - heading "¿Qué información puede solicitar AlertaCuenta?" [level=3] [ref=e86]
+              - generic [ref=e87]:
+                - generic [ref=e88]:
+                  - heading "person Identificación y contacto" [level=4] [ref=e89]:
+                    - generic [ref=e90]: person
+                    - text: Identificación y contacto
+                  - list [ref=e91]:
+                    - listitem [ref=e92]: Nombre
+                    - listitem [ref=e93]: Correo electrónico
+                    - listitem [ref=e94]: Teléfono
+                    - listitem [ref=e95]: Comuna o región
+                    - listitem [ref=e96]: Canal preferente de contacto
+                - generic [ref=e97]:
+                  - heading "report Información del caso" [level=4] [ref=e98]:
+                    - generic [ref=e99]: report
+                    - text: Información del caso
+                  - list [ref=e100]:
+                    - listitem [ref=e101]: Fecha y hora del hecho
+                    - listitem [ref=e102]: Banco o institución involucrada
+                    - listitem [ref=e103]: Producto afectado
+                    - listitem [ref=e104]: Monto aproximado
+                    - listitem [ref=e105]: Relato de los hechos
+                - generic [ref=e106]:
+                  - heading "attach_file Evidencia del caso" [level=4] [ref=e107]:
+                    - generic [ref=e108]: attach_file
+                    - text: Evidencia del caso
+                  - list [ref=e109]:
+                    - listitem [ref=e110]: Pantallazos de mensajes sospechosos
+                    - listitem [ref=e111]: Comprobantes de transferencia
+                    - listitem [ref=e112]: Cartolas o movimientos
+                    - listitem [ref=e113]: Comunicaciones con el banco
+                    - listitem [ref=e114]: Reclamos presentados
+                - generic [ref=e115]:
+                  - heading "block Lo que NUNCA debes entregar" [level=4] [ref=e116]:
+                    - generic [ref=e117]: block
+                    - text: Lo que NUNCA debes entregar
+                  - list [ref=e118]:
+                    - listitem [ref=e119]: Claves bancarias o PIN
+                    - listitem [ref=e120]: Códigos SMS o autenticación
+                    - listitem [ref=e121]: Contraseñas
+                    - listitem [ref=e122]: Acceso remoto al dispositivo
+                    - listitem [ref=e123]: Número completo de tarjeta + CVV
+            - generic [ref=e124]:
+              - heading "¿Cómo usamos tu información?" [level=3] [ref=e125]
+              - generic [ref=e126]:
+                - generic [ref=e127]:
+                  - generic [ref=e129]: emergency
+                  - generic [ref=e130]:
+                    - heading "Orientación inicial" [level=4] [ref=e131]
+                    - paragraph [ref=e132]: Identificar si estás ante una urgencia, sospecha o fraude consumado.
+                - generic [ref=e133]:
+                  - generic [ref=e135]: sort
+                  - generic [ref=e136]:
+                    - heading "Ordenamiento de evidencia" [level=4] [ref=e137]
+                    - paragraph [ref=e138]: Ayudarte a reunir y organizar antecedentes relevantes para tu caso.
+                - generic [ref=e139]:
+                  - generic [ref=e141]: description
+                  - generic [ref=e142]:
+                    - heading "Generación de documentos" [level=4] [ref=e143]
+                    - paragraph [ref=e144]: Preparar borradores, cartas, reclamos y resúmenes estructurados.
+                - generic [ref=e145]:
+                  - generic [ref=e147]: shield
+                  - generic [ref=e148]:
+                    - heading "Seguridad y cumplimiento" [level=4] [ref=e149]
+                    - paragraph [ref=e150]: Detectar errores, prevenir abuso y cumplir obligaciones legales.
+          - generic [ref=e151]:
+            - generic [ref=e152]:
+              - heading "Preguntas frecuentes" [level=3] [ref=e153]
+              - group [ref=e154]:
+                - generic "¿Me pedirán claves bancarias? expand_more" [ref=e155] [cursor=pointer]:
+                  - text: ¿Me pedirán claves bancarias?
+                  - generic [ref=e156]: expand_more
+              - group [ref=e157]:
+                - generic "¿Puedo subir pantallazos? expand_more" [ref=e158] [cursor=pointer]:
+                  - text: ¿Puedo subir pantallazos?
+                  - generic [ref=e159]: expand_more
+              - group [ref=e160]:
+                - generic "¿La IA decide sobre mi caso? expand_more" [ref=e161] [cursor=pointer]:
+                  - text: ¿La IA decide sobre mi caso?
+                  - generic [ref=e162]: expand_more
+              - group [ref=e163]:
+                - generic "¿Garantizan recuperar mi dinero? expand_more" [ref=e164] [cursor=pointer]:
+                  - text: ¿Garantizan recuperar mi dinero?
+                  - generic [ref=e165]: expand_more
+              - group [ref=e166]:
+                - generic "¿Mis datos entrenan modelos IA? expand_more" [ref=e167] [cursor=pointer]:
+                  - text: ¿Mis datos entrenan modelos IA?
+                  - generic [ref=e168]: expand_more
+              - group [ref=e169]:
+                - generic "¿Qué hago si estoy en emergencia ahora? expand_more" [ref=e170] [cursor=pointer]:
+                  - text: ¿Qué hago si estoy en emergencia ahora?
+                  - generic [ref=e171]: expand_more
+            - generic [ref=e172]:
+              - heading "¿Necesitas ayuda ahora?" [level=3] [ref=e173]
+              - paragraph [ref=e174]: Si crees que eres víctima de fraude, actúa de inmediato.
+              - link "arrow_forward Ir al inicio" [ref=e175] [cursor=pointer]:
+                - /url: /
+                - generic [ref=e176]: arrow_forward
+                - text: Ir al inicio
+    - generic [ref=e178]:
+      - heading "Todos los documentos" [level=2] [ref=e179]
+      - generic [ref=e180]:
+        - link "verified_user Centro de Confianza Resumen general de compromisos, datos y uso de IA." [ref=e181] [cursor=pointer]:
+          - /url: "#"
+          - generic [ref=e182]: verified_user
+          - generic [ref=e183]:
+            - heading "Centro de Confianza" [level=3] [ref=e184]
+            - paragraph [ref=e185]: Resumen general de compromisos, datos y uso de IA.
+        - link "privacy_tip Política de Privacidad Qué datos tratamos, con qué finalidad y cómo ejercer derechos." [ref=e186] [cursor=pointer]:
+          - /url: "#"
+          - generic [ref=e187]: privacy_tip
+          - generic [ref=e188]:
+            - heading "Política de Privacidad" [level=3] [ref=e189]
+            - paragraph [ref=e190]: Qué datos tratamos, con qué finalidad y cómo ejercer derechos.
+        - link "security Declaración de Seguridad Controles técnicos, principios y marcos de referencia." [ref=e191] [cursor=pointer]:
+          - /url: "#"
+          - generic [ref=e192]: security
+          - generic [ref=e193]:
+            - heading "Declaración de Seguridad" [level=3] [ref=e194]
+            - paragraph [ref=e195]: Controles técnicos, principios y marcos de referencia.
+        - link "gavel Términos de Uso Reglas de uso, prohibiciones, responsabilidades y ley aplicable." [ref=e196] [cursor=pointer]:
+          - /url: "#"
+          - generic [ref=e197]: gavel
+          - generic [ref=e198]:
+            - heading "Términos de Uso" [level=3] [ref=e199]
+            - paragraph [ref=e200]: Reglas de uso, prohibiciones, responsabilidades y ley aplicable.
+        - link "smart_toy Gobernanza de IA Cómo usamos IA, sus límites y supervisión humana." [ref=e201] [cursor=pointer]:
+          - /url: "#"
+          - generic [ref=e202]: smart_toy
+          - generic [ref=e203]:
+            - heading "Gobernanza de IA" [level=3] [ref=e204]
+            - paragraph [ref=e205]: Cómo usamos IA, sus límites y supervisión humana.
+        - link "account_balance Datos Financieros y Evidencia Qué información financiera se puede y no se puede pedir." [ref=e206] [cursor=pointer]:
+          - /url: "#"
+          - generic [ref=e207]: account_balance
+          - generic [ref=e208]:
+            - heading "Datos Financieros y Evidencia" [level=3] [ref=e209]
+            - paragraph [ref=e210]: Qué información financiera se puede y no se puede pedir.
+        - link "cookie Política de Cookies Qué cookies usamos, para qué y cómo gestionar tus preferencias." [ref=e211] [cursor=pointer]:
+          - /url: "#"
+          - generic [ref=e212]: cookie
+          - generic [ref=e213]:
+            - heading "Política de Cookies" [level=3] [ref=e214]
+            - paragraph [ref=e215]: Qué cookies usamos, para qué y cómo gestionar tus preferencias.
+        - link "how_to_reg Ejercer mis derechos ARCOP Formulario oficial conforme a la Ley N° 21.719 de Chile. Nuevo · Ley 21.719" [ref=e216] [cursor=pointer]:
+          - /url: "#"
+          - generic [ref=e217]: how_to_reg
+          - generic [ref=e218]:
+            - heading "Ejercer mis derechos ARCOP" [level=3] [ref=e219]
+            - paragraph [ref=e220]: Formulario oficial conforme a la Ley N° 21.719 de Chile.
+            - generic [ref=e221]: Nuevo · Ley 21.719
+    - generic [ref=e223]:
+      - heading "La confianza no se declara solamente. Se diseña en cada paso del proceso." [level=2] [ref=e224]:
+        - text: La confianza no se declara solamente.
+        - text: Se diseña en cada paso del proceso.
+      - paragraph [ref=e225]: AlertaCuenta busca que una persona afectada por fraude no quede sola, confundida o paralizada. La plataforma existe para convertir una situación de urgencia en un camino ordenado de acción.
+      - link "arrow_forward Volver al inicio" [ref=e226] [cursor=pointer]:
+        - /url: /
+        - generic [ref=e227]: arrow_forward
+        - text: Volver al inicio
+  - contentinfo [ref=e228]:
+    - generic [ref=e229]:
+      - generic [ref=e230]:
+        - generic [ref=e231]:
+          - img "Alerta Cuenta" [ref=e232]
+          - paragraph [ref=e233]: "Tu guía ciudadana ante el fraude financiero: orientación gratuita, clara y respaldada en cada paso."
+        - generic [ref=e234]:
+          - heading "Acerca de nosotros" [level=3] [ref=e235]
+          - link "Para qué existimos" [ref=e236] [cursor=pointer]:
+            - /url: "#"
+        - generic [ref=e237]:
+          - heading "Kit de Apoyo" [level=3] [ref=e238]
+          - link "Alertas y reportes" [ref=e239] [cursor=pointer]:
+            - /url: "#"
+          - link "Preguntas frecuentes" [ref=e240] [cursor=pointer]:
+            - /url: "#"
+          - link "Glosario financiero" [ref=e241] [cursor=pointer]:
+            - /url: "#"
+          - link "Material educativo" [ref=e242] [cursor=pointer]:
+            - /url: "#"
+        - generic [ref=e243]:
+          - heading "Centro de Confianza" [level=3] [ref=e244]
+          - link "Política de Privacidad" [ref=e245] [cursor=pointer]:
+            - /url: "#tab-privacidad"
+          - link "Seguridad" [ref=e246] [cursor=pointer]:
+            - /url: "#tab-seguridad"
+          - link "Términos de uso" [ref=e247] [cursor=pointer]:
+            - /url: "#tab-terminos"
+          - link "Derechos ARCOP" [ref=e248] [cursor=pointer]:
+            - /url: "#tab-derechos"
+      - generic [ref=e249]:
+        - navigation "Enlaces legales" [ref=e250]:
+          - link "Privacidad" [ref=e251] [cursor=pointer]:
+            - /url: "#tab-privacidad"
+          - link "Seguridad" [ref=e252] [cursor=pointer]:
+            - /url: "#tab-seguridad"
+          - link "Términos de uso" [ref=e253] [cursor=pointer]:
+            - /url: "#tab-terminos"
+          - link "Accesibilidad / Derechos" [ref=e254] [cursor=pointer]:
+            - /url: "#tab-derechos"
+        - paragraph [ref=e255]: © 2026 AlertaCuenta.

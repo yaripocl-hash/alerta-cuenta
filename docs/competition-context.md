@@ -1,8 +1,8 @@
-# Contexto de la Competencia — Claude Impact Lab Chile 2026
+# Contexto de la Competencia — Claude Impact Lab Chile 2026 
 
 ## El Evento
 
-**Claude Impact Lab Chile 2026** es una iniciativa organizada dentro del **Chile Fintech Forum**, con apoyo de Anthropic. Busca soluciones de impacto cívico que usen Claude, IA agéntica, datos responsables y herramientas accesibles para la inclusión financiera en Chile.
+**Claude Impact Lab Chile 2026 ** es una iniciativa organizada dentro del **Chile Fintech Forum**, con apoyo de Anthropic. Busca soluciones de impacto cívico que usen Claude, IA agéntica, datos responsables y herramientas accesibles para la inclusión financiera en Chile.
 
 ## Nuestra Línea Temática
 

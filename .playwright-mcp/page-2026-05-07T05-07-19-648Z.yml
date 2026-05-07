@@ -47,7 +47,7 @@
         - generic [ref=e41]:
           - img "Alerta Cuenta" [ref=e42]
           - paragraph [ref=e43]: "Tu guía ciudadana ante el fraude financiero: orientación gratuita, clara y respaldada en cada paso."
-        - paragraph [ref=e44]: © 2024 Alerta Cuenta.
+        - paragraph [ref=e44]: © 2026 AlertaCuenta.
       - navigation "Legal" [ref=e45]:
         - link "Centro de Confianza" [ref=e46] [cursor=pointer]:
           - /url: trust-center.html

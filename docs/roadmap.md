@@ -1,6 +1,6 @@
 # Roadmap — Alerta Cuenta
 
-## MVP (Demo Claude Impact Lab Chile 2026)
+## MVP (Demo Claude Impact Lab Chile 2026 )
 
 ### Fase 1 — Scaffold (actual)
 - [x] Estructura de proyecto

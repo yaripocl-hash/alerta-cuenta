@@ -1,5 +1,5 @@
 # Claude API — Referencia Técnica
-> Guía de referencia para el Claude Impact Lab Chile 2026.  
+> Guía de referencia para el Claude Impact Lab Chile 2026 .  
 > Todas las APIs verificadas contra `@anthropic-ai/sdk` versión actual.
 
 ---

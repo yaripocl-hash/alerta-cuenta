@@ -1,7 +1,7 @@
 {
   "name": "alerta-cuenta",
   "version": "0.1.0",
-  "description": "Plataforma de orientación ciudadana para fraude financiero digital — Claude Impact Lab Chile 2026",
+  "description": "Plataforma de orientación ciudadana para fraude financiero digital — Claude Impact Lab Chile 2026 ",
   "private": true,
   "scripts": {
     "frontend": "cd frontend && python -m http.server 5500",
