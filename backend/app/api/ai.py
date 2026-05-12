@@ -177,7 +177,7 @@ async def transcribe_audio(audio: UploadFile = File(...)):
         raise HTTPException(status_code=415, detail="Formato de audio no soportado.")
 
     try:
-        text = groq_client.transcribe_audio(content, ct)
+        text = await groq_client.transcribe_audio(content, ct)
     except RuntimeError:
         raise HTTPException(
             status_code=503,
