@@ -183,6 +183,8 @@ async def transcribe_audio(audio: UploadFile = File(...)):
             status_code=503,
             detail="La transcripción de voz no está disponible. Configura GROQ_API_KEY en las variables de entorno.",
         )
+    except (ImportError, ModuleNotFoundError):
+        raise HTTPException(status_code=503, detail="Servicio de transcripción no disponible en este servidor.")
     except Exception as exc:
         raise HTTPException(status_code=500, detail="Error al transcribir el audio.") from exc
 
