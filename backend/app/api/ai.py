@@ -163,8 +163,6 @@ _MAX_AUDIO_BYTES = 10 * 1024 * 1024  # 10 MB
 
 @router.post("/transcribe")
 async def transcribe_audio(audio: UploadFile = File(...)):
-    from app.integrations import groq_client
-
     content = await audio.read()
 
     if len(content) > _MAX_AUDIO_BYTES:
@@ -177,6 +175,7 @@ async def transcribe_audio(audio: UploadFile = File(...)):
         raise HTTPException(status_code=415, detail="Formato de audio no soportado.")
 
     try:
+        from app.integrations import groq_client
         text = await groq_client.transcribe_audio(content, ct)
     except RuntimeError:
         raise HTTPException(
