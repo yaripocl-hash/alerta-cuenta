@@ -1,6 +1,3 @@
-import os
-import tempfile
-import threading
 import time
 
 from fastapi import APIRouter, File, HTTPException, UploadFile
@@ -158,40 +155,16 @@ async def orientar_caso(payload: GuidanceRequest):
     )
 
 
-# ── Transcripción de audio con Whisper local ─────────────────────────────────
+# ── Transcripción de audio vía Groq (whisper-large-v3) ───────────────────────
 
-_whisper_lock = threading.Lock()
-_whisper_model = None
-
-_AUDIO_EXTS = {
-    "audio/webm": ".webm",
-    "audio/ogg": ".ogg",
-    "audio/mp4": ".mp4",
-    "audio/mpeg": ".mp3",
-    "audio/wav": ".wav",
-}
+_AUDIO_MIMES = {"audio/webm", "audio/ogg", "audio/mp4", "audio/mpeg", "audio/wav"}
 _MAX_AUDIO_BYTES = 10 * 1024 * 1024  # 10 MB
-
-
-def _get_whisper():
-    global _whisper_model
-    if _whisper_model is None:
-        with _whisper_lock:
-            if _whisper_model is None:
-                try:
-                    import whisper as _whisper
-                except ImportError as exc:
-                    raise HTTPException(
-                        status_code=503,
-                        detail="Servicio de transcripción no disponible. Instala openai-whisper.",
-                    ) from exc
-                settings = get_settings()
-                _whisper_model = _whisper.load_model(settings.whisper_model)
-    return _whisper_model
 
 
 @router.post("/transcribe")
 async def transcribe_audio(audio: UploadFile = File(...)):
+    from app.integrations import groq_client
+
     content = await audio.read()
 
     if len(content) > _MAX_AUDIO_BYTES:
@@ -200,29 +173,22 @@ async def transcribe_audio(audio: UploadFile = File(...)):
         raise HTTPException(status_code=400, detail="Audio demasiado corto o vacío.")
 
     ct = (audio.content_type or "audio/webm").split(";")[0].strip().lower()
-    ext = _AUDIO_EXTS.get(ct, ".webm")
+    if ct not in _AUDIO_MIMES:
+        raise HTTPException(status_code=415, detail="Formato de audio no soportado.")
 
-    tmp_path = None
     try:
-        with tempfile.NamedTemporaryFile(suffix=ext, delete=False) as f:
-            f.write(content)
-            tmp_path = f.name
-
-        model = _get_whisper()
-        result = model.transcribe(tmp_path, language="es")
-        text = (result.get("text") or "").strip()
-
-        if not text:
-            raise HTTPException(
-                status_code=422,
-                detail="No se detectó texto en el audio. Habla más cerca del micrófono e intenta de nuevo.",
-            )
-        return {"text": text}
-
-    except HTTPException:
-        raise
+        text = groq_client.transcribe_audio(content, ct)
+    except RuntimeError:
+        raise HTTPException(
+            status_code=503,
+            detail="La transcripción de voz no está disponible. Configura GROQ_API_KEY en las variables de entorno.",
+        )
     except Exception as exc:
         raise HTTPException(status_code=500, detail="Error al transcribir el audio.") from exc
-    finally:
-        if tmp_path and os.path.exists(tmp_path):
-            os.unlink(tmp_path)
+
+    if not text:
+        raise HTTPException(
+            status_code=422,
+            detail="No se detectó texto en el audio. Habla más cerca del micrófono e intenta de nuevo.",
+        )
+    return {"text": text}

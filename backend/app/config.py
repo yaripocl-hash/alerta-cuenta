@@ -16,6 +16,8 @@ class Settings(BaseSettings):
     anthropic_api_key: str = ""
     anthropic_model: str = "claude-sonnet-4-6"
 
+    groq_api_key: str = ""
+
     supabase_url: str = ""
     supabase_anon_key: str = ""
     supabase_service_role_key: str = ""
@@ -31,10 +33,6 @@ class Settings(BaseSettings):
     smtp_password: str = ""
 
     log_level: str = "INFO"
-
-    # Modelo de Whisper local: tiny | base | small | medium
-    # "base" (~74 MB) es el mejor balance para demo
-    whisper_model: str = "base"
 
     @property
     def cors_origins_list(self) -> list[str]:
