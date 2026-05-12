@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preguntas frecuentes — Alerta Cuenta</title>
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>tailwind.config={corePlugins:{preflight:false},darkMode:"class",theme:{extend:{colors:{"inverse-on-surface":"#eff1f3","on-surface":"#191c1e",error:"#ba1a1a","inverse-primary":"#afc6ff",primary:"#002c6b","outline-variant":"#c4c6d2","surface-container":"#eceef0","inverse-surface":"#2d3133","surface-bright":"#f7f9fb",secondary:"#725c00","secondary-fixed":"#ffe07f","on-primary":"#ffffff","on-surface-variant":"#434651",background:"#f7f9fb",surface:"#f7f9fb",outline:"#747782","surface-variant":"#e0e3e5","primary-container":"#1e4387","surface-container-lowest":"#ffffff","secondary-container":"#fed74e","surface-container-low":"#f2f4f6"},spacing:{unit:"8px","stack-sm":"16px","margin-mobile":"24px",gutter:"32px","container-max":"1280px","stack-md":"32px","stack-lg":"48px"}}}}</script>
+  <style>
+    .focus-halo:focus-visible { outline: 4px solid #f2e2a7; outline-offset: 2px; }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 13px; font-weight: 700; letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #002c6b;
+      background: #d9e2ff;
+      padding: 6px 14px; border-radius: 9999px;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: clamp(26px, 3.6vw, 38px);
+      font-weight: 700; letter-spacing: -0.01em;
+      line-height: 1.2; margin: 0 0 16px;
+      color: #002c6b;
+    }
+    .lead {
+      font-size: 20px; line-height: 1.65;
+      color: #434651;
+      max-width: 64ch;
+      margin: 0 0 32px;
+    }
+
+    /* Categorías FAQ */
+    .faq-category {
+      margin-bottom: 48px;
+    }
+    .faq-category-title {
+      font-size: 22px; font-weight: 700;
+      color: #002c6b;
+      margin: 0 0 20px;
+      padding-bottom: 12px;
+      border-bottom: 3px solid #fed74e;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .faq-category-title svg {
+      flex-shrink: 0;
+    }
+
+    /* Accordion con details/summary nativo */
+    .faq-item {
+      background: #fff;
+      border: 2px solid #c4c6d2;
+      border-radius: 14px;
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: border-color .15s ease, box-shadow .15s ease;
+    }
+    .faq-item[open] {
+      border-color: #002c6b;
+      box-shadow: 0 4px 16px rgba(0,44,107,.08);
+    }
+    .faq-item summary {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      cursor: pointer;
+      font-size: 18px; font-weight: 600;
+      color: #191c1e;
+      list-style: none;
+      gap: 16px;
+      min-height: 64px;
+    }
+    .faq-item summary::-webkit-details-marker { display: none; }
+    .faq-item summary:focus-visible {
+      outline: 4px solid #f2e2a7;
+      outline-offset: -2px;
+      border-radius: 12px;
+    }
+    .faq-item summary .chevron {
+      flex-shrink: 0;
+      width: 24px; height: 24px;
+      color: #002c6b;
+      transition: transform .2s ease;
+    }
+    .faq-item[open] summary .chevron {
+      transform: rotate(180deg);
+    }
+    .faq-item summary:hover {
+      background: #f2f4f6;
+    }
+    .faq-answer {
+      padding: 0 24px 24px;
+      font-size: 17px; line-height: 1.7;
+      color: #434651;
+    }
+    .faq-answer p { margin: 0 0 12px; }
+    .faq-answer p:last-child { margin-bottom: 0; }
+    .faq-answer ul {
+      margin: 8px 0 12px 20px;
+      list-style: disc;
+    }
+    .faq-answer li { margin-bottom: 6px; }
+    .faq-answer a {
+      color: #002c6b; font-weight: 600;
+      text-decoration: underline;
+    }
+    .faq-answer a:hover { color: #1e4387; }
+    .faq-answer .tip {
+      background: #eef2ff;
+      border-left: 4px solid #002c6b;
+      border-radius: 0 10px 10px 0;
+      padding: 14px 18px;
+      margin-top: 12px;
+      font-size: 16px;
+    }
+    .faq-answer .warning {
+      background: #fff8e1;
+      border-left: 4px solid #fed74e;
+      border-radius: 0 10px 10px 0;
+      padding: 14px 18px;
+      margin-top: 12px;
+      font-size: 16px;
+    }
+
+    /* Sidebar de búsqueda rápida */
+    .faq-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+    @media (max-width: 860px) {
+      .faq-layout { grid-template-columns: 1fr; }
+      .faq-sidebar { display: none; }
+    }
+    .faq-sidebar {
+      position: sticky;
+      top: 80px;
+    }
+    .faq-sidebar nav a {
+      display: block;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-size: 15px; font-weight: 600;
+      color: #434651;
+      text-decoration: none;
+      transition: background .12s ease, color .12s ease;
+    }
+    .faq-sidebar nav a:hover {
+      background: #d9e2ff;
+      color: #002c6b;
+    }
+  </style>
+  <link rel="stylesheet" href="assets/css/a11y.css">
+</head>
+<body>
+
+  <header class="bg-surface text-primary sticky top-0 z-50 border-b-2 border-outline-variant">
+    <div class="flex justify-between items-center w-full px-margin-mobile py-unit max-w-container-max mx-auto">
+      <a href="index.html" class="focus-halo rounded">
+        <img src="https://vqenacwaqmquwnrvykmb.supabase.co/storage/v1/object/public/cuenta-alerta/logo%20(1).svg" alt="Alerta Cuenta" class="h-10 w-auto">
+      </a>
+      <nav aria-label="Navegación principal" class="flex items-center gap-gutter">
+        <a href="index.html" class="text-on-surface-variant font-medium pb-2 hover:bg-surface-container-low transition-colors duration-200 focus-halo" style="font-size:18px;letter-spacing:0.05em;font-weight:600;text-decoration:none;">Inicio</a>
+        <a href="#" class="text-on-surface-variant font-medium pb-2 hover:bg-surface-container-low transition-colors duration-200 focus-halo" style="font-size:18px;letter-spacing:0.05em;font-weight:600;text-decoration:none;">Kit de Apoyo</a>
+        <a href="#" class="text-on-surface-variant font-medium pb-2 hover:bg-surface-container-low transition-colors duration-200 focus-halo" style="font-size:18px;letter-spacing:0.05em;font-weight:600;text-decoration:none;">Ayuda</a>
+      </nav>
+      <div class="flex items-center gap-stack-sm">
+        <button aria-label="Opciones de accesibilidad" class="flex items-center gap-2 text-on-surface-variant hover:bg-surface-container-low transition-colors duration-200 px-4 py-2 rounded focus-halo min-h-[56px]" style="font-size:18px;letter-spacing:0.05em;font-weight:600;">Accesibilidad</button>
+        <button class="px-6 py-3 rounded hover:opacity-90 transition-colors duration-200 min-h-[56px] focus-halo" style="background-color:rgb(254,215,78);color:rgb(115,93,0);font-size:18px;letter-spacing:0.05em;font-weight:600;">Ingresar</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!-- HERO -->
+    <section style="background: linear-gradient(135deg, #002c6b 0%, #1e4387 100%); color: #fff; padding: 64px 0 72px;">
+      <div class="max-w-container-max mx-auto px-margin-mobile">
+        <span style="display:inline-block;background:rgba(255,255,255,.12);color:#fed74e;font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:6px 16px;border-radius:9999px;margin-bottom:20px;">
+          Kit de Apoyo · AlertaCuenta
+        </span>
+        <h1 style="font-size:clamp(32px,5vw,52px);font-weight:700;line-height:1.1;letter-spacing:-0.02em;max-width:24ch;margin:0 0 16px;">
+          Preguntas frecuentes
+        </h1>
+        <p style="font-size:clamp(17px,2.2vw,22px);line-height:1.6;max-width:52ch;color:rgba(255,255,255,.85);margin:0;">
+          Resolvemos las dudas más comunes sobre fraude financiero, cómo funciona AlertaCuenta y qué hacer si fuiste víctima.
+        </p>
+      </div>
+    </section>
+
+    <!-- CONTENIDO FAQ -->
+    <section style="padding: 72px 0 80px;">
+      <div class="max-w-container-max mx-auto px-margin-mobile">
+        <div class="faq-layout">
+
+          <!-- Sidebar navegación -->
+          <aside class="faq-sidebar" aria-label="Categorías de preguntas">
+            <p style="font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#747782;margin:0 0 12px 16px;">Categorías</p>
+            <nav>
+              <a href="#que-es" class="focus-halo">¿Qué es AlertaCuenta?</a>
+              <a href="#fraude" class="focus-halo">Fraude y estafas</a>
+              <a href="#como-usar" class="focus-halo">Cómo usar la plataforma</a>
+              <a href="#expediente" class="focus-halo">Expediente y denuncia</a>
+              <a href="#privacidad" class="focus-halo">Privacidad y datos</a>
+              <a href="#instituciones" class="focus-halo">Instituciones y ayuda</a>
+            </nav>
+          </aside>
+
+          <!-- Preguntas -->
+          <div>
+
+            <!-- Categoría 1 -->
+            <div class="faq-category" id="que-es">
+              <h2 class="faq-category-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#002c6b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+                ¿Qué es AlertaCuenta?
+              </h2>
+
+              <details class="faq-item">
+                <summary>
+                  ¿Qué es AlertaCuenta y para qué sirve?
+                  <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>AlertaCuenta es una plataforma ciudadana gratuita que te ayuda a entender si fuiste víctima de fraude financiero, qué pasos tomar de inmediato y cómo documentar tu caso ante instituciones como el banco, la CMF, SERNAC o PDI.</p>
+                  <p>Usa inteligencia artificial (Claude de Anthropic) para analizar tu relato, identificar el tipo de fraude y entregarte orientación personalizada en lenguaje simple, sin tecnicismos.</p>
+                  <div class="tip">AlertaCuenta <strong>no reemplaza a un abogado</strong> ni a las instituciones. Complementa la orientación para que llegues mejor preparado a cada instancia.</div>
+                </div>
+              </details>
+
+              <details class="faq-item">
+                <summary>
+                  ¿Es gratuito?
+                  <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>Sí, totalmente gratuito. No necesitas crear una cuenta para obtener orientación inicial ni para generar tu expediente preliminar.</p>
+                </div>
+              </details>
+
+              <details class="faq-item">
+                <summary>
+                  ¿Qué hace la IA exactamente?
+                  <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>La IA realiza tres tareas a partir de tu relato:</p>
+                  <ul>
+                    <li><strong>Clasifica el tipo de fraude</strong> (phishing, clonación de tarjeta, fraude telefónico, etc.).</li>
+                    <li><strong>Identifica los hechos clave</strong>: fechas, montos, instituciones involucradas y señales de alerta.</li>
+                    <li><strong>Genera acciones urgentes</strong> ordenadas por prioridad: qué llamar primero, qué documentar, a quién denunciar.</li>
+                  </ul>
+                  <p>La IA no inventa información. Si tu relato tiene vacíos, te pedirá más detalles antes de responder.</p>
+                </div>
+              </details>
+
+              <details class="faq-item">
+                <summary>
+                  ¿AlertaCuenta está disponible 24/7?
+                  <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>Sí. Puedes obtener orientación a cualquier hora del día, incluyendo fines de semana y festivos. Si el fraude acaba de ocurrir, no esperes: actúa de inmediato bloqueando tus cuentas y luego usa AlertaCuenta para documentarlo.</p>
+                </div>
+              </details>
+            </div>
+
+            <!-- Categoría 2 -->
+            <div class="faq-category" id="fraude">
+              <h2 class="faq-category-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#002c6b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                Fraude y estafas
+              </h2>
+
+              <details class="faq-item">
+                <summary>
+                  ¿Cuáles son los tipos de fraude más comunes en Chile?
+                  <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>Los fraudes financieros más frecuentes en Chile incluyen:</p>
+                  <ul>
+                    <li><strong>Phishing:</strong> correos o SMS falsos que simulan ser tu banco para robar tus claves.</li>
+                    <li><strong>Vishing:</strong> llamadas telefónicas donde alguien se hace pasar por el banco o por soporte técnico.</li>
+                    <li><strong>Smishing:</strong> mensajes de texto con links maliciosos.</li>
+                    <li><strong>Clonación de tarjeta:</strong> copia ilegal de tu tarjeta de débito o crédito en cajeros o comercios.</li>
+                    <li><strong>Fraude en transferencias:</strong> engaño para que transfieras dinero a una cuenta fraudulenta.</li>
+                    <li><strong>Cuentas RUT falsas:</strong> uso de cuentas de terceros captadas con falsas promesas de trabajo.</li>
+                    <li><strong>Fraude en marketplace:</strong> ventas falsas en plataformas como Marketplace de Facebook o Yapo.</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="faq-item">
+                <summary>
+                  ¿Cómo sé si me están intentando estafar?
+                  <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>Señales de alerta frecuentes:</p>
+                  <ul>
+                    <li>Te piden tu clave, PIN o coordenadas por teléfono, SMS o correo — <strong>los bancos nunca hacen eso</strong>.</li>
+                    <li>Urgencia extrema: "su cuenta será bloqueada en 30 minutos".</li>
+                    <li>Ofertas demasiado buenas para ser reales.</li>
+                    <li>Links con dominios similares pero no idénticos al banco (ej. <em>banco-chile.net</em> en vez de <em>bancochile.cl</em>).</li>
+                    <li>Solicitudes de transferencias para "confirmar identidad" o "desbloquear cuenta".</li>
+                    <li>Llamadas desde números que parecen del banco pero te piden datos que el banco ya debería tener.</li>
+                  </ul>
+                  <div class="warning">Ante la duda, cuelga y llama tú directamente al número oficial de tu banco.</div>
+                </div>
+              </details>
+
+              <details class="faq-item">
+                <summary>
+                  ¿Qué debo hacer en los primeros minutos después de un fraude?
+                  <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>Los primeros minutos son críticos. Actúa en este orden:</p>
+                  <ul>
+                    <li><strong>1. Bloquea tus tarjetas</strong> desde la app del banco o llamando a la línea de emergencias.</li>
+                    <li><strong>2. Cambia tus claves</strong> bancarias y de correo electrónico desde un dispositivo seguro.</li>
+                    <li><strong>3. Toma pantallazos</strong> de todos los mensajes, correos y transacciones sospechosas.</li>
+                    <li><strong>4. Llama a tu banco</strong> para reportar el fraude y solicitar el bloqueo de transferencias.</li>
+                    <li><strong>5. Usa AlertaCuenta</strong> para documentar el caso y recibir orientación sobre los pasos siguientes.</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="faq-item">
+                <summary>
+                  ¿Puedo recuperar el dinero que me robaron?
+                  <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>Depende del tipo de fraude, qué tan rápido actuaste y si el banco tiene responsabilidad en el hecho. En Chile, la Ley 20.009 protege a los usuarios de tarjetas en casos de uso fraudulento no autorizado. Si reclamaste dentro del plazo y no entregaste tus claves voluntariamente, el banco debe responder.</p>
+                  <p>AlertaCuenta te ayuda a documentar el caso correctamente para maximizar tus posibilidades de reclamo.</p>
+                  <div class="tip">No constituye asesoría legal. Para casos complejos, consulta con un abogado o con SERNAC.</div>
+                </div>
+              </details>
+            </div>
+
+            <!-- Categoría 3 -->
+            <div class="faq-category" id="como-usar">
+              <h2 class="faq-category-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#002c6b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+                Cómo usar la plataforma
+              </h2>
+
+              <details class="faq-item">
+                <summary>
+                  ¿Cómo obtengo orientación?
+                  <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>Entra a la sección <a href="orientacion.html">Orientación</a>, escribe con tus propias palabras lo que pasó (no necesitas usar términos técnicos) y presiona "Analizar". La IA procesará tu relato y te entregará:</p>
+                  <ul>
+                    <li>Un resumen del caso.</li>
+                    <li>Los hechos clave identificados.</li>
+                    <li>Una línea de tiempo del incidente.</li>
+                    <li>Las acciones urgentes priorizadas.</li>
+                    <li>Las dudas que quedan pendientes para aclarar.</li>
+                  </ul>
+                </div>
+              </details>
+
+              <details class="faq-item">
+                <summary>
+                  ¿Necesito crear una cuenta para usar AlertaCuenta?
+                  <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>No. Puedes obtener orientación y generar un expediente preliminar sin registrarte. Para guardar tu expediente y hacer seguimiento, se te asignará un código de seguimiento que puedes anotar.</p>
+                </div>
+              </details>
+
+              <details class="faq-item">
+                <summary>
+                  ¿La plataforma funciona en celular?
+                  <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>Sí. AlertaCuenta está diseñada primero para móvil. Funciona desde el navegador de tu celular (Chrome, Safari, etc.) sin necesidad de instalar nada.</p>
+                </div>
+              </details>
+
+              <details class="faq-item">
+                <summary>
+                  ¿Qué pasa si la IA no entiende mi relato?
+                  <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>Si el relato no tiene suficiente información para clasificar el caso, la IA te hará una pregunta específica para obtener el dato que falta. Escribe con la mayor cantidad de detalles posible: cuándo ocurrió, qué institución estaba involucrada, qué montos y cómo te contactaron.</p>
+                </div>
+              </details>
+            </div>
+
+            <!-- Categoría 4 -->
+            <div class="faq-category" id="expediente">
+              <h2 class="faq-category-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#002c6b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                Expediente y denuncia
+              </h2>
+
+              <details class="faq-item">
+                <summary>
+                  ¿Qué es el expediente preliminar?
+                  <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>Es un documento estructurado con los datos del incidente, los hechos clave, la evidencia adjunta y las acciones recomendadas. Está pensado para que lo presentes directamente ante tu banco, SERNAC, CMF o PDI, ahorrándote tiempo al explicar el caso desde cero.</p>
+                </div>
+              </details>
+
+              <details class="faq-item">
+                <summary>
+                  ¿Qué evidencia debo adjuntar?
+                  <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>Cuanta más evidencia, mejor. Los archivos más útiles son:</p>
+                  <ul>
+                    <li>Pantallazos de mensajes, correos o chats con el estafador.</li>
+                    <li>Comprobantes de transferencias realizadas.</li>
+                    <li>Capturas de pantalla de la app del banco mostrando los movimientos.</li>
+                    <li>Registro de llamadas si el fraude fue por teléfono.</li>
+                    <li>Fotos de avisos o publicaciones falsas si fue en marketplace.</li>
+                  </ul>
+                  <div class="warning">No adjuntes fotos de tu cédula, tarjetas completas ni contraseñas. AlertaCuenta no necesita esa información.</div>
+                </div>
+              </details>
+
+              <details class="faq-item">
+                <summary>
+                  ¿El expediente es oficial? ¿Lo acepta el banco o PDI?
+                  <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>El expediente es un documento de apoyo ciudadano, no un documento oficial con validez legal por sí solo. Sin embargo, te ayuda a presentar la información de forma clara y ordenada ante cualquier institución, lo que agiliza el proceso de reclamo o denuncia.</p>
+                  <p>La denuncia formal ante la PDI o la querella criminal deben realizarse directamente en las instituciones correspondientes.</p>
+                </div>
+              </details>
+
+              <details class="faq-item">
+                <summary>
+                  ¿Cómo hago seguimiento de mi caso?
+                  <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>Al generar tu expediente recibirás un <strong>código de seguimiento</strong>. Guárdalo en un lugar seguro. Puedes ingresarlo en la sección <a href="seguimiento.html">Seguimiento</a> para ver el estado de tu caso.</p>
+                </div>
+              </details>
+            </div>
+
+            <!-- Categoría 5 -->
+            <div class="faq-category" id="privacidad">
+              <h2 class="faq-category-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#002c6b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                Privacidad y datos
+              </h2>
+
+              <details class="faq-item">
+                <summary>
+                  ¿Qué datos guarda AlertaCuenta?
+                  <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>Solo los datos que tú ingresas voluntariamente al completar el expediente: nombre, correo (opcional), descripción del incidente, monto involucrado y archivos de evidencia. Nunca pedimos claves, PIN, CVV ni número completo de tarjeta.</p>
+                  <p>Consulta nuestro <a href="trust-center.html#tab-privacidad">Centro de Confianza</a> para más detalles sobre tratamiento de datos.</p>
+                </div>
+              </details>
+
+              <details class="faq-item">
+                <summary>
+                  ¿Mi relato se usa para entrenar la IA?
+                  <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>No. El texto que ingresas se envía a la API de Claude (Anthropic) para procesarlo y obtener la respuesta, pero no se usa para reentrenar modelos de IA. AlertaCuenta tampoco vende ni comparte tus datos con terceros.</p>
+                </div>
+              </details>
+
+              <details class="faq-item">
+                <summary>
+                  ¿Debo poner mi RUT o nombre real?
+                  <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>Para la orientación inicial, no es necesario. Para el expediente preliminar, ingresar tu nombre ayuda a personalizarlo, pero puedes omitirlo si prefieres. El RUT no es requerido en ningún paso.</p>
+                </div>
+              </details>
+            </div>
+
+            <!-- Categoría 6 -->
+            <div class="faq-category" id="instituciones">
+              <h2 class="faq-category-title">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#002c6b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                Instituciones y ayuda
+              </h2>
+
+              <details class="faq-item">
+                <summary>
+                  ¿A quién debo llamar primero si me estafaron?
+                  <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>El orden recomendado es:</p>
+                  <ul>
+                    <li><strong>1. Tu banco</strong> — línea de emergencias 24/7 para bloquear tarjetas y reportar fraude.</li>
+                    <li><strong>2. SERNAC</strong> — para reclamos de consumidor relacionados con servicios financieros. Teléfono: 800 700 100.</li>
+                    <li><strong>3. CMF</strong> — si el fraude involucra un banco o entidad financiera regulada. Web: <em>cmfchile.cl</em>.</li>
+                    <li><strong>4. PDI (Brigada del Cibercrimen)</strong> — para denunciar el delito. Teléfono: 134.</li>
+                    <li><strong>5. CSIRT</strong> — si el fraude fue un ataque informático contra una empresa. Web: <em>csirt.gob.cl</em>.</li>
+                  </ul>
+                  <div class="tip">AlertaCuenta te indica cuáles de estas instituciones son relevantes según tu caso específico.</div>
+                </div>
+              </details>
+
+              <details class="faq-item">
+                <summary>
+                  ¿Qué hace SERNAC en casos de fraude?
+                  <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>SERNAC puede mediar entre tú y el proveedor del servicio financiero (banco, fintech, retailer con tarjeta propia) para resolver tu reclamo. También puede abrir investigaciones si detecta patrones de fraude masivo. No tiene poder judicial, pero sus mediaciones suelen resultar en acuerdos.</p>
+                </div>
+              </details>
+
+              <details class="faq-item">
+                <summary>
+                  ¿Cuándo debo ir a la PDI y no solo al banco?
+                  <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>Debes ir a la PDI cuando el fraude involucra un delito informático o penal: robo de identidad, suplantación, hackeo de cuentas, amenazas o extorsión. La denuncia en la PDI genera un número de causa que también puede respaldar tu reclamo bancario.</p>
+                  <p>La Brigada del Cibercrimen recibe denuncias en sus unidades regionales y a través del sitio <em>pdichile.cl</em>.</p>
+                </div>
+              </details>
+
+              <details class="faq-item">
+                <summary>
+                  ¿La Ley 20.009 me protege si entregué mis claves?
+                  <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </summary>
+                <div class="faq-answer">
+                  <p>La Ley 20.009 protege a los titulares de tarjetas frente a uso fraudulento no autorizado. Si entregaste tus claves bajo engaño (vishing, phishing), hay jurisprudencia que reconoce que la víctima actuó de buena fe y que el banco tiene responsabilidad por no aplicar mecanismos de seguridad adecuados.</p>
+                  <p>Sin embargo, cada caso es distinto. Consulta con un abogado o con SERNAC para evaluar tu situación particular.</p>
+                  <div class="tip">No constituye asesoría legal. Esta información es orientativa.</div>
+                </div>
+              </details>
+
+            </div>
+
+          </div><!-- /preguntas -->
+        </div><!-- /faq-layout -->
+      </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section style="background: #002c6b; padding: 64px 0; text-align: center;">
+      <div class="max-w-container-max mx-auto px-margin-mobile">
+        <h2 style="font-size: clamp(24px,3.6vw,36px);font-weight:700;color:#fff;margin:0 0 16px;">
+          ¿No encontraste tu respuesta?
+        </h2>
+        <p style="font-size:20px;color:rgba(255,255,255,.8);margin:0 0 32px;max-width:48ch;margin-left:auto;margin-right:auto;">
+          Describe tu situación directamente y la IA te orientará en menos de 3 minutos.
+        </p>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+          <a href="orientacion.html" class="focus-halo" style="display:inline-flex;align-items:center;gap:.5rem;background:#fed74e;color:#231b00;font-weight:700;font-size:18px;padding:14px 28px;border-radius:12px;text-decoration:none;min-height:56px;">
+            Obtener orientación →
+          </a>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdgmgOY2fXy_nL-gGZ8JnqJkNIkEruL9mdjBUoL1WgJuNXn5Q/viewform?usp=dialog" target="_blank" rel="noopener" class="focus-halo" style="display:inline-flex;align-items:center;gap:.5rem;background:transparent;color:#fff;font-weight:700;font-size:18px;padding:14px 28px;border-radius:12px;text-decoration:none;min-height:56px;border:2px solid rgba(255,255,255,.5);">
+            Contáctanos
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="bg-inverse-surface text-inverse-on-surface">
+    <div class="max-w-container-max mx-auto px-margin-mobile py-stack-lg">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-stack-lg border-b border-outline pb-stack-lg">
+        <div class="flex flex-col gap-stack-sm lg:col-span-1">
+          <img src="https://vqenacwaqmquwnrvykmb.supabase.co/storage/v1/object/public/cuenta-alerta/logo%20(1).svg" alt="Alerta Cuenta" class="h-9 w-auto" style="filter:brightness(0) invert(1);">
+          <p class="text-surface-variant" style="font-size:20px;line-height:32px;letter-spacing:0.01em;">Tu guía ciudadana ante el fraude financiero: orientación gratuita, clara y respaldada en cada paso.</p>
+          <div class="flex gap-4 mt-4">
+            <a aria-label="Facebook" class="w-14 h-14 rounded-full text-white flex items-center justify-center hover:opacity-80 transition-opacity focus-halo" href="#" style="background-color:#265DB0;">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"></path></svg>
+            </a>
+            <a aria-label="X (Twitter)" class="w-14 h-14 rounded-full text-white flex items-center justify-center hover:opacity-80 transition-opacity focus-halo" href="#" style="background-color:#000000;">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+            </a>
+            <a aria-label="Instagram" class="w-14 h-14 rounded-full text-white flex items-center justify-center hover:opacity-80 transition-opacity focus-halo" href="#" style="background-color:#E1306C;">
+              <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="flex flex-col gap-stack-sm">
+          <h3 class="text-inverse-on-surface mb-2" style="font-size:24px;line-height:36px;font-weight:500;">Acerca de nosotros</h3>
+          <a href="nosotros.html" class="text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" style="font-size:20px;line-height:32px;">Para qué existimos</a>
+        </div>
+        <div class="flex flex-col gap-stack-sm">
+          <h3 class="text-inverse-on-surface mb-2" style="font-size:24px;line-height:36px;font-weight:500;">Kit de Apoyo</h3>
+          <a href="#" class="text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" style="font-size:20px;line-height:32px;">Alertas y reportes</a>
+          <a href="faq.html" class="text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" style="font-size:20px;line-height:32px;">Preguntas frecuentes</a>
+          <a href="#" class="text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" style="font-size:20px;line-height:32px;">Glosario financiero</a>
+          <a href="#" class="text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" style="font-size:20px;line-height:32px;">Material educativo</a>
+        </div>
+        <div class="flex flex-col gap-stack-sm">
+          <h3 class="text-inverse-on-surface mb-2" style="font-size:24px;line-height:36px;font-weight:500;">Contáctanos</h3>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdgmgOY2fXy_nL-gGZ8JnqJkNIkEruL9mdjBUoL1WgJuNXn5Q/viewform?usp=dialog" target="_blank" rel="noopener" class="text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline py-1 min-h-[44px] flex items-center" style="font-size:20px;line-height:32px;">Formulario de contacto</a>
+        </div>
+      </div>
+      <div class="pt-stack-md flex flex-col md:flex-row justify-between items-start md:items-center gap-stack-sm">
+        <nav aria-label="Legal" class="flex flex-wrap gap-x-gutter gap-y-2">
+          <a href="trust-center.html" class="text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline min-h-[44px] flex items-center" style="font-size:20px;line-height:32px;">Centro de Confianza</a>
+          <a href="trust-center.html#tab-privacidad" class="text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline min-h-[44px] flex items-center" style="font-size:20px;line-height:32px;">Privacidad</a>
+          <a href="trust-center.html#tab-seguridad" class="text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline min-h-[44px] flex items-center" style="font-size:20px;line-height:32px;">Seguridad</a>
+          <a href="trust-center.html#tab-terminos" class="text-surface-variant hover:text-inverse-primary transition-colors focus-halo underline min-h-[44px] flex items-center" style="font-size:20px;line-height:32px;">Términos de uso</a>
+        </nav>
+        <p class="text-surface-variant" style="font-size:20px;line-height:32px;">© 2026 AlertaCuenta.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/accessibility.js"></script>
+</body>
+</html>
