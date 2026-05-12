@@ -12,5 +12,4 @@ httpx>=0.26,<0.28
 ruff==0.8.4
 email-validator
 aiofiles==24.1.0
-fastmcp>=2.0
 groq>=0.28.0
